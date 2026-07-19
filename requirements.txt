@@ -1,0 +1,11 @@
+pdfplumber
+pandas
+numpy
+chromadb
+sentence-transformers
+transformers
+torch
+ollama
+streamlit
+tabulate
+tqdm

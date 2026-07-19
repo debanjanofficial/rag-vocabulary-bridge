@@ -1,0 +1,4085 @@
+{
+  "concepts": [
+    {
+      "concept_id": "c_acclimation",
+      "preferred_term": "Acclimation",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Adjusting to temperature",
+        "Getting used to conditions",
+        "adjusting to the environment",
+        "getting used to the room"
+      ],
+      "definition": "The process of allowing materials to adjust to ambient conditions before further processing.",
+      "characteristics": [
+        "Carried out at room temperature",
+        "Ensures proper handling of boards and laminates",
+        "Ensures uniformity of color across production batches",
+        "Recommended especially in colder months",
+        "Required before opening packaging units",
+        "Should be done for at least 48 hours"
+      ]
+    },
+    {
+      "concept_id": "c_acclimation_period",
+      "preferred_term": "Acclimation Period",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Letting the boards rest",
+        "Waiting before opening the package",
+        "room temperature adjustment",
+        "waiting time for temperature"
+      ],
+      "definition": "A period of time required for goods to adjust to room temperature before unpacking or processing.",
+      "characteristics": [
+        "At least 48 hours at room temperature",
+        "Depends on the season",
+        "Duration varies depending on the season",
+        "Ensures stable conditions before use",
+        "Ensures stable temperature and humidity conditions",
+        "Required before opening packaging units"
+      ]
+    },
+    {
+      "concept_id": "c_adhesion_evaluation",
+      "preferred_term": "Adhesion Evaluation",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Checking stickiness",
+        "Testing bond strength"
+      ],
+      "definition": "A process to assess the strength of the bond between the laminate and the substrate board before further processing or shipping.",
+      "characteristics": [
+        "Can be tested with PMMA or ABS edgebands that can be polished",
+        "Ensures the fibers are fully pulled from the substrate for a finished component",
+        "Involves removing the laminate from the substrate board to check adhesion"
+      ]
+    },
+    {
+      "concept_id": "c_adhesives_and_auxiliary_materials",
+      "preferred_term": "Adhesives and Auxiliary Materials",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Bonding agents and aids",
+        "Glues and helpers"
+      ],
+      "definition": "Materials used for bonding or assisting in the processing of RAUVISIO products.",
+      "characteristics": [
+        "Include alcohol-based cleaning products",
+        "May be flammable",
+        "Require strict safety instructions"
+      ]
+    },
+    {
+      "concept_id": "c_anodized_aluminum",
+      "preferred_term": "Anodized Aluminum",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Durable aluminum",
+        "Tough aluminum"
+      ],
+      "definition": "A material used for the handle body that is treated to enhance its durability and provide a range of color options.",
+      "characteristics": [
+        "Available in multiple colors",
+        "Enhanced durability",
+        "Used for the main handle body"
+      ]
+    },
+    {
+      "concept_id": "c_approved_manufacturer",
+      "preferred_term": "Approved manufacturer",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "authorized manufacturer",
+        "certified producer"
+      ],
+      "definition": "A manufacturer recognized and approved by REHAU Industries LLC for producing specific products such as RAUVISIO terra surface boards and edgebanding.",
+      "characteristics": [
+        "Allowed to fabricate approved products",
+        "Certified by REHAU",
+        "Must adhere to REHAU standards"
+      ]
+    },
+    {
+      "concept_id": "c_architectural_millwork",
+      "preferred_term": "Architectural Millwork",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "building trim",
+        "decorative woodwork"
+      ],
+      "definition": "Structural or decorative wood components used in building construction and design.",
+      "characteristics": [
+        "includes custom cabinets",
+        "includes custom cabinets and casework",
+        "involves manufactured wood casework",
+        "involves quality assurance and testing",
+        "related to specialty casework applications",
+        "requires specific installation conditions"
+      ]
+    },
+    {
+      "concept_id": "c_balancing_sheet",
+      "preferred_term": "Balancing Sheet",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "balancing layer",
+        "compensating layer",
+        "equalizing sheet",
+        "support layer"
+      ],
+      "definition": "A layer used in the assembly of RAUVISIO terra products to ensure uniform thickness and prevent warpage.",
+      "characteristics": [
+        "Can be reduced if the core thickness exceeds 15 mm",
+        "Can be reduced in thickness when combined with certain materials",
+        "Must meet minimum thickness requirements",
+        "Requires control tests to validate thickness",
+        "Thickness can vary based on temperature and humidity",
+        "Used when the core thickness exceeds 15 mm"
+      ]
+    },
+    {
+      "concept_id": "c_batch_traceability",
+      "preferred_term": "Batch Traceability",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Identifying production runs",
+        "Tracking production batches"
+      ],
+      "definition": "The ability to trace materials back to their production batch for quality and warranty purposes.",
+      "characteristics": [
+        "Required for technical issue resolution",
+        "Supported by delivery notes and shipping labels",
+        "Used for identifying production batches"
+      ]
+    },
+    {
+      "concept_id": "c_board_acclimation",
+      "preferred_term": "Board Acclimation",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "letting boards adjust",
+        "waiting for boards to get used to the environment"
+      ],
+      "definition": "The process of allowing boards to adjust to environmental conditions before further processing.",
+      "characteristics": [
+        "Helps prevent warping and surface damage",
+        "Requires a minimum of 48 hours at room temperature",
+        "Should be done before unpacking and processing"
+      ]
+    },
+    {
+      "concept_id": "c_board_handling",
+      "preferred_term": "Board Handling",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "handling boards properly",
+        "moving boards carefully"
+      ],
+      "definition": "The method of moving and separating boards to avoid damage during unpacking and processing.",
+      "characteristics": [
+        "Avoids use of sharp objects",
+        "Involves careful lifting without sliding",
+        "Requires use of appropriate lifting technology"
+      ]
+    },
+    {
+      "concept_id": "c_board_support",
+      "preferred_term": "Board Support",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Keeping the boards flat",
+        "Supporting the boards properly"
+      ],
+      "definition": "The method of supporting RAUVISIO boards during unloading and storage to prevent bending or warping.",
+      "characteristics": [
+        "Ensures flat and stable support",
+        "Equal size battens",
+        "Minimum of 4 evenly spaced timber battens"
+      ]
+    },
+    {
+      "concept_id": "c_bracket",
+      "preferred_term": "Bracket",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "mounting bracket",
+        "support bracket"
+      ],
+      "definition": "A metal or plastic component used to secure and support a floating shelf to the wall.",
+      "characteristics": [
+        "Has a raised tip for the self-locking feature",
+        "Must be level and straight",
+        "Used to anchor the shelf to the wall"
+      ]
+    },
+    {
+      "concept_id": "c_cabinet_door",
+      "preferred_term": "Cabinet Door",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "cabinet panel",
+        "door panel"
+      ],
+      "definition": "A component of a cabinet that is used to cover the interior space and is typically made from materials like PET with a specific surface finish.",
+      "characteristics": [
+        "Available in multiple color shades",
+        "Made from PET material",
+        "Used in cabinetry"
+      ]
+    },
+    {
+      "concept_id": "c_cabinet_millwork_professional",
+      "preferred_term": "Cabinet/millwork professional",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Cabinet installer",
+        "Woodworker"
+      ],
+      "definition": "A qualified individual skilled in the installation and handling of cabinet and millwork products.",
+      "characteristics": [
+        "Must follow manufacturer's guidelines",
+        "Required for installation",
+        "Responsible for quality assurance"
+      ]
+    },
+    {
+      "concept_id": "c_chamfer",
+      "preferred_term": "Chamfer",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "angled edge",
+        "beveled edge"
+      ],
+      "definition": "A beveled edge created by milling at an angle to provide a smooth transition between surfaces.",
+      "characteristics": [
+        "Achieved using a 45° milling cutter",
+        "Enhances the visual appearance of the surface",
+        "Helps in reducing chipping and chatter marks"
+      ]
+    },
+    {
+      "concept_id": "c_chemical_durability",
+      "preferred_term": "Chemical durability",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "chemical resistance",
+        "resistance to chemicals"
+      ],
+      "definition": "Chemical durability refers to the ability of RAUVISIO ferro to resist damage from exposure to various substances.",
+      "characteristics": [
+        "potential for marks or damage from aggressive substances",
+        "resistance to most household substances",
+        "tested according to DIN EN 12720 standards"
+      ]
+    },
+    {
+      "concept_id": "c_circular_saw_specifications",
+      "preferred_term": "Circular Saw Specifications",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Saw requirements",
+        "Saw settings"
+      ],
+      "definition": "Recommended technical parameters for operating circular saws when cutting materials like laminate.",
+      "characteristics": [
+        "Emphasizes blade thickness to prevent vibrations and cracking",
+        "Includes tooth pitch, cutting speed, tip speed, and forward speed ranges",
+        "Specifies blade material requirements"
+      ]
+    },
+    {
+      "concept_id": "c_composite_support",
+      "preferred_term": "Composite Support",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "combined support",
+        "mixed support"
+      ],
+      "definition": "A structural support made from multiple materials that work together to achieve desired performance and balance.",
+      "characteristics": [
+        "Composed of different materials",
+        "Requires materials to be as similar as possible in quality and thickness",
+        "Used in applications requiring clean edges or curved surfaces"
+      ]
+    },
+    {
+      "concept_id": "c_conditioning",
+      "preferred_term": "Conditioning",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "getting the boards ready",
+        "preparing the boards"
+      ],
+      "definition": "The process of preparing materials for processing by adjusting environmental conditions.",
+      "characteristics": [
+        "Applies to boards, adhesive, and edgebands",
+        "Helps prevent warping and surface damage",
+        "Involves conditioning at room temperature"
+      ]
+    },
+    {
+      "concept_id": "c_conditioning_procedures",
+      "preferred_term": "Conditioning Procedures",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "preparation steps",
+        "setup process"
+      ],
+      "definition": "A set of steps to prepare goods for processing by ensuring they are at the correct temperature and humidity.",
+      "characteristics": [
+        "Applies to materials like adhesive and edgebands",
+        "Includes acclimation and temperature stabilization",
+        "Involves proper handling to prevent damage"
+      ]
+    },
+    {
+      "concept_id": "c_contact_glue_neoprene",
+      "preferred_term": "Contact glue (Neoprene)",
+      "acronyms": [
+        "Neoprene"
+      ],
+      "synonyms_colloquial": [
+        "cold-press glue",
+        "thermoplastic adhesive"
+      ],
+      "definition": "A type of glue used with cold-pressing to bond laminates to wood-based cores, plasterboard, expanded cement, and other materials.",
+      "characteristics": [
+        "applied with brush or comb",
+        "requires brief but strong pressure during pressing",
+        "used with cold-pressing"
+      ]
+    },
+    {
+      "concept_id": "c_contamination_prevention",
+      "preferred_term": "Contamination Prevention",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "keeping boards clean",
+        "preventing dirt"
+      ],
+      "definition": "The practice of covering opened or partially used packaging units to prevent contamination and uneven temperature/humidity penetration.",
+      "characteristics": [
+        "Cover plate must be placed on top",
+        "Prevents surface damage",
+        "Reduces warping effects"
+      ]
+    },
+    {
+      "concept_id": "c_core_material",
+      "preferred_term": "Core Material",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "base material",
+        "inner layer"
+      ],
+      "definition": "The foundational material upon which the laminate is applied in RAUVISIO terra products, providing structural support.",
+      "characteristics": [
+        "May require support to prevent warpage",
+        "Should be strong, uniform, and smooth",
+        "Thickness and quality impact the final product's performance"
+      ]
+    },
+    {
+      "concept_id": "c_corona_pre_treatment",
+      "preferred_term": "Corona Pre-Treatment",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "preparation for adhesion",
+        "surface treatment for bonding"
+      ],
+      "definition": "A treatment applied to the underside of a laminate to improve adhesion.",
+      "characteristics": [
+        "applied to styrene copolymer surface",
+        "enhances wettability",
+        "ensures good bond"
+      ]
+    },
+    {
+      "concept_id": "c_cover_panel",
+      "preferred_term": "Cover Panel",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "protective layer",
+        "top cover"
+      ],
+      "definition": "A protective layer that should remain on top of goods during re-storage to prevent damage.",
+      "characteristics": [
+        "Helps in counteracting warping or surface damage",
+        "Prevents soiling and asymmetrical temperature/humidity effects",
+        "Should be kept on top during re-storage"
+      ]
+    },
+    {
+      "concept_id": "c_cpl_laminate",
+      "preferred_term": "CPL Laminate",
+      "acronyms": [
+        "CPL"
+      ],
+      "synonyms_colloquial": [
+        "composite laminate",
+        "laminate surface"
+      ],
+      "definition": "A composite laminate material used to create a surface with a wood grain appearance.",
+      "characteristics": [
+        "composite material",
+        "used in laminates",
+        "wood grain appearance"
+      ]
+    },
+    {
+      "concept_id": "c_customer_awareness",
+      "preferred_term": "Customer Awareness",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Customer knowledge",
+        "End-user understanding"
+      ],
+      "definition": "The necessity for customers, including end users, to be informed about the proper use and care of RAUVISIO products.",
+      "characteristics": [
+        "Ensures correct application",
+        "Includes safety and technical information",
+        "Must be communicated by the distributor"
+      ]
+    },
+    {
+      "concept_id": "c_cutting_operation",
+      "preferred_term": "Cutting Operation",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "edge processing",
+        "panel cutting"
+      ],
+      "definition": "A procedure involving the cutting of panels with specific tools and techniques to achieve desired results.",
+      "characteristics": [
+        "involves the use of approved woodworking tools",
+        "may require the use of a sacrificial panel",
+        "may require the use of touch up markers"
+      ]
+    },
+    {
+      "concept_id": "c_cutting_procedure",
+      "preferred_term": "Cutting Procedure",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "cutting method",
+        "cutting process"
+      ],
+      "definition": "A set of steps to safely and effectively cut laminate to avoid damage.",
+      "characteristics": [
+        "Includes protective measures to prevent movement and vibration",
+        "Involves the use of specific tools like saw drills",
+        "Requires the use of a milling machine for precision"
+      ]
+    },
+    {
+      "concept_id": "c_dimensional_tolerance",
+      "preferred_term": "Dimensional Tolerance",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "allowed size variation",
+        "measurement error"
+      ],
+      "definition": "The permissible variation in dimensions as specified by standards such as DIN 324-1.",
+      "characteristics": [
+        "Applies to length and angle deviation",
+        "Defined by standards like DIN 324-1",
+        "Expressed in millimeters"
+      ]
+    },
+    {
+      "concept_id": "c_disposal_code",
+      "preferred_term": "Disposal Code",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "how to dispose",
+        "waste disposal guidelines"
+      ],
+      "definition": "Disposal code refers to the guidelines for the proper disposal of waste materials in accordance with waste regulations.",
+      "characteristics": [
+        "Guidelines for waste disposal",
+        "In compliance with waste regulations",
+        "May include specific codes or classifications"
+      ]
+    },
+    {
+      "concept_id": "c_drill_bit",
+      "preferred_term": "Drill Bit",
+      "acronyms": [
+        "HW"
+      ],
+      "synonyms_colloquial": [
+        "bit",
+        "drill tip",
+        "drilling tool"
+      ],
+      "definition": "A cutting tool used in drilling operations to create holes in materials like polymer balancing sheets and glass laminate.",
+      "characteristics": [
+        "affects hole edge quality",
+        "can be carbide-tipped",
+        "used for specific materials"
+      ]
+    },
+    {
+      "concept_id": "c_drilling_mode",
+      "preferred_term": "Drilling Mode",
+      "acronyms": [
+        "L-S",
+        "L-S-L",
+        "S-S",
+        "S-S-S"
+      ],
+      "synonyms_colloquial": [
+        "drill setting",
+        "drilling speed",
+        "drilling type"
+      ],
+      "definition": "A specific setting or method used during drilling operations to achieve desired results with different materials.",
+      "characteristics": [
+        "affects tool life",
+        "influences plastic shavings formation",
+        "recommended for specific materials"
+      ]
+    },
+    {
+      "concept_id": "c_drilling_parameters",
+      "preferred_term": "Drilling Parameters",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "drill conditions",
+        "drill specs",
+        "drilling settings"
+      ],
+      "definition": "The set of operational conditions, such as feed rate and rotational speed, used during drilling to optimize performance and tool life.",
+      "characteristics": [
+        "includes feed rate and rotational speed",
+        "recommended by manufacturers",
+        "varies by material"
+      ]
+    },
+    {
+      "concept_id": "c_drilling_technique",
+      "preferred_term": "Drilling Technique",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "drilling method",
+        "drilling process"
+      ],
+      "definition": "A method of drilling through laminate to create screw holes without causing damage.",
+      "characteristics": [
+        "Involves specific speed and depth ranges",
+        "Requires high-speed drilling",
+        "Requires proper hole diameter to prevent cracking"
+      ]
+    },
+    {
+      "concept_id": "c_duo_gloss_edgebanding",
+      "preferred_term": "Duo-gloss Edgebanding",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "dual gloss edgebanding",
+        "two-tone edgebanding"
+      ],
+      "definition": "A type of edgebanding that features a dual gloss finish, enhancing the visual appeal and durability of the surface board edges.",
+      "characteristics": [
+        "available in various wood species",
+        "features a dual gloss finish",
+        "used with RAUVISIO ingrain boards"
+      ]
+    },
+    {
+      "concept_id": "c_dust_mask",
+      "preferred_term": "Dust Mask",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "air filter mask",
+        "breathing mask",
+        "face mask for dust",
+        "respiratory mask"
+      ],
+      "definition": "A dust mask is a personal protective device used to prevent inhalation of dust particles.",
+      "characteristics": [
+        "Part of personal protective equipment during processing",
+        "Should be used in conjunction with proper ventilation",
+        "Used to protect against inhalation of wood or production dust",
+        "part of safety equipment",
+        "recommended for handling wood dust",
+        "used for personal protection"
+      ]
+    },
+    {
+      "concept_id": "c_edgeband_collection",
+      "preferred_term": "Edgeband Collection",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Edgeband designs",
+        "Edgeband options"
+      ],
+      "definition": "A range of coordinated edgeband designs that complement RAUVISIO Crystal surfaces to achieve a visually cohesive look.",
+      "characteristics": [
+        "Complements RAUVISIO Crystal surfaces",
+        "Includes zero-joint LaserEdge designs",
+        "Offers visual effect of back painted glass"
+      ]
+    },
+    {
+      "concept_id": "c_edgebanding",
+      "preferred_term": "Edgebanding",
+      "acronyms": [
+        "EB"
+      ],
+      "synonyms_colloquial": [
+        "Edge decoration",
+        "Edge finishing",
+        "edge banding",
+        "edge covering",
+        "edge finish",
+        "edge finishing",
+        "edge treatment",
+        "edge trim",
+        "panel edge treatment"
+      ],
+      "definition": "Edgebanding is the process of attaching a decorative or functional edgeband to the edges of laminate sheets to enhance appearance and durability.",
+      "characteristics": [
+        "Achieves an invisible joint with pigmented polymer layers",
+        "Can be done using REHAU edgeband products",
+        "Can be done with adhesives and different colors to match the surface",
+        "Includes the REHAU LaserEdge™ product range",
+        "Involves using REHAU edgeband materials for a consistent appearance",
+        "Used to create a uniform appearance between the surface and the board edge",
+        "aesthetic enhancement",
+        "available in various wood finishes",
+        "can be done with REHAU LaserEdge™ for optimal results",
+        "covers edges of surfaces",
+        "durable finish",
+        "ensures no optical joint is visible",
+        "involves use of REHAU edgeband products",
+        "matched to surface boards for consistency",
+        "used to finish edges of boards"
+      ]
+    },
+    {
+      "concept_id": "c_environmental_conditions",
+      "preferred_term": "Environmental Conditions",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Conditions around the product",
+        "Temperature and humidity",
+        "installation conditions",
+        "temperature and humidity"
+      ],
+      "definition": "The environmental factors such as temperature, humidity, and ventilation that must be maintained for proper installation and performance of the product.",
+      "characteristics": [
+        "Affects product performance",
+        "Installation is not allowed outside absolute limits",
+        "Must be within manufacturer's recommended limits",
+        "critical for optimal results",
+        "installation outside these limits is prohibited",
+        "must be within manufacturer's recommended limits"
+      ]
+    },
+    {
+      "concept_id": "c_fire_behavior",
+      "preferred_term": "Fire Behavior",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "fire resistance properties",
+        "how a product burns"
+      ],
+      "definition": "The way a product reacts to fire, including its flame spread and smoke development characteristics.",
+      "characteristics": [
+        "classified into fire resistance classes",
+        "influences safety in building applications",
+        "measured using standardized tests"
+      ]
+    },
+    {
+      "concept_id": "c_fire_extinguishing_procedures",
+      "preferred_term": "Fire Extinguishing Procedures",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "fire fighting methods",
+        "fire safety measures",
+        "fire safety steps",
+        "how to put out a fire",
+        "ways to put out fires"
+      ],
+      "definition": "Fire extinguishing procedures are the steps and measures to safely extinguish a fire.",
+      "characteristics": [
+        "Emphasizes the need to seek medical attention if exposure occurs",
+        "Emphasizes ventilation and extraction",
+        "Involves the use of suitable extinguishing agents such as water, foam, or CO2",
+        "Involves use of specific extinguishing agents",
+        "Requires appropriate protective clothing and equipment",
+        "Requires protective clothing and breathing apparatus",
+        "include getting fresh air and medical attention",
+        "involve using suitable extinguishing agents",
+        "require appropriate protective clothing"
+      ]
+    },
+    {
+      "concept_id": "c_fire_rating",
+      "preferred_term": "Fire Rating",
+      "acronyms": [
+        "FR"
+      ],
+      "synonyms_colloquial": [
+        "fire safety rating",
+        "how safe a product is in fire"
+      ],
+      "definition": "A measure of a product's fire safety performance, typically based on its flame spread and smoke developed index under standardized tests.",
+      "characteristics": [
+        "determined by fire resistance class",
+        "influences material selection in construction",
+        "used for building safety compliance"
+      ]
+    },
+    {
+      "concept_id": "c_fire_resistance_class",
+      "preferred_term": "Fire Resistance Class",
+      "acronyms": [
+        "FR Class"
+      ],
+      "synonyms_colloquial": [
+        "fire rating category",
+        "fire safety level"
+      ],
+      "definition": "A classification system that defines the fire resistance performance of a material based on its flame spread and smoke developed index.",
+      "characteristics": [
+        "based on standardized test results",
+        "includes classes A, B, C, and others",
+        "used to determine safety compliance"
+      ]
+    },
+    {
+      "concept_id": "c_flame_retardant_material",
+      "preferred_term": "Flame Retardant Material",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "fire-resistant material",
+        "heat-resistant material"
+      ],
+      "definition": "A material that is designed to resist the spread of fire and reduce the risk of fire-related damage.",
+      "characteristics": [
+        "resists fire spread",
+        "suggested when installing RAUVISIO Crystal Slim near open flames",
+        "used behind cooktops"
+      ]
+    },
+    {
+      "concept_id": "c_flame_spread_index",
+      "preferred_term": "Flame Spread Index",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "fire spread measurement",
+        "how fast a fire spreads"
+      ],
+      "definition": "A numerical value indicating how quickly flames spread across a material's surface during a fire test.",
+      "characteristics": [
+        "measured using ASTM E84 or DIN 4120/1 standards",
+        "ranges from 0 to 250 or higher",
+        "used to classify fire resistance"
+      ]
+    },
+    {
+      "concept_id": "c_floating_shelf",
+      "preferred_term": "Floating Shelf",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "floating shelf",
+        "hanging shelf",
+        "shelf",
+        "shelf that floats",
+        "shelf that hangs from the wall",
+        "wall shelf",
+        "wall-mounted shelf"
+      ],
+      "definition": "A shelf that is mounted to the wall without visible supports, relying on brackets attached to wall studs for stability.",
+      "characteristics": [
+        "Designed for indoor household use only",
+        "Designed to hold up to 15 pounds/foot (22.3 kg/m) when properly installed",
+        "Includes a self-locking feature with an internal groove that hooks onto a bracket",
+        "Mounted on brackets",
+        "Must be level across both length and depth of the surface",
+        "Must be secured to wooden studs",
+        "Not suitable for outdoor installation",
+        "Removable by lifting",
+        "Requires proper installation to prevent collapse",
+        "Self-locking feature",
+        "can collapse if brackets are not properly centered",
+        "must be secured to wall studs",
+        "requires proper bracket installation"
+      ]
+    },
+    {
+      "concept_id": "c_floating_shelf_bracket",
+      "preferred_term": "Floating Shelf Bracket",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "mounting bracket",
+        "shelf bracket",
+        "shelf mount",
+        "shelf support bracket",
+        "wall shelf bracket"
+      ],
+      "definition": "A component used to secure a floating shelf to the wall by attaching to wall studs.",
+      "characteristics": [
+        "Must be positioned on the centerline of studs",
+        "Required number varies based on shelf length",
+        "Used with screws and a T25 Torx bit",
+        "must be centered over wall studs",
+        "must be level and straight",
+        "requires drilling through MDF into wall studs"
+      ]
+    },
+    {
+      "concept_id": "c_floating_shelf_installation",
+      "preferred_term": "Floating Shelf Installation",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "install floating shelves",
+        "mounting shelves"
+      ],
+      "definition": "The process of installing RAUVISIO brilliant High-Gloss Acrylic Surface Floating Shelves as per manufacturer instructions.",
+      "characteristics": [
+        "involves protection of the installed product",
+        "must follow REHAU Floating Shelf Instruction Manual",
+        "requires confirmation of complete package contents"
+      ]
+    },
+    {
+      "concept_id": "c_floating_shelf_kit",
+      "preferred_term": "Floating Shelf Kit",
+      "acronyms": [],
+      "synonyms_colloquial": [],
+      "definition": "A complete set of components required to install a floating shelf, including brackets, mounting blocks, and hardware.",
+      "characteristics": [
+        "includes brackets and mounting blocks",
+        "installation instructions",
+        "rugged structural screws"
+      ]
+    },
+    {
+      "concept_id": "c_floating_shelves",
+      "preferred_term": "Floating Shelves",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "sleek shelves",
+        "suspended shelves",
+        "wall-mounted shelves"
+      ],
+      "definition": "Shelves that are mounted to walls without visible supports, offering a seamless appearance.",
+      "characteristics": [
+        "Available in widths from 22 to 96 inches",
+        "Integrated with cabinet systems",
+        "Provide a clean, uninterrupted look",
+        "elegant storage solution",
+        "installed on residential interior walls",
+        "no-hardware design"
+      ]
+    },
+    {
+      "concept_id": "c_foam_block",
+      "preferred_term": "Foam Block",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "insulating block",
+        "padding block"
+      ],
+      "definition": "A block used to provide cushioning and support at the ends of a floating shelf.",
+      "characteristics": [
+        "Cardboard surface faces up",
+        "Foam surface faces down",
+        "Placed on the end brackets"
+      ]
+    },
+    {
+      "concept_id": "c_foam_non_woven_material",
+      "preferred_term": "Foam Non-Woven Material",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "foam padding",
+        "protective foam"
+      ],
+      "definition": "Foam non-woven material is a protective material used to shield the surfaces of RAUVISIO Ferro boards from damage.",
+      "characteristics": [
+        "Helps prevent pressure marks",
+        "Non-woven and foam-based",
+        "Used for surface protection"
+      ]
+    },
+    {
+      "concept_id": "c_glued_sheets",
+      "preferred_term": "Glued Sheets",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Bonded sheets",
+        "Glued panels"
+      ],
+      "definition": "A method of joining multiple sheets together using adhesive to form a single unit.",
+      "characteristics": [
+        "Involves arranging for slightly larger holes during assembly",
+        "Involves placing a joint between the sheets",
+        "Requires alignment of fibers in the same direction"
+      ]
+    },
+    {
+      "concept_id": "c_handling",
+      "preferred_term": "Handling",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "carrying",
+        "moving"
+      ],
+      "definition": "The process of unloading and moving RAUVISIO ferro boards, requiring care to avoid damage.",
+      "characteristics": [
+        "Avoids mechanical loads and contamination",
+        "Can be done manually or with transport aids",
+        "Should be done with suitable protective equipment"
+      ]
+    },
+    {
+      "concept_id": "c_handling_and_transport",
+      "preferred_term": "Handling and Transport",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "How to move the boards",
+        "Moving the boards safely"
+      ],
+      "definition": "The procedures and precautions required to handle and transport RAUVISIO boards to avoid damage.",
+      "characteristics": [
+        "Avoid mechanical loads",
+        "Use of forklift or similar equipment",
+        "Use of protective equipment like gloves"
+      ]
+    },
+    {
+      "concept_id": "c_handling_of_rauvisio_crystal",
+      "preferred_term": "Handling of RAUVISIO Crystal",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "handling RAUVISIO crystal",
+        "moving RAUVISIO crystal"
+      ],
+      "definition": "The process of moving and unloading RAUVISIO crystal boards using appropriate equipment and techniques to prevent damage.",
+      "characteristics": [
+        "avoiding deformation during transport",
+        "requires use of industrial trucks or manual handling with care",
+        "use of transport aids like suction lifters"
+      ]
+    },
+    {
+      "concept_id": "c_hidden_recessed_handle",
+      "preferred_term": "Hidden Recessed Handle",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Invisible handle",
+        "Subtle handle",
+        "invisible handle",
+        "recessed handle"
+      ],
+      "definition": "A type of integrated handle that is nearly invisible and blends with the flat Gola profile of the cabinet.",
+      "characteristics": [
+        "2 mm thickness",
+        "Almost invisible design",
+        "Complements flat Gola profile",
+        "Suitable for upper cabinets",
+        "almost invisible",
+        "designed for upper cabinets"
+      ]
+    },
+    {
+      "concept_id": "c_hinge_drilling",
+      "preferred_term": "Hinge Drilling",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "hinge bit drilling",
+        "hinge hole drilling"
+      ],
+      "definition": "A drilling process specifically used for creating hinge holes in materials, typically requiring standard cylinder head drills.",
+      "characteristics": [
+        "leads to melting of hole edges",
+        "requires specific drill bits",
+        "uses lower feed rates"
+      ]
+    },
+    {
+      "concept_id": "c_hole_drilling_procedures",
+      "preferred_term": "Hole drilling procedures",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "drilling techniques",
+        "laminate drilling methods"
+      ],
+      "definition": "A set of recommended procedures to minimize damage when drilling through laminate and boards.",
+      "characteristics": [
+        "involves placing wood underneath laminate",
+        "requires specific drilling speed",
+        "uses helicoidal drill points"
+      ]
+    },
+    {
+      "concept_id": "c_improper_storage",
+      "preferred_term": "Improper Storage",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "incorrect storage method",
+        "wrong way to store boards"
+      ],
+      "definition": "A storage method that does not follow the recommended guidelines for RAUVISIO crystal board material, leading to potential warping and damage.",
+      "characteristics": [
+        "Exposure to improper temperature and humidity conditions",
+        "Storage on pallets without proper support",
+        "Storage without 5-batten support"
+      ]
+    },
+    {
+      "concept_id": "c_installation",
+      "preferred_term": "Installation",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Putting the product in place",
+        "Setting up the product",
+        "mounting",
+        "putting up",
+        "setting up"
+      ],
+      "definition": "The process of mounting a floating shelf on a wall according to specified guidelines.",
+      "characteristics": [
+        "Involves tools like a drill, level, and stud finder",
+        "Involves using European concealed screws",
+        "Must avoid electrical and plumbing lines",
+        "Must follow manufacturer's instructions",
+        "Requires adherence to safety and building codes",
+        "Requires proper preparation of products"
+      ]
+    },
+    {
+      "concept_id": "c_installation_guidelines",
+      "preferred_term": "Installation Guidelines",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "installation instructions",
+        "setup rules"
+      ],
+      "definition": "A set of procedures for handling, storing, and installing fabricated components to ensure quality and safety.",
+      "characteristics": [
+        "Includes handling and storage instructions",
+        "Specifies sealing requirements",
+        "Warns against exposure to harsh chemicals"
+      ]
+    },
+    {
+      "concept_id": "c_installer_qualifications",
+      "preferred_term": "Installer qualifications",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "professional for installation",
+        "qualified installer"
+      ],
+      "definition": "Requirements for the installer to be qualified to handle and install RAUVISIO noir products.",
+      "characteristics": [
+        "must be a cabinet/millwork professional",
+        "must be trained for proper installation",
+        "must follow manufacturer guidelines"
+      ]
+    },
+    {
+      "concept_id": "c_integrated_handle",
+      "preferred_term": "Integrated Handle",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Built-in handle",
+        "Embedded handle"
+      ],
+      "definition": "A handle that is seamlessly incorporated into the cabinet design to enhance modern aesthetics.",
+      "characteristics": [
+        "Available in two unique styles",
+        "Offered in six color options",
+        "Provides a streamlined and modern appearance"
+      ]
+    },
+    {
+      "concept_id": "c_integrated_handles",
+      "preferred_term": "Integrated Handles",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "built-in handles",
+        "embedded handles"
+      ],
+      "definition": "Integrated Handles are designed to be part of the door or drawer front, providing a seamless and modern aesthetic.",
+      "characteristics": [
+        "available in multiple finishes",
+        "combine with flat profiles for a minimalist look",
+        "personalized to each door or drawer front"
+      ]
+    },
+    {
+      "concept_id": "c_j_channel_handle",
+      "preferred_term": "J Channel Handle",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Styled handle",
+        "Visible channel handle",
+        "channel handle",
+        "visible handle"
+      ],
+      "definition": "A type of integrated handle that features a visible channel with metallic end caps and multiple finishes.",
+      "characteristics": [
+        "32 mm thickness",
+        "Available in multiple finishes",
+        "Features a visible channel",
+        "Includes metallic end caps",
+        "metallic end caps",
+        "visible channel"
+      ]
+    },
+    {
+      "concept_id": "c_laminate",
+      "preferred_term": "Laminate",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Cover board",
+        "Sheet material"
+      ],
+      "definition": "A layered material used in the RAUVISIO brilliant system that may require protection and careful handling.",
+      "characteristics": [
+        "May have minor defects due to production reasons",
+        "Should be checked for color consistency and surface quality",
+        "Supplied with a protective film"
+      ]
+    },
+    {
+      "concept_id": "c_laminate_bonding",
+      "preferred_term": "Laminate Bonding",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "attaching laminate to substrate",
+        "laminate adhesion"
+      ],
+      "definition": "The process of securing a laminate to a substrate using an adhesive.",
+      "characteristics": [
+        "influenced by surface tension",
+        "involves test samples",
+        "requires proper surface preparation"
+      ]
+    },
+    {
+      "concept_id": "c_laminate_cutting",
+      "preferred_term": "Laminate Cutting",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "snipping laminate edges",
+        "trimming laminate layers"
+      ],
+      "definition": "The method of cutting a laminate to fit precisely onto a substrate or workpiece.",
+      "characteristics": [
+        "Involves careful handling to avoid damage",
+        "Must be done after the adhesive has hardened",
+        "Requires a blade that cuts through the laminate"
+      ]
+    },
+    {
+      "concept_id": "c_laminate_material",
+      "preferred_term": "Laminate Material",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "laminate sheet",
+        "surface material"
+      ],
+      "definition": "A composite material used in the construction of RAUVISIO terra products, applied to a core material to achieve a desired surface finish.",
+      "characteristics": [
+        "Applied to a strong, uniform, and smooth core material",
+        "Requires support to prevent warpage",
+        "Thickness and surface finish are influenced by the type of glue and assembly"
+      ]
+    },
+    {
+      "concept_id": "c_laminate_packaging",
+      "preferred_term": "Laminate Packaging",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "stacking for transport",
+        "wrapping laminates safely"
+      ],
+      "definition": "The process of securing laminates in layers to prevent damage during transportation.",
+      "characteristics": [
+        "Involves stacking with clean padding between layers",
+        "Must protect against indentations during lamination",
+        "Use of transport locks to prevent slipping"
+      ]
+    },
+    {
+      "concept_id": "c_laminate_processing",
+      "preferred_term": "Laminate Processing",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Cutting laminate",
+        "Preparing laminate",
+        "cutting laminate sheets",
+        "shaping laminate"
+      ],
+      "definition": "A process involving cutting and setting the laminate on a substrate board to ensure proper alignment and adhesion.",
+      "characteristics": [
+        "Involves a rest period of at least 24 hours for setting",
+        "Must ensure the laminate is not overhanging and is parallel to the board",
+        "Requires a blade that cuts through protective foil and scores the acrylate surface",
+        "involves nesting for efficiency",
+        "must be done within a year",
+        "requires clean work surfaces"
+      ]
+    },
+    {
+      "concept_id": "c_laminate_processing_environment",
+      "preferred_term": "Laminate Processing Environment",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "clean workspace for laminates",
+        "safe area for cutting and bonding"
+      ],
+      "definition": "A controlled environment where laminates and substrates are handled to prevent contamination and ensure quality.",
+      "characteristics": [
+        "Involves extraction systems to remove chips and swarf",
+        "Must be free from foreign particles to avoid defects",
+        "Requires cleaning of surfaces before and after processing"
+      ]
+    },
+    {
+      "concept_id": "c_laminate_protection",
+      "preferred_term": "Laminate Protection",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "laminate safeguard",
+        "protecting laminate"
+      ],
+      "definition": "A method to safeguard the visible side of laminate during cutting or drilling.",
+      "characteristics": [
+        "Helps prevent scratches and damage",
+        "Involves placing another sheet of laminate between the tool and the visible side",
+        "Recommended for use with milling machines"
+      ]
+    },
+    {
+      "concept_id": "c_laminate_sheet_uniformity",
+      "preferred_term": "Laminate Sheet Uniformity",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "consistent laminate color",
+        "same color laminate sheets"
+      ],
+      "definition": "The consistency of color across different laminate sheets within a batch.",
+      "characteristics": [
+        "ensures visual uniformity",
+        "must be checked before processing",
+        "related to batch number consistency"
+      ]
+    },
+    {
+      "concept_id": "c_laminate_sheets",
+      "preferred_term": "Laminate Sheets",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "laminate panels",
+        "sheet materials"
+      ],
+      "definition": "Laminate sheets are materials used in the production of RAUVISIO terra products that require specific handling and packaging during shipping.",
+      "characteristics": [
+        "Can be processed with standard woodworking tools",
+        "Require specific handling and packaging during shipping",
+        "Used in the production of RAUVISIO terra products"
+      ]
+    },
+    {
+      "concept_id": "c_laminate_substrate_bonding",
+      "preferred_term": "Laminate Substrate Bonding",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "adhesive joining of layers",
+        "bonding between laminate and substrate"
+      ],
+      "definition": "The process of adhering a laminate to a substrate using an adhesive to ensure a secure and uniform bond.",
+      "characteristics": [
+        "Involves cleaning and preparation of both surfaces",
+        "Post-treatment may be necessary for anti-static properties",
+        "Requires testing of adhesive wetting before bonding"
+      ]
+    },
+    {
+      "concept_id": "c_laminate_surface_treatment",
+      "preferred_term": "Laminate Surface Treatment",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "cleaning laminate edges",
+        "preparing laminate surface"
+      ],
+      "definition": "The process of preparing a laminate's surface to ensure proper adhesion and finish.",
+      "characteristics": [
+        "Involves cleaning and removing loose particles",
+        "May include anti-static agents for improved bonding",
+        "Requires careful handling to avoid surface damage"
+      ]
+    },
+    {
+      "concept_id": "c_laminated_panel",
+      "preferred_term": "Laminated Panel",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "decorative panel",
+        "laminate sheet"
+      ],
+      "definition": "A sheet made from thermosetting resins used in the production of RAUVISIO noir laminates.",
+      "characteristics": [
+        "complies with DIN EN 438-2:2016 standards",
+        "requires proper packaging for shipping",
+        "used for high-pressure decorative applications"
+      ]
+    },
+    {
+      "concept_id": "c_laseredge",
+      "preferred_term": "LaserEdge",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Edgeband design",
+        "Edgeband finish",
+        "clean edge",
+        "precision edge"
+      ],
+      "definition": "A feature that provides a seamless, straight edge finish on panels and cabinets.",
+      "characteristics": [
+        "Achieved through precision cutting",
+        "Available as zero-joint design",
+        "Complements the super-matte monotonic laminate",
+        "Creates a glass-like visual effect",
+        "Enhances the visual appeal of the product",
+        "Matches with RAUVIS.Crystal surfaces"
+      ]
+    },
+    {
+      "concept_id": "c_lightfastness",
+      "preferred_term": "Lightfastness",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "color durability",
+        "resistance to fading"
+      ],
+      "definition": "The ability of a material to resist color change when exposed to light, assessed using DIN EN ISO 105 B01-B06 standards.",
+      "characteristics": [
+        "Assessed using standardized test methods",
+        "Measured on a grey scale",
+        "Minimum requirement is ≥ level 4"
+      ]
+    },
+    {
+      "concept_id": "c_limited_warranty",
+      "preferred_term": "Limited Warranty",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Product guarantee",
+        "Warranty coverage",
+        "product guarantee",
+        "warranty coverage"
+      ],
+      "definition": "A warranty provided by the manufacturer for RAUVISIO shade cabinet doors that outlines the terms and conditions of coverage.",
+      "characteristics": [
+        "Accessible via REHAU's website",
+        "Available for different product types",
+        "Available for download",
+        "Includes purchase terms and conditions",
+        "Outlines coverage terms",
+        "Specific to RAUVISIO shade products"
+      ]
+    },
+    {
+      "concept_id": "c_load_rating",
+      "preferred_term": "Load Rating",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "capacity",
+        "weight limit"
+      ],
+      "definition": "The maximum weight a floating shelf can safely support when properly installed.",
+      "characteristics": [
+        "Indicated on a label located on the front face of the shelf",
+        "Must not be exceeded to avoid risk of injury or damage",
+        "Specified as 15 pounds/foot (22.3 kg/m) for REHAU floating shelves"
+      ]
+    },
+    {
+      "concept_id": "c_machining_procedures_for_rauvisio_crystal",
+      "preferred_term": "Machining procedures for RAUVISIO crystal",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "cutting techniques for RAUVISIO crystal",
+        "processing methods for RAUVISIO crystal"
+      ],
+      "definition": "A set of recommended procedures for cutting and shaping RAUVISIO crystal surfaces to avoid damage and achieve desired finishes.",
+      "characteristics": [
+        "Includes sanding and polishing steps for final finish",
+        "Involves the use of circular saws and guide rails",
+        "Requires specific milling cutters for chamfering"
+      ]
+    },
+    {
+      "concept_id": "c_maintenance_and_cleaning_of_rauvisio_noir",
+      "preferred_term": "Maintenance and Cleaning of RAUVISIO noir",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Panel care",
+        "Surface maintenance"
+      ],
+      "definition": "Procedures for maintaining and cleaning the RAUVISIO noir product to preserve its durability and appearance.",
+      "characteristics": [
+        "Includes specific cleaning directions for different surface conditions",
+        "Involves regular cleaning with water and mild soap",
+        "Warns against the use of abrasive or aggressive cleaning products"
+      ]
+    },
+    {
+      "concept_id": "c_manufacturer",
+      "preferred_term": "Manufacturer",
+      "acronyms": [
+        "Mfr."
+      ],
+      "synonyms_colloquial": [
+        "Company that makes the product",
+        "Product maker",
+        "company that makes",
+        "product maker"
+      ],
+      "definition": "The company responsible for producing the RAUVISIO ingrain Wood Fiber Laminate Surface Cabinet Doors.",
+      "characteristics": [
+        "Cannot be substituted",
+        "Has specific contact information",
+        "Must be REHAU Industries LLC",
+        "REHAU Industries LLC is the approved manufacturer",
+        "contact details provided for manufacturer",
+        "substitutions are not permitted"
+      ]
+    },
+    {
+      "concept_id": "c_manufacturer_s_warranty",
+      "preferred_term": "Manufacturer's warranty",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "guarantee from manufacturer",
+        "product warranty"
+      ],
+      "definition": "A limited warranty provided by the manufacturer for the RAUVISIO noir products, ensuring coverage under specified conditions.",
+      "characteristics": [
+        "covers product defects under specified terms",
+        "limited in scope",
+        "provided by the manufacturer"
+      ]
+    },
+    {
+      "concept_id": "c_masking_tape",
+      "preferred_term": "Masking Tape",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "cutting tape",
+        "temporary adhesive tape"
+      ],
+      "definition": "A type of tape used to achieve a clean cut when performing special cutting operations.",
+      "characteristics": [
+        "can be used with RAUVISIO Ingrain Panels",
+        "requires careful removal to avoid damaging the surface",
+        "used in miter cutting and similar operations"
+      ]
+    },
+    {
+      "concept_id": "c_material_suitability",
+      "preferred_term": "Material Suitability",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Material appropriateness",
+        "Material compatibility"
+      ],
+      "definition": "The appropriateness of a material for a specific application, which must be assessed by the user/purchaser.",
+      "characteristics": [
+        "Determines correct usage",
+        "Influences processing and application results",
+        "Must be evaluated by the user"
+      ]
+    },
+    {
+      "concept_id": "c_material_anodized_aluminum",
+      "preferred_term": "Material: Anodized Aluminum",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "aluminum finish",
+        "metal finish"
+      ],
+      "definition": "A material used for handles that is anodized for durability and available in multiple colors.",
+      "characteristics": [
+        "available in multiple colors",
+        "color-matched end caps",
+        "durable"
+      ]
+    },
+    {
+      "concept_id": "c_matte_finish",
+      "preferred_term": "Matte Finish",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Dull finish",
+        "Non-glossy finish"
+      ],
+      "definition": "A surface finish that lacks shine and provides a soft, modern look.",
+      "characteristics": [
+        "Available in multiple color options",
+        "Complements modern cabinet designs",
+        "Soft and non-reflective"
+      ]
+    },
+    {
+      "concept_id": "c_mdf_strip",
+      "preferred_term": "MDF Strip",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "MDF board",
+        "MDF panel"
+      ],
+      "definition": "A strip made of medium-density fiberboard used as a base for mounting floating shelves.",
+      "characteristics": [
+        "Arrows indicate installation direction",
+        "Must be aligned with wall studs",
+        "Used to position floating shelves against the wall",
+        "must be level and secured with drywall screws",
+        "positioned against the wall with arrows visible",
+        "spanned over wall studs"
+      ]
+    },
+    {
+      "concept_id": "c_milling_machine",
+      "preferred_term": "Milling Machine",
+      "acronyms": [
+        "MM"
+      ],
+      "synonyms_colloquial": [
+        "milling equipment",
+        "milling tool"
+      ],
+      "definition": "A device used to cut and shape laminate by adjusting the blade height and alignment.",
+      "characteristics": [
+        "Can be manual or electric",
+        "Requires alignment with the worktop",
+        "Used for precise cutting of laminate edges"
+      ]
+    },
+    {
+      "concept_id": "c_packaging",
+      "preferred_term": "Packaging",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "box",
+        "shipping container",
+        "shipping containers",
+        "wrapping materials"
+      ],
+      "definition": "Packaging refers to the methods and materials used to protect laminate sheets during transportation.",
+      "characteristics": [
+        "Includes materials like polyethylene film, wooden crates, and polyester straps",
+        "Recommended for long-distance shipping",
+        "Used to protect laminate sheets from dirt and damage",
+        "involves use of wooden crates or strong materials",
+        "may include polyethylene film wrapping",
+        "requires tight sealing to prevent damage"
+      ]
+    },
+    {
+      "concept_id": "c_packaging_protection",
+      "preferred_term": "Packaging Protection",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "How to keep the boards safe in packaging",
+        "Protecting the packaging"
+      ],
+      "definition": "The methods used to protect RAUVISIO boards during packaging and transportation to prevent soiling and damage.",
+      "characteristics": [
+        "Avoiding dirt and foreign materials between boards",
+        "Cover panel on top of the goods",
+        "Use of foam non-woven material"
+      ]
+    },
+    {
+      "concept_id": "c_packaging_unit",
+      "preferred_term": "Packaging Unit",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "box",
+        "packed box",
+        "shipping container",
+        "shipping unit"
+      ],
+      "definition": "A packaging unit is a container or structure used to hold RAUVISIO Ferro boards for transport and storage.",
+      "characteristics": [
+        "Designed to protect the product",
+        "May be unloaded with forklifts",
+        "Requires protection from mechanical loads and environmental factors",
+        "Should be kept flat and level",
+        "Stackable for efficient storage",
+        "Stackable when unloaded with appropriate equipment"
+      ]
+    },
+    {
+      "concept_id": "c_packaging_unpacking",
+      "preferred_term": "Packaging Unpacking",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "opening the box",
+        "taking out the boards"
+      ],
+      "definition": "The procedure of opening the packaging unit and removing the boards without causing damage.",
+      "characteristics": [
+        "Involves cutting tape and protective foil",
+        "Must be done carefully to avoid surface damage",
+        "Requires removing debris and contamination"
+      ]
+    },
+    {
+      "concept_id": "c_panel_assembly",
+      "preferred_term": "Panel Assembly",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Assembling panels",
+        "Putting panels together"
+      ],
+      "definition": "The process of joining multiple panels together using fasteners, joints, or adhesives.",
+      "characteristics": [
+        "Includes aligning fibers in the same direction for glued sheets",
+        "Involves using rivets, self-tapping screws, or door hinges",
+        "Requires attention to distance tolerances"
+      ]
+    },
+    {
+      "concept_id": "c_panel_handling",
+      "preferred_term": "Panel Handling",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "handling panels",
+        "moving panels"
+      ],
+      "definition": "The procedures for safely moving and processing laminated panels during production and shipping.",
+      "characteristics": [
+        "involves sawing, milling, and drilling",
+        "panels should be handled longways to avoid damage",
+        "requires sharp tools and ideal machine settings"
+      ]
+    },
+    {
+      "concept_id": "c_peel_coat",
+      "preferred_term": "Peel Coat",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "protective layer",
+        "top coat"
+      ],
+      "definition": "A protective layer applied to surfaces to provide resistance against fingerprints, scratches, and stains.",
+      "characteristics": [
+        "Applied to top and bottom surfaces",
+        "Requires careful removal to avoid exposure to direct sunlight",
+        "Resistant to bacteria, mold, and stains"
+      ]
+    },
+    {
+      "concept_id": "c_pet_film",
+      "preferred_term": "PET Film",
+      "acronyms": [
+        "PET film"
+      ],
+      "synonyms_colloquial": [
+        "clear protective layer",
+        "plastic film"
+      ],
+      "definition": "A UV-cured PET film used as a protective coating for surfaces, offering durability and resistance to various environmental factors.",
+      "characteristics": [
+        "UV-cured for enhanced durability",
+        "offers lightfastness and resistance to mold and stains",
+        "used as a protective peel coat"
+      ]
+    },
+    {
+      "concept_id": "c_plugs",
+      "preferred_term": "Plugs",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Fittings",
+        "Inserts"
+      ],
+      "definition": "Components used to insert into panels, typically for securing or reinforcing parts.",
+      "characteristics": [
+        "Leave at least 1.5 mm thickness when inserted",
+        "Need to be smooth and free from protuberances",
+        "Should never completely penetrate the panel"
+      ]
+    },
+    {
+      "concept_id": "c_product_description",
+      "preferred_term": "Product Description",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Product details",
+        "Product overview"
+      ],
+      "definition": "Product Description refers to the section in the technical information that outlines the features and specifications of RAUVISIO ferro products.",
+      "characteristics": [
+        "Includes details about the product's appearance",
+        "Mentions specific product variants",
+        "Provides context for proper application"
+      ]
+    },
+    {
+      "concept_id": "c_product_safety_guidelines",
+      "preferred_term": "Product safety guidelines",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "safe use instructions",
+        "safety rules for products"
+      ],
+      "definition": "Guidelines that outline the safe use and handling of RAUVISIO products.",
+      "characteristics": [
+        "Include warnings for hazards",
+        "Mandate proper handling",
+        "Must be followed for compliance"
+      ]
+    },
+    {
+      "concept_id": "c_production_dust",
+      "preferred_term": "Production Dust",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "dust from manufacturing",
+        "dust from processing",
+        "factory dust",
+        "manufacturing dust",
+        "wood dust"
+      ],
+      "definition": "Production dust refers to fine particles generated during the manufacturing or processing of materials.",
+      "characteristics": [
+        "Can pose a health risk if inhaled",
+        "Can pose health risks if inhaled",
+        "Generated during machining, sanding, or cutting",
+        "May require medical attention if symptoms are experienced",
+        "May require protective measures such as extraction or masks",
+        "Requires protective measures such as masks or ventilation",
+        "can cause serious injury or death",
+        "can lead to inhalation hazards",
+        "requires fire extinguishing procedures"
+      ]
+    },
+    {
+      "concept_id": "c_professional_installation",
+      "preferred_term": "Professional Installation",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "contractor installation",
+        "expert installation"
+      ],
+      "definition": "Professional Installation refers to the responsibility of the installing contractor to ensure the correct and safe installation of REHAU floating shelves.",
+      "characteristics": [
+        "contractor is responsible for proper installation",
+        "contractor must provide instructions to the end user",
+        "must be performed by a qualified contractor"
+      ]
+    },
+    {
+      "concept_id": "c_proper_board_storage",
+      "preferred_term": "Proper Board Storage",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "correct way to store boards",
+        "right storage method for boards"
+      ],
+      "definition": "The method of storing RAUVISIO crystal board material to prevent warping, bending, and surface damage.",
+      "characteristics": [
+        "Recommended storage is on supplied packaging unit",
+        "Storage must be flat and level",
+        "Support is required throughout"
+      ]
+    },
+    {
+      "concept_id": "c_protective_film",
+      "preferred_term": "Protective Film",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "covering film",
+        "shipping wrap"
+      ],
+      "definition": "A material used to wrap and protect laminated panels during shipping and storage.",
+      "characteristics": [
+        "made of polyethylene film",
+        "prevents dirt and damage",
+        "used in combination with other packaging methods"
+      ]
+    },
+    {
+      "concept_id": "c_protective_measures",
+      "preferred_term": "Protective Measures",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "safety precautions",
+        "ways to stay safe"
+      ],
+      "definition": "Protective measures are the actions and equipment required to ensure safety during the processing and handling of RAUVISIO products.",
+      "characteristics": [
+        "Are necessary to prevent health and safety risks",
+        "Include use of personal protective equipment",
+        "Involve proper ventilation and dust extraction"
+      ]
+    },
+    {
+      "concept_id": "c_protective_measures_for_rauvisio_crystal",
+      "preferred_term": "Protective Measures for RAUVISIO Crystal",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "safeguarding RAUVISIO crystal",
+        "ways to protect RAUVISIO crystal"
+      ],
+      "definition": "The procedures and equipment used to protect RAUVISIO crystal boards from damage during handling, transport, and storage.",
+      "characteristics": [
+        "avoiding exposure to high temperatures and humidity",
+        "protection from mechanical loads",
+        "use of gloves and transport aids"
+      ]
+    },
+    {
+      "concept_id": "c_protective_peel_coat",
+      "preferred_term": "Protective Peel Coat",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "peel-off coating",
+        "peelable protective layer",
+        "temporary coating",
+        "temporary protective layer"
+      ],
+      "definition": "A protective layer applied to the top and bottom surfaces of the product to provide additional resistance to damage.",
+      "characteristics": [
+        "applied to the top surface of glass",
+        "applied to top and bottom surfaces",
+        "can be removed using rubber fingertips or a specialized tool",
+        "must be removed after installation",
+        "sensitive to direct sunlight",
+        "should not be exposed to direct sunlight before removal"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_brilliant",
+      "preferred_term": "RAUVISIO brilliant",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "acrylic gloss panels",
+        "brilliant cabinets",
+        "brilliant panels",
+        "glossy cabinets",
+        "glossy doors",
+        "high-gloss acrylic surface",
+        "high-gloss cabinets",
+        "shiny cabinets",
+        "shiny doors"
+      ],
+      "definition": "RAUVISIO brilliant is a high-gloss acrylic surface product designed for specific applications and requires careful handling and installation.",
+      "characteristics": [
+        "acrylic material",
+        "cabinet and panel applications",
+        "high-gloss acrylic finish",
+        "high-gloss finish",
+        "technical specifications for safe use"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_brilliant_high_gloss_acrylic_surface_board",
+      "preferred_term": "RAUVISIO brilliant High-Gloss Acrylic Surface Board",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "acrylic panel",
+        "high-gloss acrylic surface board"
+      ],
+      "definition": "A high-gloss acrylic surface board manufactured by REHAU Industries LLC for use in architectural millwork.",
+      "characteristics": [
+        "available in multiple color options",
+        "fabricated by approved fabricator",
+        "used in architectural millwork applications"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_brilliant_high_gloss_acrylic_surface_cabinet_doors",
+      "preferred_term": "RAUVISIO brilliant High-Gloss Acrylic Surface Cabinet Doors",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "High-gloss acrylic cabinet doors",
+        "acrylic cabinet doors"
+      ],
+      "definition": "A type of cabinet door made from high-gloss acrylic material, manufactured by REHAU Industries LLC.",
+      "characteristics": [
+        "Available in various color options",
+        "Designed for use in cabinet applications",
+        "Made from high-gloss acrylic material"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_brilliant_high_gloss_acrylic_surface_floating_shelves",
+      "preferred_term": "RAUVISIO brilliant High-Gloss Acrylic Surface Floating Shelves",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "acrylic floating shelves",
+        "high-gloss floating shelves"
+      ],
+      "definition": "A type of floating shelf manufactured by REHAU Industries LLC using high-gloss acrylic surface material.",
+      "characteristics": [
+        "available in various color options",
+        "designed for installation under specific environmental conditions",
+        "fabricated by approved fabricator"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_brilliant_technical_information",
+      "preferred_term": "RAUVISIO brilliant Technical Information",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "product specs",
+        "technical data sheet"
+      ],
+      "definition": "A document containing detailed information about the RAUVISIO brilliant High-Gloss Acrylic Surface Board, including safety guidelines and testing procedures.",
+      "characteristics": [
+        "contains safety guidelines",
+        "includes testing information",
+        "used for quality assurance and installation guidance"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_crystal",
+      "preferred_term": "RAUVISIO Crystal",
+      "acronyms": [
+        "RC"
+      ],
+      "synonyms_colloquial": [
+        "Crystal finish",
+        "Glass-like surface",
+        "acrylic glass stuff",
+        "crystal glass",
+        "crystal glass stuff",
+        "crystal panels",
+        "fake glass",
+        "glass-like panels",
+        "polymer glass panels",
+        "shiny glass panels"
+      ],
+      "definition": "A high-quality polymer glass panel that combines a co-extruded glass laminate with a balancing sheet to create a non-porous, hygienic surface with intense reflectivity.",
+      "characteristics": [
+        "Available in polished and natural finishes",
+        "Non-porous and hygienic surface",
+        "Offers maximum flexibility in processing",
+        "cabinet and countertop use",
+        "glass-like surface",
+        "polymer composite"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_crystal_45_chamfer",
+      "preferred_term": "RAUVISIO crystal 45° chamfer",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "angled edge",
+        "beveled edge"
+      ],
+      "definition": "A specific type of edge finish achieved by milling at a 45° angle to create a chamfer on RAUVISIO crystal surfaces.",
+      "characteristics": [
+        "Achieved using a 45° milling cutter",
+        "Available with a polymer functional layer",
+        "Can be combined with an adhesion promoting ABS edgeband"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_crystal_acrylic_laminate",
+      "preferred_term": "RAUVISIO Crystal Acrylic Laminate",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "acrylic wall panel",
+        "glossy panel"
+      ],
+      "definition": "A high-gloss acrylic laminate used in large format pressed panels for a refined, polished look.",
+      "characteristics": [
+        "acrylic laminate",
+        "high-gloss",
+        "large format"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_crystal_acrylic_surface_board",
+      "preferred_term": "RAUVISIO Crystal Acrylic Surface Board",
+      "acronyms": [
+        "RAUVISIO"
+      ],
+      "synonyms_colloquial": [
+        "Acrylic surface board",
+        "Crystal acrylic board"
+      ],
+      "definition": "A type of surface board made from acrylic material with a crystal finish, produced by REHAU under the RAUVISIO brand.",
+      "characteristics": [
+        "Available in various colors and finishes",
+        "Crystal finish",
+        "Made from acrylic material"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_crystal_acrylic_surface_board_edgebanding",
+      "preferred_term": "RAUVISIO Crystal Acrylic Surface Board Edgebanding",
+      "acronyms": [
+        "RAUVISIO Edgebanding"
+      ],
+      "synonyms_colloquial": [
+        "Acrylic edgebanding",
+        "Crystal edgebanding"
+      ],
+      "definition": "A type of edgebanding made from acrylic material with a crystal finish, produced by REHAU under the RAUVISIO brand.",
+      "characteristics": [
+        "Available in various colors and finishes",
+        "Crystal finish",
+        "Made from acrylic material"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_crystal_mirror_panel",
+      "preferred_term": "RAUVISIO Crystal Mirror Panel",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "mirror wall panel",
+        "reflective panel"
+      ],
+      "definition": "A pressed panel featuring a mirror finish, surrounded by various sizes for different applications.",
+      "characteristics": [
+        "mirror finish",
+        "pressed panel",
+        "various sizes"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_crystal_packaging_unit",
+      "preferred_term": "RAUVISIO Crystal Packaging Unit",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "packaging unit for RAUVISIO crystal",
+        "storage unit for RAUVISIO crystal"
+      ],
+      "definition": "A standardized unit used for shipping and storing RAUVISIO crystal boards to maintain their flat and undamaged condition.",
+      "characteristics": [
+        "designed to keep boards flat",
+        "requires protection from mechanical loads",
+        "stackable"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_crystal_slim",
+      "preferred_term": "RAUVISIO Crystal Slim",
+      "acronyms": [
+        "RAUVISIO Crystal Slim"
+      ],
+      "synonyms_colloquial": [
+        "Slim glass panel",
+        "Thin polymer glass",
+        "decorative mirror panel",
+        "glass mirror panel",
+        "slim crystal material",
+        "thin crystal sheet"
+      ],
+      "definition": "A decorative mirror panel made of a hard, scratch-resistant material suitable for use in bathrooms and kitchens.",
+      "characteristics": [
+        "Available in polished and natural finishes",
+        "Composed of 1.6 mm transparent layer and 2.4 mm color layer",
+        "Non-porous and hygienic surface",
+        "associated with high-quality surface",
+        "hard and scratch-resistant",
+        "mentioned in the context of cutting",
+        "requires special drilling methods",
+        "requires specific installation clearance from open flames",
+        "used as a backsplash or mirror"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_crystal_slim_panel",
+      "preferred_term": "RAUVISIO Crystal Slim Panel",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "slim wall panel",
+        "thin pressed panel"
+      ],
+      "definition": "A thin, pressed panel made from refined MDF and color-matched balancing backer laminate.",
+      "characteristics": [
+        "color-matched",
+        "pressed panel",
+        "super-thin"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_ferro",
+      "preferred_term": "RAUVISIO ferro",
+      "acronyms": [
+        "RAUVISIO ferro"
+      ],
+      "synonyms_colloquial": [
+        "RAUVISIO board",
+        "RAUVISIO ferro material",
+        "RAUVISIO ferro product",
+        "RAUVISIO metallic PET surface",
+        "RAUVISIO polymer surface",
+        "RAUVISIO product",
+        "composite wood product",
+        "eco-friendly wood material",
+        "elegant metallic finish",
+        "ferro boards",
+        "material sheets",
+        "metal finish panels",
+        "metal look panels",
+        "metal-looking boards",
+        "metallic PET surface",
+        "metallic PET surface board product line",
+        "metallic panels",
+        "product boards"
+      ],
+      "definition": "A metallic PET surface composed of metallic color layers secured between transparent layers, finished with a lacquered metallic print, offering rich color and depth perspective.",
+      "characteristics": [
+        "Dust generated is not toxic and does not pose an explosion risk",
+        "Ecologically sound properties",
+        "Made from PET material",
+        "Made from a wooden substrate and polymer coating",
+        "Metallic surface finish",
+        "Must be kept flat and level during transportation",
+        "Must be kept flat, level, and fully supported",
+        "PET foil surface",
+        "Requires controlled storage conditions",
+        "Requires protection from damage during transport and handling",
+        "Susceptible to temperature-related damage",
+        "Susceptible to warping if not stored properly",
+        "Used in various applications as described in the technical information",
+        "fabricated by approved manufacturers",
+        "highly touchable and elegant",
+        "homogeneous lacquered laminate",
+        "includes surface boards and edgebanding",
+        "metallic appearance",
+        "non-porous",
+        "resistant to fingerprints, scratches, stains, and mold",
+        "resistant to fungal and bacterial growth",
+        "suitable for high-moisture environments",
+        "used in specified architectural applications"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_ferro_magic_3_d_rehau_laseredge_edgebanding",
+      "preferred_term": "RAUVISIO ferro Magic 3-D REHAU LaserEdge edgebanding",
+      "acronyms": [
+        "LaserEdge edgebanding",
+        "RAUVISIO ferro Magic 3-D"
+      ],
+      "synonyms_colloquial": [
+        "3D edgebanding",
+        "LaserEdge edgebanding"
+      ],
+      "definition": "A type of edgebanding used to match the RAUVISIO ferro Metallic PET Surface Board for aesthetic and functional purposes.",
+      "characteristics": [
+        "designed for 3D matching",
+        "fabricated by approved manufacturer",
+        "part of the RAUVISIO ferro product line"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_ferro_metallic_pet_surface_board",
+      "preferred_term": "RAUVISIO ferro Metallic PET Surface Board",
+      "acronyms": [
+        "Metallic PET Surface Board",
+        "RAUVISIO ferro"
+      ],
+      "synonyms_colloquial": [
+        "RAUVISIO ferro board",
+        "metallic PET surface panel"
+      ],
+      "definition": "A type of surface board made from metallic PET material used in architectural millwork applications.",
+      "characteristics": [
+        "available in various model designs",
+        "fabricated by approved fabricators",
+        "used in architectural millwork specifications"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_ferro_technical_information",
+      "preferred_term": "RAUVISIO ferro technical information",
+      "acronyms": [
+        "RAUVISIO ferro tech info"
+      ],
+      "synonyms_colloquial": [
+        "product technical specs",
+        "technical data sheet"
+      ],
+      "definition": "A document containing detailed specifications, safety guidelines, and testing information for the RAUVISIO ferro product line.",
+      "characteristics": [
+        "contains testing information",
+        "includes safety guidelines",
+        "required for submittals and installation"
+      ]
+    },
+    {
+      "concept_id": "c_product_line_rauvisio_house",
+      "preferred_term": "RAUVISIO House",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "house line products",
+        "rauvisio house",
+        "rauvisio product line"
+      ],
+      "definition": "Cross-product RAUVISIO House program documentation.",
+      "characteristics": [
+        "multi-product",
+        "program-wide"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_house_program_guide",
+      "preferred_term": "RAUVISIO House Program Guide",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "product guide",
+        "specification guide"
+      ],
+      "definition": "A document providing exact details about the color depth and specifications of RAUVISIO products.",
+      "characteristics": [
+        "color depth details",
+        "product specifications",
+        "technical guide"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_ingrain",
+      "preferred_term": "RAUVISIO ingrain",
+      "acronyms": [
+        "RAUVISIO"
+      ],
+      "synonyms_colloquial": [
+        "RAUVISIO ingrain surface",
+        "RAUVISIO wood finish",
+        "composite wood material",
+        "eco-friendly wood product",
+        "fake wood panels",
+        "grain effect",
+        "ingrain panels",
+        "laminate surface material",
+        "wood fiber laminate product",
+        "wood fiber sheets",
+        "wood grain cabinets",
+        "wood grain finish",
+        "wood-look panels"
+      ],
+      "definition": "A brand of wood fiber laminate surface material used in architectural applications.",
+      "characteristics": [
+        "applied to surface boards",
+        "creates a natural wood-like appearance",
+        "eco-friendly properties",
+        "has technical information available",
+        "mimics natural wood grain",
+        "no risk of explosion",
+        "non-toxic dust",
+        "part of the RAUVISIO product line",
+        "realistic appearance",
+        "requires proper storage and handling",
+        "surface treatment",
+        "used in architectural millwork",
+        "wood fiber laminate",
+        "wood grain appearance"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_ingrain_panel",
+      "preferred_term": "RAUVISIO Ingrain Panel",
+      "acronyms": [
+        "RAUVISIO Ingrain Panel"
+      ],
+      "synonyms_colloquial": [
+        "decorative laminate panel",
+        "surface panel"
+      ],
+      "definition": "A type of decorative panel used in woodworking applications that features a specific surface finish and color.",
+      "characteristics": [
+        "can be cut with a sacrificial panel for clean edges",
+        "processed with approved woodworking tools",
+        "requires sharp tools and ideal machine settings"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_ingrain_wood_fiber_laminate_surface_cabinet_doors",
+      "preferred_term": "RAUVISIO ingrain Wood Fiber Laminate Surface Cabinet Doors",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "cabinet doors made of wood fiber laminate",
+        "laminate cabinet doors"
+      ],
+      "definition": "A type of cabinet door made from RAUVISIO ingrain Wood Fiber Laminate, designed for use in cabinetry.",
+      "characteristics": [
+        "available in various wood finishes",
+        "fabricated by approved fabricator",
+        "part of REHAU Industries LLC product line"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_ingrain_wood_fiber_laminate_surface_cpl_laminate",
+      "preferred_term": "RAUVISIO ingrain Wood Fiber Laminate Surface CPL Laminate",
+      "acronyms": [
+        "CPL Laminate"
+      ],
+      "synonyms_colloquial": [
+        "CPL laminate",
+        "laminate surface",
+        "wood fiber laminate surface"
+      ],
+      "definition": "A type of surface material made from wood fiber laminate used in architectural millwork applications.",
+      "characteristics": [
+        "available in various wood finishes",
+        "fabricated by approved fabricator",
+        "used in architectural millwork"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_ingrain_wood_fiber_laminate_surface",
+      "preferred_term": "RAUVISIO ingrain™ wood fiber laminate surface",
+      "acronyms": [
+        "RAUVISIO ingrain"
+      ],
+      "synonyms_colloquial": [
+        "RAUVISIO surface",
+        "wood fiber laminate surface"
+      ],
+      "definition": "A type of surface material made from wood fiber laminate used in RAUVISIO products.",
+      "characteristics": [
+        "Available in various wood finishes",
+        "Made from wood fiber laminate",
+        "Used in RAUVISIO products"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_laseredge",
+      "preferred_term": "RAUVISIO LaserEdge",
+      "acronyms": [
+        "LE"
+      ],
+      "synonyms_colloquial": [
+        "edge finish",
+        "edgebanding"
+      ],
+      "definition": "A technology used for creating a seamless, monolithic effect on double-sided panels and doors.",
+      "characteristics": [
+        "monolithic effect",
+        "seamless edge",
+        "used with double-sided panels"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_noir",
+      "preferred_term": "RAUVISIO noir",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "RAUVISIO black",
+        "RAUVISIO matte finish",
+        "black finish product",
+        "black matte boards",
+        "dark matte panels",
+        "dark surface material",
+        "matte cabinets",
+        "matte counter",
+        "matte countertop",
+        "matte surface panel",
+        "noir finish panel",
+        "noir panels",
+        "super flat dark finish"
+      ],
+      "definition": "A product line offering a deep, light-absorbent black finish with advanced material properties.",
+      "characteristics": [
+        "Complies with environmental and safety standards",
+        "Includes features like anti-microbial properties",
+        "Monotonic matte finish",
+        "Provides a visually striking appearance",
+        "Requires a high-quality, flat core",
+        "Suitable for various support materials",
+        "antimicrobial",
+        "compact and laminate variants",
+        "matte black finish",
+        "matte finish",
+        "self-healing"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_noir_monotonic_matte_surface_cabinet_doors",
+      "preferred_term": "RAUVISIO noir Monotonic Matte Surface Cabinet Doors",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "cabinet doors with a matte finish",
+        "monotonic surface cabinet doors"
+      ],
+      "definition": "A type of cabinet door manufactured by REHAU Industries LLC with a monotonic matte surface finish and specific color variations.",
+      "characteristics": [
+        "available in multiple color variations",
+        "designed for use in cabinet installations",
+        "fabricated by approved fabricator"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_noir_technical_information",
+      "preferred_term": "RAUVISIO noir technical information",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "product data sheets",
+        "technical specs for RAUVISIO noir"
+      ],
+      "definition": "A document containing detailed information about the RAUVISIO noir product, including quality assurance, safety guidelines, and testing procedures.",
+      "characteristics": [
+        "contains safety guidelines",
+        "includes testing information",
+        "used for installation and handling instructions"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_shade",
+      "preferred_term": "RAUVISIO shade",
+      "acronyms": [
+        "RAUVISIO"
+      ],
+      "synonyms_colloquial": [
+        "RAUVISIO composite product",
+        "RAUVISIO product",
+        "RAUVISIO shade panel",
+        "flat-looking cabinet panels",
+        "matte boards",
+        "matte cabinets",
+        "shade panels",
+        "super matte panels",
+        "wooden composite with polymer coating"
+      ],
+      "definition": "A type of surface finish for cabinet doors made from PET material with a Super-Matte texture.",
+      "characteristics": [
+        "Available in various color shades",
+        "Composite material with wooden substrate and polymer coating",
+        "Ecologically sound properties",
+        "Made from PET material",
+        "Non-toxic dust production",
+        "Super-Matte texture",
+        "cabinet door applications",
+        "super-matte PET"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_shade_edgebanding",
+      "preferred_term": "RAUVISIO Shade Edgebanding",
+      "acronyms": [
+        "REHAU LaserEdge"
+      ],
+      "synonyms_colloquial": [
+        "edge band",
+        "edge trim"
+      ],
+      "definition": "A type of edgebanding used to finish RAUVISIO shade surface boards, available in various matte finishes.",
+      "characteristics": [
+        "Elegant Matte finish",
+        "standard dimensions of 15/16\" x 1.2 mm",
+        "various color options"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_shade_installation",
+      "preferred_term": "RAUVISIO Shade Installation",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "installation process",
+        "setup instructions"
+      ],
+      "definition": "The process of installing RAUVISIO shade products in accordance with manufacturer guidelines.",
+      "characteristics": [
+        "involves protection until completion",
+        "must be done after product preparation",
+        "requires concealed European hinges"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_shade_surface_board",
+      "preferred_term": "RAUVISIO Shade Surface Board",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "shading board",
+        "surface panel"
+      ],
+      "definition": "A type of surface board used in RAUVISIO shade systems with a Super-Matte PET finish.",
+      "characteristics": [
+        "Super-Matte PET finish",
+        "standard thickness of 19.8 mm",
+        "various color options"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_shade_technical_information",
+      "preferred_term": "RAUVISIO Shade Technical Information",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "product manual",
+        "technical guide"
+      ],
+      "definition": "A document containing detailed instructions and specifications for installing RAUVISIO shade products.",
+      "characteristics": [
+        "available for download",
+        "contains installation instructions",
+        "includes product specifications"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_shade_warranty",
+      "preferred_term": "RAUVISIO Shade Warranty",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "product guarantee",
+        "warranty document"
+      ],
+      "definition": "A document outlining the limited warranty coverage for RAUVISIO shade products and their components.",
+      "characteristics": [
+        "available for download",
+        "covers edgebanding",
+        "covers surface boards"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_terra",
+      "preferred_term": "RAUVISIO Terra",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "fake wood terra stuff",
+        "forest-inspired surface",
+        "terra panels",
+        "textured laminate boards",
+        "textured wood boards",
+        "textured wood look surface"
+      ],
+      "definition": "A textured surface material that mimics the look and feel of natural wood, designed for durability and aesthetic appeal.",
+      "characteristics": [
+        "authentic wood look and feel",
+        "offers all-round durability",
+        "textured HPL",
+        "textured HPL surface",
+        "wood and stone decors"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_terra_matching_edgebanding",
+      "preferred_term": "RAUVISIO terra matching edgebanding",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "edgebanding for RAUVISIO",
+        "matching edgeband"
+      ],
+      "definition": "A type of edgebanding designed to match the RAUVISIO terra Soft, Textured HPL Surface Board for aesthetic consistency.",
+      "characteristics": [
+        "Available in various wood finishes",
+        "Made by REHAU LaserEdge™",
+        "Matches the surface board"
+      ]
+    },
+    {
+      "concept_id": "c_rauvisio_terra_soft_textured_hpl_surface_board",
+      "preferred_term": "RAUVISIO terra Soft, Textured HPL Surface Board",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "soft surface board",
+        "textured HPL board"
+      ],
+      "definition": "A type of high-pressure laminate surface board manufactured by REHAU Industries LLC as part of the RAUVISIO terra product line.",
+      "characteristics": [
+        "Made from HPL (high-pressure laminate)",
+        "Soft feel",
+        "Textured surface"
+      ]
+    },
+    {
+      "concept_id": "c_rehau_floating_shelves",
+      "preferred_term": "REHAU Floating Shelves",
+      "acronyms": [
+        "RFS"
+      ],
+      "synonyms_colloquial": [
+        "floating rack",
+        "floating shelf units",
+        "floating shelves",
+        "floating wall shelves",
+        "wall shelves",
+        "wall-mounted shelves"
+      ],
+      "definition": "REHAU Floating Shelves are indoor, household-use shelf systems designed to hold up to 15 pounds/foot (22.3 kg/m) when properly installed.",
+      "characteristics": [
+        "designed for indoor use only",
+        "floating installation",
+        "maximum load capacity of 15 pounds/foot (22.3 kg/m)",
+        "must be secured into a wall with wooden internal framing",
+        "wall-mounted"
+      ]
+    },
+    {
+      "concept_id": "c_rehau_industries_llc",
+      "preferred_term": "REHAU Industries LLC",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "REHAU company",
+        "manufacturer of RAUVISIO products"
+      ],
+      "definition": "A manufacturer of RAUVISIO brilliant High-Gloss Acrylic Surface Floating Shelves.",
+      "characteristics": [
+        "does not permit substitutions",
+        "headquartered in Leesburg, VA",
+        "provides limited warranty"
+      ]
+    },
+    {
+      "concept_id": "c_product_line_rehau_integrated_handles",
+      "preferred_term": "REHAU Integrated Handles",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "cabinet handle grooves",
+        "hidden handles",
+        "integrated handles"
+      ],
+      "definition": "Integrated handle profiles for cabinet doors.",
+      "characteristics": [
+        "cabinet handles",
+        "integrated pull profiles"
+      ]
+    },
+    {
+      "concept_id": "c_rehau_laseredge_duo_gloss",
+      "preferred_term": "REHAU LaserEdge Duo-gloss",
+      "acronyms": [
+        "LaserEdge"
+      ],
+      "synonyms_colloquial": [
+        "edge trim material",
+        "edgebanding material"
+      ],
+      "definition": "A type of edgebanding material that provides a dual-gloss finish, enhancing the appearance of the surface.",
+      "characteristics": [
+        "dual-gloss finish",
+        "edgebanding material",
+        "high aesthetic value"
+      ]
+    },
+    {
+      "concept_id": "c_rehau_laseredge_edgebanding",
+      "preferred_term": "REHAU LaserEdge Edgebanding",
+      "acronyms": [
+        "LaserEdge"
+      ],
+      "synonyms_colloquial": [
+        "Acrylic edgebanding",
+        "Crystal edgebanding"
+      ],
+      "definition": "A type of edgebanding produced by REHAU Industries with a laser-cut finish, available in various colors and finishes.",
+      "characteristics": [
+        "Available in various colors and finishes",
+        "Laser-cut finish",
+        "Produced by REHAU Industries"
+      ]
+    },
+    {
+      "concept_id": "c_rehau_laseredge_laminate",
+      "preferred_term": "REHAU LaserEdge Laminate",
+      "acronyms": [
+        "LaserEdge Laminate"
+      ],
+      "synonyms_colloquial": [
+        "Laminate finish",
+        "Laminated surface"
+      ],
+      "definition": "A type of surface material used on cabinet doors, characterized by its textured and soft feel.",
+      "characteristics": [
+        "Part of REHAU RAUVISIO product line",
+        "Soft and textured HPL surface",
+        "Used for cabinet doors"
+      ]
+    },
+    {
+      "concept_id": "c_rehau_laseredge_edgebanding",
+      "preferred_term": "REHAU LaserEdge™ edgebanding",
+      "acronyms": [
+        "LaserEdge",
+        "REHAU LaserEdge"
+      ],
+      "synonyms_colloquial": [
+        "LaserEdge edgebanding",
+        "REHAU edgebanding",
+        "edgebanding for furniture",
+        "edgebanding product"
+      ],
+      "definition": "A line of edgebanding products manufactured by REHAU Industries LLC designed to complement the RAUVISIO terra surface boards.",
+      "characteristics": [
+        "Available in multiple wood finishes",
+        "Precision-cut for matching",
+        "Used for furniture applications",
+        "available in multiple wood finishes",
+        "produced by REHAU Industries",
+        "used with RAUVISIO ingrain boards"
+      ]
+    },
+    {
+      "concept_id": "c_rehau_rauvisio_terra",
+      "preferred_term": "REHAU RAUVISIO terra",
+      "acronyms": [
+        "terra"
+      ],
+      "synonyms_colloquial": [
+        "Cabinet door system",
+        "Cabinet surface system"
+      ],
+      "definition": "A product line by REHAU that includes textured and soft HPL surfaces for cabinet doors.",
+      "characteristics": [
+        "Complies with manufacturer's installation instructions",
+        "Includes technical information and warranty documents",
+        "Used in architectural millwork"
+      ]
+    },
+    {
+      "concept_id": "c_rivets",
+      "preferred_term": "Rivets",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Fasteners",
+        "Metal pins"
+      ],
+      "definition": "Metal fasteners used to assemble panels in various projects such as partitions and cabinets.",
+      "characteristics": [
+        "Fastening accomplished with rivets as shown in diagrams",
+        "Require a certain distance tolerance for proper assembly",
+        "Used alongside self-tapping screws or door hinges"
+      ]
+    },
+    {
+      "concept_id": "c_room_temperature_conditions",
+      "preferred_term": "Room Temperature Conditions",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "normal room temperature",
+        "standard temperature"
+      ],
+      "definition": "The temperature range and humidity levels that are considered optimal for storing and processing goods.",
+      "characteristics": [
+        "Humidity between 40 and 60%",
+        "Recommended for preventing warping and surface damage",
+        "Temperature between 59 and 77°F (15 and 25°C)"
+      ]
+    },
+    {
+      "concept_id": "c_rss_screw",
+      "preferred_term": "RSS Screw",
+      "acronyms": [
+        "RSS"
+      ],
+      "synonyms_colloquial": [
+        "mounting screw",
+        "special screw"
+      ],
+      "definition": "A type of screw used to secure the bracket to the wall and ensure the bracket is tightly seated.",
+      "characteristics": [
+        "Critical for structural integrity",
+        "Must be fully seated for secure installation",
+        "Used to fasten the bracket to the wall"
+      ]
+    },
+    {
+      "concept_id": "c_sacrificial_panel",
+      "preferred_term": "Sacrificial Panel",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "protective panel",
+        "underlying panel"
+      ],
+      "definition": "A panel placed beneath the RAUVISIO Ingrain Panel to protect it during cutting or drilling operations.",
+      "characteristics": [
+        "can be a thin panel",
+        "recommended for use when drilling through the panel",
+        "used to ensure a clean cut edge"
+      ]
+    },
+    {
+      "concept_id": "c_safety_alert_symbol",
+      "preferred_term": "Safety Alert Symbol",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Safety icon",
+        "Warning symbol",
+        "danger sign",
+        "warning symbol"
+      ],
+      "definition": "The Safety Alert Symbol is a visual indicator used in the technical information to highlight hazardous situations related to the use of RAUVISIO brilliant.",
+      "characteristics": [
+        "Complements signal words for clarity",
+        "Helps users identify critical safety information",
+        "Used to indicate danger levels",
+        "used to indicate caution",
+        "used to indicate danger",
+        "used to indicate warning"
+      ]
+    },
+    {
+      "concept_id": "c_safety_and_installation_instructions",
+      "preferred_term": "Safety and Installation Instructions",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "installation guidelines",
+        "safety manual"
+      ],
+      "definition": "Safety and Installation Instructions are documents that provide critical safety information and step-by-step guidance for the proper installation and use of REHAU floating shelves.",
+      "characteristics": [
+        "contain important safety information",
+        "include warnings and instructions for proper installation",
+        "must be read and followed to reduce risk of injury or damage"
+      ]
+    },
+    {
+      "concept_id": "c_safety_equipment",
+      "preferred_term": "Safety Equipment",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Protective gear",
+        "Safety gear"
+      ],
+      "definition": "Protective gear required to ensure the safety of users when handling RAUVISIO products.",
+      "characteristics": [
+        "Includes gloves, goggles, ear protection, and dust masks",
+        "Mandatory for use",
+        "Prevents injury"
+      ]
+    },
+    {
+      "concept_id": "c_safety_information",
+      "preferred_term": "Safety information",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "danger alerts",
+        "safety warnings"
+      ],
+      "definition": "Information provided to ensure safe handling and use of RAUVISIO products.",
+      "characteristics": [
+        "Emphasizes user safety",
+        "Guides on avoiding hazards",
+        "Includes danger and warning symbols"
+      ]
+    },
+    {
+      "concept_id": "c_scratch_resistance",
+      "preferred_term": "Scratch-Resistance",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "non-scratch property",
+        "resistance to scratches"
+      ],
+      "definition": "The ability of a material to resist scratches from various tools as tested by DIN 55656 standards.",
+      "characteristics": [
+        "Assessed using standardized test methods",
+        "Measured on a scale",
+        "Minimum requirement is 5"
+      ]
+    },
+    {
+      "concept_id": "c_self_locking_feature",
+      "preferred_term": "Self-Locking Feature",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "locking mechanism",
+        "secure fit"
+      ],
+      "definition": "A design feature of the floating shelf that prevents it from being pulled forward once installed.",
+      "characteristics": [
+        "Ensures the shelf remains fixed",
+        "Ensures the shelf remains secure and stable",
+        "Internal groove hooks onto the bracket's raised tip",
+        "Involves an internal groove that hooks onto the raised tip of the bracket",
+        "Requires proper seating to activate",
+        "Visible in a cutaway view"
+      ]
+    },
+    {
+      "concept_id": "c_self_tapping_screws",
+      "preferred_term": "Self-Tapping Screws",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Screws that drill their own hole",
+        "Self-drilling screws"
+      ],
+      "definition": "Screws used to fix different types of panels together by drilling their own hole as they are driven in.",
+      "characteristics": [
+        "The hole must be at least 1 mm deeper than the length of the screw",
+        "Triangular-head screws with three quick threads are preferred",
+        "Used in the creation of doors, partition walls, and cabinets"
+      ]
+    },
+    {
+      "concept_id": "c_shipping_procedures",
+      "preferred_term": "Shipping Procedures",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "shipping methods",
+        "transport guidelines"
+      ],
+      "definition": "Shipping procedures are the recommended practices for transporting laminate sheets to minimize the risk of damage during transit.",
+      "characteristics": [
+        "Emphasize the importance of machine settings for processing",
+        "Include guidelines for handling, packaging, and securing laminate sheets",
+        "Recommend the use of strong pallets and tight packaging"
+      ]
+    },
+    {
+      "concept_id": "c_shower_wall_cladding",
+      "preferred_term": "Shower Wall Cladding",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "shower panel",
+        "shower wall covering"
+      ],
+      "definition": "A type of wall covering used in shower areas to protect and decorate the walls.",
+      "characteristics": [
+        "may be made of various materials",
+        "protects and decorates walls",
+        "used in shower areas"
+      ]
+    },
+    {
+      "concept_id": "c_smoke_developed_index",
+      "preferred_term": "Smoke Developed Index",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "how much smoke a material gives off",
+        "smoke production during fire"
+      ],
+      "definition": "A numerical value indicating the amount of smoke produced by a material when exposed to fire.",
+      "characteristics": [
+        "measured using ASTM E84 or DIN 4120/1 standards",
+        "ranges from 0 to 450 or higher",
+        "used to classify fire resistance"
+      ]
+    },
+    {
+      "concept_id": "c_solid_pet_composition",
+      "preferred_term": "Solid PET Composition",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "durable plastic material",
+        "solid plastic construction"
+      ],
+      "definition": "A construction method using solid PET material without delamination, providing structural integrity and durability.",
+      "characteristics": [
+        "no delamination",
+        "resistant to impact and scratches",
+        "suitable for high-moisture environments"
+      ]
+    },
+    {
+      "concept_id": "c_stack_pressure",
+      "preferred_term": "Stack Pressure",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "pressure from stacking",
+        "stacking force"
+      ],
+      "definition": "Stack pressure refers to the pressure exerted on RAUVISIO Ferro boards when they are stacked, which can lead to surface damage if not managed properly.",
+      "characteristics": [
+        "Affects laminate and adhesive systems",
+        "Can cause surface damage",
+        "Related to stacking height limits"
+      ]
+    },
+    {
+      "concept_id": "c_stain_resistance",
+      "preferred_term": "Stain-Resistance",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "non-staining property",
+        "resistance to staining"
+      ],
+      "definition": "The ability of a material to resist staining as tested by EN 12720:2009 standards.",
+      "characteristics": [
+        "Assessed using standardized test methods",
+        "Measured on a scale",
+        "Minimum requirement is ≥4"
+      ]
+    },
+    {
+      "concept_id": "c_storage_and_handling_of_rauvisio_noir_products",
+      "preferred_term": "Storage and handling of RAUVISIO noir products",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "handling cabinet products",
+        "how to store cabinet doors"
+      ],
+      "definition": "Guidelines for storing RAUVISIO noir products to ensure they remain undamaged and in optimal condition until installation.",
+      "characteristics": [
+        "must be stored in original packaging",
+        "protected from dust and debris",
+        "requires dry and well-ventilated storage"
+      ]
+    },
+    {
+      "concept_id": "c_storage_conditions",
+      "preferred_term": "Storage Conditions",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "How to store the boards",
+        "Storage requirements",
+        "storage environment",
+        "storage setup"
+      ],
+      "definition": "The specific environmental and physical conditions required to store RAUVISIO ferro boards safely.",
+      "characteristics": [
+        "Closed, heated rooms",
+        "Closed, heated rooms with controlled temperature and humidity",
+        "Relative humidity between 40 and 60%",
+        "Relative humidity range of 40 to 60%",
+        "Temperature between 15 and 25°C",
+        "Temperature range of 59 to 77°F (15 to 25°C)"
+      ]
+    },
+    {
+      "concept_id": "c_storage_environment",
+      "preferred_term": "Storage Environment",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "storage conditions",
+        "where the boards are kept"
+      ],
+      "definition": "The conditions under which RAUVISIO crystal board material must be stored to maintain its integrity and prevent damage.",
+      "characteristics": [
+        "Closed, heated rooms",
+        "Relative humidity range of 30% to 70%",
+        "Temperature range of 59°F to 77°F (15°C to 25°C)"
+      ]
+    },
+    {
+      "concept_id": "c_storage_of_rauvisio_crystal",
+      "preferred_term": "Storage of RAUVISIO Crystal",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "keeping RAUVISIO crystal safe",
+        "storing RAUVISIO crystal"
+      ],
+      "definition": "The method of storing RAUVISIO crystal boards in a flat, level, and supported position to prevent damage.",
+      "characteristics": [
+        "limited stacking height of five units",
+        "must be stored flat and level",
+        "requires support throughout"
+      ]
+    },
+    {
+      "concept_id": "c_stud_finder",
+      "preferred_term": "Stud Finder",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "stud locator",
+        "wall stud detector"
+      ],
+      "definition": "A tool used to locate wall studs for proper installation of floating shelves.",
+      "characteristics": [
+        "Essential for accurate installation",
+        "Helps identify structural support in walls",
+        "Used before mounting brackets"
+      ]
+    },
+    {
+      "concept_id": "c_substitution_policy",
+      "preferred_term": "Substitution policy",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "product replacement rule",
+        "substitution guidelines"
+      ],
+      "definition": "A policy that outlines the conditions under which substitutions for approved products can be considered, as per the contractual provisions.",
+      "characteristics": [
+        "Applies to product substitutions",
+        "Not permitted without approval",
+        "Subject to review under Section 01600"
+      ]
+    },
+    {
+      "concept_id": "c_super_matte_monotonic_laminate",
+      "preferred_term": "Super-matte Monotonic Laminate",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "matte finish laminate",
+        "smooth surface material"
+      ],
+      "definition": "A type of laminate surface that provides a seamless, ultra-smooth, and light-absorbent finish.",
+      "characteristics": [
+        "Anti-microbial and ultra-low VOCs",
+        "Light-absorbent properties",
+        "Seamless matte finish"
+      ]
+    },
+    {
+      "concept_id": "c_super_matte_pet_surface",
+      "preferred_term": "Super-Matte PET Surface",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "matte finish surface",
+        "smooth PET surface"
+      ],
+      "definition": "A surface finish made from PET material with a highly non-reflective, matte appearance.",
+      "characteristics": [
+        "Made from PET",
+        "Non-reflective",
+        "Used on cabinet doors"
+      ]
+    },
+    {
+      "concept_id": "c_support_material",
+      "preferred_term": "Support Material",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "backing material",
+        "support layer"
+      ],
+      "definition": "A material used to provide structural support and prevent warpage in RAUVISIO terra products during assembly.",
+      "characteristics": [
+        "Both sides of the product should be supported",
+        "Recommended materials include MDF and particle board",
+        "Should be of the same quality and thickness as the core material"
+      ]
+    },
+    {
+      "concept_id": "c_surface_cleaning_restrictions",
+      "preferred_term": "Surface Cleaning Restrictions",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "forbidden cleaning products",
+        "what you can't use on surfaces"
+      ],
+      "definition": "Prohibition of using strong solvents, special cleaners, or strong chemical substances on product surfaces.",
+      "characteristics": [
+        "applies to surface maintenance",
+        "includes drain cleaners and lubricants",
+        "restricts use of certain chemicals"
+      ]
+    },
+    {
+      "concept_id": "c_surface_gloss_level",
+      "preferred_term": "Surface Gloss Level",
+      "acronyms": [
+        "GLE"
+      ],
+      "synonyms_colloquial": [
+        "shine of the surface",
+        "surface shine"
+      ],
+      "definition": "A measure of the surface's reflectivity as determined by the AMK-MB-009 standard.",
+      "characteristics": [
+        "Expressed in GLE units",
+        "Maximum allowable level is ≤ 3",
+        "Measured using a gloss meter"
+      ]
+    },
+    {
+      "concept_id": "c_surface_protection",
+      "preferred_term": "Surface Protection",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Keeping surfaces clean",
+        "Protecting surfaces"
+      ],
+      "definition": "A practice of covering surfaces with non-woven material to prevent marks and damage during storage or handling.",
+      "characteristics": [
+        "Ensures the final product remains in good condition",
+        "Helps prevent scratches or marks from contact",
+        "Recommended for individual components to maintain surface quality"
+      ]
+    },
+    {
+      "concept_id": "c_surface_protection_for_rauvisio_crystal",
+      "preferred_term": "Surface Protection for RAUVISIO Crystal",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "protecting the surface of RAUVISIO crystal",
+        "surface care for RAUVISIO crystal"
+      ],
+      "definition": "The measures taken to ensure the surface of RAUVISIO crystal boards remains undamaged during storage, transport, and handling.",
+      "characteristics": [
+        "avoiding indentations from stack pressure",
+        "protection from debris and scratches",
+        "use of foam materials for protection"
+      ]
+    },
+    {
+      "concept_id": "c_surface_tension",
+      "preferred_term": "Surface Tension",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Surface grip",
+        "Surface stickiness"
+      ],
+      "definition": "A property of the laminate's rear side that affects how it interacts with other materials during processing.",
+      "characteristics": [
+        "Influences handling and application",
+        "Measured for individual laminates",
+        "Part of quality checks before processing"
+      ]
+    },
+    {
+      "concept_id": "c_surface_tension_measurement",
+      "preferred_term": "Surface Tension Measurement",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "surface tension test",
+        "wettability check"
+      ],
+      "definition": "A test to determine the wettability of a laminate surface to ensure proper adhesion.",
+      "characteristics": [
+        "influences bonding quality",
+        "measured in mN/m",
+        "requires a test sample"
+      ]
+    },
+    {
+      "concept_id": "c_technical_information",
+      "preferred_term": "Technical information",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Guidelines",
+        "Installation manual",
+        "Instructions",
+        "Product manual",
+        "Technical guide",
+        "guidelines",
+        "instruction manual",
+        "instructions",
+        "product specs",
+        "technical details",
+        "technical guide"
+      ],
+      "definition": "Detailed information provided by REHAU about the specifications and usage of RAUVISIO products.",
+      "characteristics": [
+        "Available for download on REHAU's website",
+        "Available for download on the manufacturer's website",
+        "Available for download or from local retailers",
+        "Based on empirical values",
+        "Contains installation instructions",
+        "Contains safety-related information",
+        "Includes installation and operating instructions",
+        "Includes installation guidelines",
+        "Includes installation procedures",
+        "Includes safety and environmental regulations",
+        "Includes safety warnings",
+        "Must be followed strictly",
+        "Provides technical specifications",
+        "Provides warranty details",
+        "Updated regularly",
+        "contains safety warnings",
+        "includes processing and installation guidelines",
+        "may be updated regularly"
+      ]
+    },
+    {
+      "concept_id": "c_thermal_overloading",
+      "preferred_term": "Thermal Overloading",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "heat damage",
+        "overheating"
+      ],
+      "definition": "Thermal overloading refers to the risk of damage to the adhesive and laminate system of RAUVISIO Ferro boards due to exposure to high temperatures.",
+      "characteristics": [
+        "Affects adhesive and laminate",
+        "Can lead to appearance issues",
+        "Caused by temperatures above 122°F (50°C)"
+      ]
+    },
+    {
+      "concept_id": "c_thermosetting_glues",
+      "preferred_term": "Thermosetting glues",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "heat-activated glue",
+        "hot press adhesive"
+      ],
+      "definition": "A type of glue that requires hot pressing (100-150°C) and specific pressure to bond laminates to various materials.",
+      "characteristics": [
+        "applied with specific pressure",
+        "suitable for a variety of applications",
+        "used with hot presses"
+      ]
+    },
+    {
+      "concept_id": "c_throughhole_drill_bit",
+      "preferred_term": "Throughhole Drill Bit",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "straight drill bit",
+        "through drill bit"
+      ],
+      "definition": "A drill bit designed to create clean holes through materials like glass laminate and balancing sheet.",
+      "characteristics": [
+        "carbide-tipped",
+        "produces best hole edges on entry and exit sides",
+        "used for through holes"
+      ]
+    },
+    {
+      "concept_id": "c_tool_eccentricities",
+      "preferred_term": "Tool eccentricities",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "imbalanced tool",
+        "tool misalignment"
+      ],
+      "definition": "A condition where the tool is not perfectly aligned, leading to uneven surface finishes and potential damage.",
+      "characteristics": [
+        "Can be minimized using end face milling technology",
+        "Can result in chipping and chatter marks",
+        "Causes differing gloss effects on the surface"
+      ]
+    },
+    {
+      "concept_id": "c_touch_up_marker",
+      "preferred_term": "Touch Up Marker",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "edge touch-up tool",
+        "surface repair marker"
+      ],
+      "definition": "A marker used to hide light fraying or imperfections on the surface edge of a panel.",
+      "characteristics": [
+        "can be applied after cutting or processing",
+        "recommended for certain colors",
+        "used to improve visual appearance"
+      ]
+    },
+    {
+      "concept_id": "c_transportation",
+      "preferred_term": "Transportation",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "moving",
+        "shipping"
+      ],
+      "definition": "The process of moving RAUVISIO ferro boards from one location to another, requiring specific precautions.",
+      "characteristics": [
+        "Bending is not permitted",
+        "Recommended to use transport aids for safety",
+        "Should be transported flat and level"
+      ]
+    },
+    {
+      "concept_id": "c_uniformity_of_color",
+      "preferred_term": "Uniformity of Color",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Consistent color in batches",
+        "Even color across sheets"
+      ],
+      "definition": "The consistency of color across different laminate sheets within the same production batch.",
+      "characteristics": [
+        "Checked before processing",
+        "Ensured by using sheets with the same batch number",
+        "Important for final product quality"
+      ]
+    },
+    {
+      "concept_id": "c_wall_stud",
+      "preferred_term": "Wall Stud",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "wall frame",
+        "wall stud",
+        "wall support",
+        "wood stud"
+      ],
+      "definition": "A vertical structural component in a wall used for supporting and securing hardware like floating shelf brackets.",
+      "characteristics": [
+        "Located 16” on center or closer",
+        "Must be 2” x 4” nominal size",
+        "Must be wooden and free of obstructions",
+        "distance from center to end of MDF strip must not exceed 14\"",
+        "must be centered for proper installation",
+        "used as a support for floating shelf brackets"
+      ]
+    },
+    {
+      "concept_id": "c_warranty",
+      "preferred_term": "Warranty",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Product guarantee",
+        "Protection against defects",
+        "manufacturer's promise",
+        "product guarantee"
+      ],
+      "definition": "A limited warranty provided by the manufacturer for the RAUVISIO ingrain Wood Fiber Laminate Surface Cabinet Doors.",
+      "characteristics": [
+        "Limited in scope",
+        "Provided by the manufacturer",
+        "Subject to terms and conditions",
+        "covered under product specifications",
+        "limited in scope",
+        "provided by manufacturer"
+      ]
+    },
+    {
+      "concept_id": "c_watertight_sealing",
+      "preferred_term": "Watertight Sealing",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "sealing holes to prevent water",
+        "waterproofing holes"
+      ],
+      "definition": "The process of sealing drilled holes in wooden substrates to prevent water ingress during assembly.",
+      "characteristics": [
+        "applied during assembly",
+        "ensures no water penetration",
+        "required for wooden substrates"
+      ]
+    },
+    {
+      "concept_id": "c_wood_dust",
+      "preferred_term": "Wood Dust",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "dust from wood",
+        "wood particles",
+        "wood shavings"
+      ],
+      "definition": "Wood dust is a fine powder created by cutting, drilling, or machining wood products.",
+      "characteristics": [
+        "Can be inhaled and requires personal protective measures",
+        "Exposure is a health risk and requires caution",
+        "Known to cause cancer according to California regulations",
+        "can cause cancer",
+        "must be handled in well-ventilated areas",
+        "requires personal protection measures"
+      ]
+    },
+    {
+      "concept_id": "c_wood_fiber_laminate_surface",
+      "preferred_term": "Wood Fiber Laminate Surface",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "fiber laminate surface",
+        "wood laminate surface"
+      ],
+      "definition": "A type of surface made from wood fibers, laminated to create a durable and aesthetic finish.",
+      "characteristics": [
+        "aesthetic finish",
+        "laminated for durability",
+        "made from wood fibers"
+      ]
+    },
+    {
+      "concept_id": "c_wood_fiber_laminate_surface_board",
+      "preferred_term": "Wood Fiber Laminate Surface Board",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "laminated wood surface board",
+        "wood fiber laminate board"
+      ],
+      "definition": "A type of surface board made from wood fiber laminate, designed for use in interior applications.",
+      "characteristics": [
+        "available in various wood finishes",
+        "made from wood fiber laminate",
+        "used for interior applications"
+      ]
+    },
+    {
+      "concept_id": "c_wooden_studs",
+      "preferred_term": "Wooden Studs",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "wall framing",
+        "wall supports",
+        "wooden support beams"
+      ],
+      "definition": "Vertical structural members made of wood used in building walls for support.",
+      "characteristics": [
+        "Must be located 16” on center or closer",
+        "Typically 2” x 4” in nominal size",
+        "Used for securing floating shelves"
+      ]
+    },
+    {
+      "concept_id": "c_work_equipment",
+      "preferred_term": "Work Equipment",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "Tools",
+        "Work tools"
+      ],
+      "definition": "Tools and equipment necessary for the processing and handling of RAUVISIO products.",
+      "characteristics": [
+        "Includes flammable materials",
+        "Must be stored safely",
+        "Requires proper ventilation"
+      ]
+    },
+    {
+      "concept_id": "c_zero_joint_design",
+      "preferred_term": "Zero-Joint Design",
+      "acronyms": [],
+      "synonyms_colloquial": [
+        "No joint design",
+        "Seamless finish"
+      ],
+      "definition": "A design approach that eliminates visible seams or joints between panels, creating a continuous, uninterrupted surface.",
+      "characteristics": [
+        "Achieved through precise edgebanding",
+        "Creates a seamless appearance",
+        "Enhances visual aesthetics"
+      ]
+    }
+  ],
+  "flat_map": {
+    "3d edgebanding": "RAUVISIO ferro Magic 3-D REHAU LaserEdge edgebanding",
+    "acrylic cabinet doors": "RAUVISIO brilliant High-Gloss Acrylic Surface Cabinet Doors",
+    "acrylic edgebanding": "RAUVISIO Crystal Acrylic Surface Board Edgebanding",
+    "acrylic floating shelves": "RAUVISIO brilliant High-Gloss Acrylic Surface Floating Shelves",
+    "acrylic glass stuff": "RAUVISIO crystal",
+    "acrylic gloss panels": "RAUVISIO brilliant",
+    "acrylic panel": "RAUVISIO brilliant High-Gloss Acrylic Surface Board",
+    "acrylic surface board": "RAUVISIO Crystal Acrylic Surface Board",
+    "acrylic wall panel": "RAUVISIO Crystal Acrylic Laminate",
+    "adhesive joining of layers": "Laminate Substrate Bonding",
+    "adjusting to temperature": "Acclimation",
+    "adjusting to the environment": "Acclimation",
+    "air filter mask": "Dust Mask",
+    "allowed size variation": "Dimensional Tolerance",
+    "aluminum finish": "Material: Anodized Aluminum",
+    "angled edge": "Chamfer",
+    "assembling panels": "Panel Assembly",
+    "attaching laminate to substrate": "Laminate Bonding",
+    "authorized manufacturer": "Approved manufacturer",
+    "backing material": "Support Material",
+    "balancing layer": "Balancing Sheet",
+    "base material": "Core Material",
+    "beveled edge": "Chamfer",
+    "bit": "Drill Bit",
+    "black finish product": "RAUVISIO noir",
+    "black matte boards": "RAUVISIO noir",
+    "bonded sheets": "Glued Sheets",
+    "bonding agents and aids": "Adhesives and Auxiliary Materials",
+    "bonding between laminate and substrate": "Laminate Substrate Bonding",
+    "box": "Packaging",
+    "breathing mask": "Dust Mask",
+    "brilliant cabinets": "RAUVISIO brilliant",
+    "brilliant panels": "RAUVISIO brilliant",
+    "building trim": "Architectural Millwork",
+    "built-in handle": "Integrated Handle",
+    "built-in handles": "Integrated Handles",
+    "cabinet door system": "REHAU RAUVISIO terra",
+    "cabinet doors made of wood fiber laminate": "RAUVISIO ingrain Wood Fiber Laminate Surface Cabinet Doors",
+    "cabinet doors with a matte finish": "RAUVISIO noir Monotonic Matte Surface Cabinet Doors",
+    "cabinet handle grooves": "REHAU Integrated Handles",
+    "cabinet installer": "Cabinet/millwork professional",
+    "cabinet panel": "Cabinet Door",
+    "cabinet surface system": "REHAU RAUVISIO terra",
+    "capacity": "Load Rating",
+    "carrying": "Handling",
+    "certified producer": "Approved manufacturer",
+    "channel handle": "J Channel Handle",
+    "checking stickiness": "Adhesion Evaluation",
+    "chemical resistance": "Chemical durability",
+    "clean edge": "LaserEdge",
+    "clean workspace for laminates": "Laminate Processing Environment",
+    "cleaning laminate edges": "Laminate Surface Treatment",
+    "clear protective layer": "PET Film",
+    "cold-press glue": "Contact glue (Neoprene)",
+    "color durability": "Lightfastness",
+    "combined support": "Composite Support",
+    "company that makes": "Manufacturer",
+    "company that makes the product": "Manufacturer",
+    "compensating layer": "Balancing Sheet",
+    "composite laminate": "CPL Laminate",
+    "composite wood material": "RAUVISIO ingrain",
+    "composite wood product": "RAUVISIO ferro",
+    "conditions around the product": "Environmental Conditions",
+    "consistent color in batches": "Uniformity of Color",
+    "consistent laminate color": "Laminate Sheet Uniformity",
+    "contractor installation": "Professional Installation",
+    "correct way to store boards": "Proper Board Storage",
+    "cover board": "Laminate",
+    "covering film": "Protective Film",
+    "cpl": "CPL Laminate",
+    "cpl laminate": "RAUVISIO ingrain Wood Fiber Laminate Surface CPL Laminate",
+    "crystal acrylic board": "RAUVISIO Crystal Acrylic Surface Board",
+    "crystal edgebanding": "RAUVISIO Crystal Acrylic Surface Board Edgebanding",
+    "crystal finish": "RAUVISIO Crystal",
+    "crystal glass": "RAUVISIO crystal",
+    "crystal glass stuff": "RAUVISIO crystal",
+    "crystal panels": "RAUVISIO crystal",
+    "customer knowledge": "Customer Awareness",
+    "cutting laminate": "Laminate Processing",
+    "cutting laminate sheets": "Laminate Processing",
+    "cutting method": "Cutting Procedure",
+    "cutting process": "Cutting Procedure",
+    "cutting tape": "Masking Tape",
+    "cutting techniques for rauvisio crystal": "Machining procedures for RAUVISIO crystal",
+    "danger alerts": "Safety information",
+    "danger sign": "Safety Alert Symbol",
+    "dark matte panels": "RAUVISIO noir",
+    "dark surface material": "RAUVISIO noir",
+    "decorative laminate panel": "RAUVISIO Ingrain Panel",
+    "decorative mirror panel": "RAUVISIO Crystal Slim",
+    "decorative panel": "Laminated Panel",
+    "decorative woodwork": "Architectural Millwork",
+    "door panel": "Cabinet Door",
+    "drill conditions": "Drilling Parameters",
+    "drill setting": "Drilling Mode",
+    "drill specs": "Drilling Parameters",
+    "drill tip": "Drill Bit",
+    "drilling method": "Drilling Technique",
+    "drilling process": "Drilling Technique",
+    "drilling settings": "Drilling Parameters",
+    "drilling speed": "Drilling Mode",
+    "drilling techniques": "Hole drilling procedures",
+    "drilling tool": "Drill Bit",
+    "drilling type": "Drilling Mode",
+    "dual gloss edgebanding": "Duo-gloss Edgebanding",
+    "dull finish": "Matte Finish",
+    "durable aluminum": "Anodized Aluminum",
+    "durable plastic material": "Solid PET Composition",
+    "dust from manufacturing": "Production Dust",
+    "dust from processing": "Production Dust",
+    "dust from wood": "Wood Dust",
+    "eb": "Edgebanding",
+    "eco-friendly wood material": "RAUVISIO ferro",
+    "eco-friendly wood product": "RAUVISIO ingrain",
+    "edge band": "RAUVISIO Shade Edgebanding",
+    "edge banding": "Edgebanding",
+    "edge covering": "Edgebanding",
+    "edge decoration": "Edgebanding",
+    "edge finish": "Edgebanding",
+    "edge finishing": "Edgebanding",
+    "edge processing": "Cutting Operation",
+    "edge touch-up tool": "Touch Up Marker",
+    "edge treatment": "Edgebanding",
+    "edge trim": "Edgebanding",
+    "edge trim material": "REHAU LaserEdge Duo-gloss",
+    "edgeband design": "LaserEdge",
+    "edgeband designs": "Edgeband Collection",
+    "edgeband finish": "LaserEdge",
+    "edgeband options": "Edgeband Collection",
+    "edgebanding": "RAUVISIO LaserEdge",
+    "edgebanding for furniture": "REHAU LaserEdge™ edgebanding",
+    "edgebanding for rauvisio": "RAUVISIO terra matching edgebanding",
+    "edgebanding material": "REHAU LaserEdge Duo-gloss",
+    "edgebanding product": "REHAU LaserEdge™ edgebanding",
+    "elegant metallic finish": "RAUVISIO ferro",
+    "embedded handle": "Integrated Handle",
+    "embedded handles": "Integrated Handles",
+    "end-user understanding": "Customer Awareness",
+    "equalizing sheet": "Balancing Sheet",
+    "even color across sheets": "Uniformity of Color",
+    "expert installation": "Professional Installation",
+    "face mask for dust": "Dust Mask",
+    "factory dust": "Production Dust",
+    "fake glass": "RAUVISIO crystal",
+    "fake wood panels": "RAUVISIO ingrain",
+    "fake wood terra stuff": "RAUVISIO terra",
+    "fasteners": "Rivets",
+    "ferro boards": "RAUVISIO ferro",
+    "fiber laminate surface": "Wood Fiber Laminate Surface",
+    "fire fighting methods": "Fire Extinguishing Procedures",
+    "fire rating category": "Fire Resistance Class",
+    "fire resistance properties": "Fire Behavior",
+    "fire safety level": "Fire Resistance Class",
+    "fire safety measures": "Fire Extinguishing Procedures",
+    "fire safety rating": "Fire Rating",
+    "fire safety steps": "Fire Extinguishing Procedures",
+    "fire spread measurement": "Flame Spread Index",
+    "fire-resistant material": "Flame Retardant Material",
+    "fittings": "Plugs",
+    "flat-looking cabinet panels": "RAUVISIO shade",
+    "floating rack": "REHAU Floating Shelves",
+    "floating shelf units": "REHAU Floating Shelves",
+    "floating shelves": "REHAU Floating Shelves",
+    "floating wall shelves": "REHAU Floating Shelves",
+    "foam padding": "Foam Non-Woven Material",
+    "forbidden cleaning products": "Surface Cleaning Restrictions",
+    "forest-inspired surface": "RAUVISIO Terra",
+    "fr": "Fire Rating",
+    "fr class": "Fire Resistance Class",
+    "getting the boards ready": "Conditioning",
+    "getting used to conditions": "Acclimation",
+    "getting used to the room": "Acclimation",
+    "glass mirror panel": "RAUVISIO Crystal Slim",
+    "glass-like panels": "RAUVISIO crystal",
+    "glass-like surface": "RAUVISIO Crystal",
+    "gle": "Surface Gloss Level",
+    "glossy cabinets": "RAUVISIO brilliant",
+    "glossy doors": "RAUVISIO brilliant",
+    "glossy panel": "RAUVISIO Crystal Acrylic Laminate",
+    "glued panels": "Glued Sheets",
+    "glues and helpers": "Adhesives and Auxiliary Materials",
+    "grain effect": "RAUVISIO ingrain",
+    "guarantee from manufacturer": "Manufacturer's warranty",
+    "guidelines": "Technical information",
+    "handling boards properly": "Board Handling",
+    "handling cabinet products": "Storage and handling of RAUVISIO noir products",
+    "handling panels": "Panel Handling",
+    "handling rauvisio crystal": "Handling of RAUVISIO Crystal",
+    "hanging shelf": "Floating Shelf",
+    "heat damage": "Thermal Overloading",
+    "heat-activated glue": "Thermosetting glues",
+    "heat-resistant material": "Flame Retardant Material",
+    "hidden handles": "REHAU Integrated Handles",
+    "high-gloss acrylic cabinet doors": "RAUVISIO brilliant High-Gloss Acrylic Surface Cabinet Doors",
+    "high-gloss acrylic surface": "RAUVISIO brilliant",
+    "high-gloss acrylic surface board": "RAUVISIO brilliant High-Gloss Acrylic Surface Board",
+    "high-gloss cabinets": "RAUVISIO brilliant",
+    "high-gloss floating shelves": "RAUVISIO brilliant High-Gloss Acrylic Surface Floating Shelves",
+    "hinge bit drilling": "Hinge Drilling",
+    "hinge hole drilling": "Hinge Drilling",
+    "hot press adhesive": "Thermosetting glues",
+    "house line products": "RAUVISIO House",
+    "how a product burns": "Fire Behavior",
+    "how fast a fire spreads": "Flame Spread Index",
+    "how much smoke a material gives off": "Smoke Developed Index",
+    "how safe a product is in fire": "Fire Rating",
+    "how to dispose": "Disposal Code",
+    "how to keep the boards safe in packaging": "Packaging Protection",
+    "how to move the boards": "Handling and Transport",
+    "how to put out a fire": "Fire Extinguishing Procedures",
+    "how to store cabinet doors": "Storage and handling of RAUVISIO noir products",
+    "how to store the boards": "Storage Conditions",
+    "hw": "Drill Bit",
+    "identifying production runs": "Batch Traceability",
+    "imbalanced tool": "Tool eccentricities",
+    "incorrect storage method": "Improper Storage",
+    "ingrain panels": "RAUVISIO ingrain",
+    "inner layer": "Core Material",
+    "inserts": "Plugs",
+    "install floating shelves": "Floating Shelf Installation",
+    "installation conditions": "Environmental Conditions",
+    "installation guidelines": "Safety and Installation Instructions",
+    "installation instructions": "Installation Guidelines",
+    "installation manual": "Technical information",
+    "installation process": "RAUVISIO Shade Installation",
+    "instruction manual": "Technical information",
+    "instructions": "Technical information",
+    "insulating block": "Foam Block",
+    "integrated handles": "REHAU Integrated Handles",
+    "invisible handle": "Hidden Recessed Handle",
+    "keeping boards clean": "Contamination Prevention",
+    "keeping rauvisio crystal safe": "Storage of RAUVISIO Crystal",
+    "keeping surfaces clean": "Surface Protection",
+    "keeping the boards flat": "Board Support",
+    "l-s": "Drilling Mode",
+    "l-s-l": "Drilling Mode",
+    "laminate adhesion": "Laminate Bonding",
+    "laminate cabinet doors": "RAUVISIO ingrain Wood Fiber Laminate Surface Cabinet Doors",
+    "laminate drilling methods": "Hole drilling procedures",
+    "laminate finish": "REHAU LaserEdge Laminate",
+    "laminate panels": "Laminate Sheets",
+    "laminate safeguard": "Laminate Protection",
+    "laminate sheet": "Laminate Material",
+    "laminate surface": "CPL Laminate",
+    "laminate surface material": "RAUVISIO ingrain",
+    "laminated surface": "REHAU LaserEdge Laminate",
+    "laminated wood surface board": "Wood Fiber Laminate Surface Board",
+    "laseredge": "REHAU LaserEdge Duo-gloss",
+    "laseredge edgebanding": "RAUVISIO ferro Magic 3-D REHAU LaserEdge edgebanding",
+    "laseredge laminate": "REHAU LaserEdge Laminate",
+    "le": "RAUVISIO LaserEdge",
+    "letting boards adjust": "Board Acclimation",
+    "letting the boards rest": "Acclimation Period",
+    "locking mechanism": "Self-Locking Feature",
+    "manufacturer of rauvisio products": "REHAU Industries LLC",
+    "manufacturer's promise": "Warranty",
+    "manufacturing dust": "Production Dust",
+    "matching edgeband": "RAUVISIO terra matching edgebanding",
+    "material appropriateness": "Material Suitability",
+    "material compatibility": "Material Suitability",
+    "material sheets": "RAUVISIO ferro",
+    "matte boards": "RAUVISIO shade",
+    "matte cabinets": "RAUVISIO shade",
+    "matte counter": "RAUVISIO noir",
+    "matte countertop": "RAUVISIO noir",
+    "matte finish laminate": "Super-matte Monotonic Laminate",
+    "matte finish surface": "Super-Matte PET Surface",
+    "matte surface panel": "RAUVISIO noir",
+    "mdf board": "MDF Strip",
+    "mdf panel": "MDF Strip",
+    "measurement error": "Dimensional Tolerance",
+    "metal finish": "Material: Anodized Aluminum",
+    "metal finish panels": "RAUVISIO ferro",
+    "metal look panels": "RAUVISIO ferro",
+    "metal pins": "Rivets",
+    "metal-looking boards": "RAUVISIO ferro",
+    "metallic panels": "RAUVISIO ferro",
+    "metallic pet surface": "RAUVISIO ferro",
+    "metallic pet surface board": "RAUVISIO ferro Metallic PET Surface Board",
+    "metallic pet surface board product line": "RAUVISIO ferro",
+    "metallic pet surface panel": "RAUVISIO ferro Metallic PET Surface Board",
+    "mfr.": "Manufacturer",
+    "milling equipment": "Milling Machine",
+    "milling tool": "Milling Machine",
+    "mirror wall panel": "RAUVISIO Crystal Mirror Panel",
+    "mixed support": "Composite Support",
+    "mm": "Milling Machine",
+    "monotonic surface cabinet doors": "RAUVISIO noir Monotonic Matte Surface Cabinet Doors",
+    "mounting": "Installation",
+    "mounting bracket": "Bracket",
+    "mounting screw": "RSS Screw",
+    "mounting shelves": "Floating Shelf Installation",
+    "moving": "Handling",
+    "moving boards carefully": "Board Handling",
+    "moving panels": "Panel Handling",
+    "moving rauvisio crystal": "Handling of RAUVISIO Crystal",
+    "moving the boards safely": "Handling and Transport",
+    "neoprene": "Contact glue (Neoprene)",
+    "no joint design": "Zero-Joint Design",
+    "noir finish panel": "RAUVISIO noir",
+    "noir panels": "RAUVISIO noir",
+    "non-glossy finish": "Matte Finish",
+    "non-scratch property": "Scratch-Resistance",
+    "non-staining property": "Stain-Resistance",
+    "normal room temperature": "Room Temperature Conditions",
+    "opening the box": "Packaging Unpacking",
+    "overheating": "Thermal Overloading",
+    "packaging unit for rauvisio crystal": "RAUVISIO Crystal Packaging Unit",
+    "packed box": "Packaging Unit",
+    "padding block": "Foam Block",
+    "panel care": "Maintenance and Cleaning of RAUVISIO noir",
+    "panel cutting": "Cutting Operation",
+    "panel edge treatment": "Edgebanding",
+    "peel-off coating": "Protective Peel Coat",
+    "peelable protective layer": "Protective Peel Coat",
+    "plastic film": "PET Film",
+    "polymer glass panels": "RAUVISIO crystal",
+    "precision edge": "LaserEdge",
+    "preparation for adhesion": "Corona Pre-Treatment",
+    "preparation steps": "Conditioning Procedures",
+    "preparing laminate": "Laminate Processing",
+    "preparing laminate surface": "Laminate Surface Treatment",
+    "preparing the boards": "Conditioning",
+    "pressure from stacking": "Stack Pressure",
+    "preventing dirt": "Contamination Prevention",
+    "processing methods for rauvisio crystal": "Machining procedures for RAUVISIO crystal",
+    "product boards": "RAUVISIO ferro",
+    "product data sheets": "RAUVISIO noir technical information",
+    "product details": "Product Description",
+    "product guarantee": "Limited Warranty",
+    "product guide": "RAUVISIO House Program Guide",
+    "product maker": "Manufacturer",
+    "product manual": "RAUVISIO Shade Technical Information",
+    "product overview": "Product Description",
+    "product replacement rule": "Substitution policy",
+    "product specs": "RAUVISIO brilliant Technical Information",
+    "product technical specs": "RAUVISIO ferro technical information",
+    "product warranty": "Manufacturer's warranty",
+    "professional for installation": "Installer qualifications",
+    "protecting laminate": "Laminate Protection",
+    "protecting surfaces": "Surface Protection",
+    "protecting the packaging": "Packaging Protection",
+    "protecting the surface of rauvisio crystal": "Surface Protection for RAUVISIO Crystal",
+    "protection against defects": "Warranty",
+    "protective foam": "Foam Non-Woven Material",
+    "protective gear": "Safety Equipment",
+    "protective layer": "Cover Panel",
+    "protective panel": "Sacrificial Panel",
+    "putting panels together": "Panel Assembly",
+    "putting the product in place": "Installation",
+    "putting up": "Installation",
+    "qualified installer": "Installer qualifications",
+    "rauvisio": "RAUVISIO Crystal Acrylic Surface Board",
+    "rauvisio black": "RAUVISIO noir",
+    "rauvisio board": "RAUVISIO ferro",
+    "rauvisio composite product": "RAUVISIO shade",
+    "rauvisio edgebanding": "RAUVISIO Crystal Acrylic Surface Board Edgebanding",
+    "rauvisio ferro": "RAUVISIO ferro Metallic PET Surface Board",
+    "rauvisio ferro board": "RAUVISIO ferro Metallic PET Surface Board",
+    "rauvisio ferro magic 3-d": "RAUVISIO ferro Magic 3-D REHAU LaserEdge edgebanding",
+    "rauvisio ferro material": "RAUVISIO ferro",
+    "rauvisio ferro product": "RAUVISIO ferro",
+    "rauvisio ferro tech info": "RAUVISIO ferro technical information",
+    "rauvisio ingrain": "RAUVISIO ingrain™ wood fiber laminate surface",
+    "rauvisio ingrain surface": "RAUVISIO ingrain",
+    "rauvisio matte finish": "RAUVISIO noir",
+    "rauvisio metallic pet surface": "RAUVISIO ferro",
+    "rauvisio polymer surface": "RAUVISIO ferro",
+    "rauvisio product": "RAUVISIO ferro",
+    "rauvisio product line": "RAUVISIO House",
+    "rauvisio shade panel": "RAUVISIO shade",
+    "rauvisio surface": "RAUVISIO ingrain™ wood fiber laminate surface",
+    "rauvisio wood finish": "RAUVISIO ingrain",
+    "rc": "RAUVISIO Crystal",
+    "recessed handle": "Hidden Recessed Handle",
+    "reflective panel": "RAUVISIO Crystal Mirror Panel",
+    "rehau company": "REHAU Industries LLC",
+    "rehau edgebanding": "REHAU LaserEdge™ edgebanding",
+    "rehau laseredge": "RAUVISIO Shade Edgebanding",
+    "resistance to chemicals": "Chemical durability",
+    "resistance to fading": "Lightfastness",
+    "resistance to scratches": "Scratch-Resistance",
+    "resistance to staining": "Stain-Resistance",
+    "respiratory mask": "Dust Mask",
+    "rfs": "REHAU Floating Shelves",
+    "right storage method for boards": "Proper Board Storage",
+    "room temperature adjustment": "Acclimation Period",
+    "rss": "RSS Screw",
+    "s-s": "Drilling Mode",
+    "s-s-s": "Drilling Mode",
+    "safe area for cutting and bonding": "Laminate Processing Environment",
+    "safe use instructions": "Product safety guidelines",
+    "safeguarding rauvisio crystal": "Protective Measures for RAUVISIO Crystal",
+    "safety gear": "Safety Equipment",
+    "safety icon": "Safety Alert Symbol",
+    "safety manual": "Safety and Installation Instructions",
+    "safety precautions": "Protective Measures",
+    "safety rules for products": "Product safety guidelines",
+    "safety warnings": "Safety information",
+    "same color laminate sheets": "Laminate Sheet Uniformity",
+    "saw requirements": "Circular Saw Specifications",
+    "saw settings": "Circular Saw Specifications",
+    "screws that drill their own hole": "Self-Tapping Screws",
+    "sealing holes to prevent water": "Watertight Sealing",
+    "seamless finish": "Zero-Joint Design",
+    "secure fit": "Self-Locking Feature",
+    "self-drilling screws": "Self-Tapping Screws",
+    "setting up": "Installation",
+    "setting up the product": "Installation",
+    "setup instructions": "RAUVISIO Shade Installation",
+    "setup process": "Conditioning Procedures",
+    "setup rules": "Installation Guidelines",
+    "shade panels": "RAUVISIO shade",
+    "shading board": "RAUVISIO Shade Surface Board",
+    "shaping laminate": "Laminate Processing",
+    "sheet material": "Laminate",
+    "sheet materials": "Laminate Sheets",
+    "shelf": "Floating Shelf",
+    "shelf bracket": "Floating Shelf Bracket",
+    "shelf mount": "Floating Shelf Bracket",
+    "shelf support bracket": "Floating Shelf Bracket",
+    "shelf that floats": "Floating Shelf",
+    "shelf that hangs from the wall": "Floating Shelf",
+    "shine of the surface": "Surface Gloss Level",
+    "shiny cabinets": "RAUVISIO brilliant",
+    "shiny doors": "RAUVISIO brilliant",
+    "shiny glass panels": "RAUVISIO crystal",
+    "shipping": "Transportation",
+    "shipping container": "Packaging",
+    "shipping containers": "Packaging",
+    "shipping methods": "Shipping Procedures",
+    "shipping unit": "Packaging Unit",
+    "shipping wrap": "Protective Film",
+    "shower panel": "Shower Wall Cladding",
+    "shower wall covering": "Shower Wall Cladding",
+    "sleek shelves": "Floating Shelves",
+    "slim crystal material": "RAUVISIO Crystal Slim",
+    "slim glass panel": "RAUVISIO Crystal Slim",
+    "slim wall panel": "RAUVISIO Crystal Slim Panel",
+    "smoke production during fire": "Smoke Developed Index",
+    "smooth pet surface": "Super-Matte PET Surface",
+    "smooth surface material": "Super-matte Monotonic Laminate",
+    "snipping laminate edges": "Laminate Cutting",
+    "soft surface board": "RAUVISIO terra Soft, Textured HPL Surface Board",
+    "solid plastic construction": "Solid PET Composition",
+    "special screw": "RSS Screw",
+    "specification guide": "RAUVISIO House Program Guide",
+    "stacking for transport": "Laminate Packaging",
+    "stacking force": "Stack Pressure",
+    "standard temperature": "Room Temperature Conditions",
+    "storage conditions": "Storage Environment",
+    "storage environment": "Storage Conditions",
+    "storage requirements": "Storage Conditions",
+    "storage setup": "Storage Conditions",
+    "storage unit for rauvisio crystal": "RAUVISIO Crystal Packaging Unit",
+    "storing rauvisio crystal": "Storage of RAUVISIO Crystal",
+    "straight drill bit": "Throughhole Drill Bit",
+    "stud locator": "Stud Finder",
+    "styled handle": "J Channel Handle",
+    "substitution guidelines": "Substitution policy",
+    "subtle handle": "Hidden Recessed Handle",
+    "super flat dark finish": "RAUVISIO noir",
+    "super matte panels": "RAUVISIO shade",
+    "support bracket": "Bracket",
+    "support layer": "Balancing Sheet",
+    "supporting the boards properly": "Board Support",
+    "surface care for rauvisio crystal": "Surface Protection for RAUVISIO Crystal",
+    "surface grip": "Surface Tension",
+    "surface maintenance": "Maintenance and Cleaning of RAUVISIO noir",
+    "surface material": "Laminate Material",
+    "surface panel": "RAUVISIO Ingrain Panel",
+    "surface repair marker": "Touch Up Marker",
+    "surface shine": "Surface Gloss Level",
+    "surface stickiness": "Surface Tension",
+    "surface tension test": "Surface Tension Measurement",
+    "surface treatment for bonding": "Corona Pre-Treatment",
+    "suspended shelves": "Floating Shelves",
+    "taking out the boards": "Packaging Unpacking",
+    "technical data sheet": "RAUVISIO brilliant Technical Information",
+    "technical details": "Technical information",
+    "technical guide": "RAUVISIO Shade Technical Information",
+    "technical specs for rauvisio noir": "RAUVISIO noir technical information",
+    "temperature and humidity": "Environmental Conditions",
+    "temporary adhesive tape": "Masking Tape",
+    "temporary coating": "Protective Peel Coat",
+    "temporary protective layer": "Protective Peel Coat",
+    "terra": "REHAU RAUVISIO terra",
+    "terra panels": "RAUVISIO terra",
+    "testing bond strength": "Adhesion Evaluation",
+    "textured hpl board": "RAUVISIO terra Soft, Textured HPL Surface Board",
+    "textured laminate boards": "RAUVISIO terra",
+    "textured wood boards": "RAUVISIO terra",
+    "textured wood look surface": "RAUVISIO Terra",
+    "thermoplastic adhesive": "Contact glue (Neoprene)",
+    "thin crystal sheet": "RAUVISIO Crystal Slim",
+    "thin polymer glass": "RAUVISIO Crystal Slim",
+    "thin pressed panel": "RAUVISIO Crystal Slim Panel",
+    "through drill bit": "Throughhole Drill Bit",
+    "tool misalignment": "Tool eccentricities",
+    "tools": "Work Equipment",
+    "top coat": "Peel Coat",
+    "top cover": "Cover Panel",
+    "tough aluminum": "Anodized Aluminum",
+    "tracking production batches": "Batch Traceability",
+    "transport guidelines": "Shipping Procedures",
+    "trimming laminate layers": "Laminate Cutting",
+    "two-tone edgebanding": "Duo-gloss Edgebanding",
+    "underlying panel": "Sacrificial Panel",
+    "visible channel handle": "J Channel Handle",
+    "visible handle": "J Channel Handle",
+    "waiting before opening the package": "Acclimation Period",
+    "waiting for boards to get used to the environment": "Board Acclimation",
+    "waiting time for temperature": "Acclimation Period",
+    "wall frame": "Wall Stud",
+    "wall framing": "Wooden Studs",
+    "wall shelf": "Floating Shelf",
+    "wall shelf bracket": "Floating Shelf Bracket",
+    "wall shelves": "REHAU Floating Shelves",
+    "wall stud detector": "Stud Finder",
+    "wall support": "Wall Stud",
+    "wall supports": "Wooden Studs",
+    "wall-mounted shelf": "Floating Shelf",
+    "wall-mounted shelves": "Floating Shelves",
+    "warning symbol": "Safety Alert Symbol",
+    "warranty coverage": "Limited Warranty",
+    "warranty document": "RAUVISIO Shade Warranty",
+    "waste disposal guidelines": "Disposal Code",
+    "waterproofing holes": "Watertight Sealing",
+    "ways to protect rauvisio crystal": "Protective Measures for RAUVISIO Crystal",
+    "ways to put out fires": "Fire Extinguishing Procedures",
+    "ways to stay safe": "Protective Measures",
+    "weight limit": "Load Rating",
+    "wettability check": "Surface Tension Measurement",
+    "what you can't use on surfaces": "Surface Cleaning Restrictions",
+    "where the boards are kept": "Storage Environment",
+    "wood dust": "Production Dust",
+    "wood fiber laminate board": "Wood Fiber Laminate Surface Board",
+    "wood fiber laminate product": "RAUVISIO ingrain",
+    "wood fiber laminate surface": "RAUVISIO ingrain Wood Fiber Laminate Surface CPL Laminate",
+    "wood fiber sheets": "RAUVISIO ingrain",
+    "wood grain cabinets": "RAUVISIO ingrain",
+    "wood grain finish": "RAUVISIO ingrain",
+    "wood laminate surface": "Wood Fiber Laminate Surface",
+    "wood particles": "Wood Dust",
+    "wood shavings": "Wood Dust",
+    "wood stud": "Wall Stud",
+    "wood-look panels": "RAUVISIO ingrain",
+    "wooden composite with polymer coating": "RAUVISIO shade",
+    "wooden support beams": "Wooden Studs",
+    "woodworker": "Cabinet/millwork professional",
+    "work tools": "Work Equipment",
+    "wrapping laminates safely": "Laminate Packaging",
+    "wrapping materials": "Packaging",
+    "wrong way to store boards": "Improper Storage"
+  }
+}
