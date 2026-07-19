@@ -1,0 +1,124 @@
+{
+  "RAUVISIO brilliant": {
+    "preferred_term": "RAUVISIO brilliant",
+    "definition": "High-gloss acrylic surface product line for cabinets, panels, and floating shelves.",
+    "characteristics": ["high-gloss acrylic finish", "cabinet and panel applications"],
+    "synonyms_colloquial": [
+      "brilliant cabinets",
+      "brilliant panels",
+      "shiny cabinets",
+      "glossy cabinets",
+      "glossy doors",
+      "shiny doors",
+      "high-gloss cabinets",
+      "acrylic gloss panels"
+    ]
+  },
+  "RAUVISIO crystal": {
+    "preferred_term": "RAUVISIO crystal",
+    "definition": "Polymer glass / acrylic surface board product line with glass-like appearance.",
+    "characteristics": ["glass-like surface", "polymer composite", "cabinet and countertop use"],
+    "synonyms_colloquial": [
+      "crystal glass",
+      "crystal glass stuff",
+      "fake glass",
+      "acrylic glass stuff",
+      "shiny glass panels",
+      "glass-like panels",
+      "crystal panels",
+      "polymer glass panels"
+    ]
+  },
+  "RAUVISIO noir": {
+    "preferred_term": "RAUVISIO noir",
+    "definition": "Monotonic matte / compact dark surface product line.",
+    "characteristics": ["matte black finish", "compact and laminate variants"],
+    "synonyms_colloquial": [
+      "matte counter",
+      "matte countertop",
+      "black matte boards",
+      "dark matte panels",
+      "noir panels",
+      "matte cabinets",
+      "super flat dark finish"
+    ]
+  },
+  "RAUVISIO shade": {
+    "preferred_term": "RAUVISIO shade",
+    "definition": "Super-matte PET surface board product line.",
+    "characteristics": ["super-matte PET", "cabinet door applications"],
+    "synonyms_colloquial": [
+      "matte cabinets",
+      "flat-looking cabinet panels",
+      "super matte panels",
+      "shade panels",
+      "matte boards"
+    ]
+  },
+  "RAUVISIO ferro": {
+    "preferred_term": "RAUVISIO ferro",
+    "definition": "Metallic PET surface board product line with metal-look finish.",
+    "characteristics": ["metallic appearance", "PET foil surface"],
+    "synonyms_colloquial": [
+      "metal-looking boards",
+      "metal look panels",
+      "metal finish panels",
+      "ferro boards",
+      "metallic panels"
+    ]
+  },
+  "RAUVISIO ingrain": {
+    "preferred_term": "RAUVISIO ingrain",
+    "definition": "Wood fiber laminate surface product line with embossed grain.",
+    "characteristics": ["wood grain appearance", "wood fiber laminate"],
+    "synonyms_colloquial": [
+      "fake wood panels",
+      "wood grain cabinets",
+      "wood-look panels",
+      "ingrain panels",
+      "wood fiber sheets"
+    ]
+  },
+  "RAUVISIO terra": {
+    "preferred_term": "RAUVISIO terra",
+    "definition": "Textured HPL surface board product line with wood and stone decors.",
+    "characteristics": ["textured HPL", "wood and stone decors"],
+    "synonyms_colloquial": [
+      "fake wood terra stuff",
+      "textured wood boards",
+      "terra panels",
+      "textured laminate boards"
+    ]
+  },
+  "Floating Shelves": {
+    "preferred_term": "REHAU Floating Shelves",
+    "definition": "REHAU floating shelf system for wall-mounted installation.",
+    "characteristics": ["wall-mounted", "floating installation"],
+    "synonyms_colloquial": [
+      "floating shelves",
+      "floating rack",
+      "wall shelves",
+      "floating wall shelves"
+    ]
+  },
+  "Integrated Handles": {
+    "preferred_term": "REHAU Integrated Handles",
+    "definition": "Integrated handle profiles for cabinet doors.",
+    "characteristics": ["cabinet handles", "integrated pull profiles"],
+    "synonyms_colloquial": [
+      "integrated handles",
+      "hidden handles",
+      "cabinet handle grooves"
+    ]
+  },
+  "General": {
+    "preferred_term": "RAUVISIO House",
+    "definition": "Cross-product RAUVISIO House program documentation.",
+    "characteristics": ["program-wide", "multi-product"],
+    "synonyms_colloquial": [
+      "rauvisio house",
+      "house line products",
+      "rauvisio product line"
+    ]
+  }
+}
