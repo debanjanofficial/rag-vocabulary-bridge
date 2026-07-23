@@ -15,7 +15,7 @@ sys.path.insert(0, ROOT)
 
 from config import EVAL_RESULTS, CHROMA_DIR, GEN_MODEL
 from src.qrels import load_qrels
-from src.retriever import retrieve_full, retrieve_full_rrf
+from src.retriever import retrieve_full, retrieve_full_rrf, retrieve_full_self_query
 from src.strategies.nlp_strategy import nlp_map
 from src.strategies.embedding_strategy import embedding_map
 from src.strategies.llm_strategy import llm_map
@@ -47,7 +47,7 @@ def get_eval_results():
     return None
 
 
-def run_strategy(name, query, llm_ok, method="few_shot"):
+def run_strategy(name, query, llm_ok):
     if name == "Baseline":
         return {"original_query": query, "final_query": query, "strategy": "Baseline"}
     if name == "NLP-based":
@@ -55,7 +55,7 @@ def run_strategy(name, query, llm_ok, method="few_shot"):
     if name == "Embedding-based":
         return embedding_map(query)
     if name == "LLM-based":
-        return llm_map(query, llm_available=llm_ok, method=method)
+        return llm_map(query, llm_available=llm_ok)
     return {"original_query": query, "final_query": query}
 
 
@@ -109,10 +109,6 @@ with tab_demo:
         strategy = st.radio("Strategy:",
                             ["Baseline", "NLP-based", "Embedding-based", "LLM-based"],
                             horizontal=True)
-        method = "few_shot"
-        if strategy == "LLM-based":
-            method = st.selectbox("LLM method:",
-                                  ["few_shot", "zero_shot", "cot", "multi_query"])
         top_k = st.slider("Top-K documents:", 1, 20, 5)
         go = st.button("Run", type="primary", use_container_width=True)
 
@@ -124,7 +120,7 @@ with tab_demo:
                 st.info(f'"{query}"')
             with st.expander("Step 2 — Mapping module", expanded=True):
                 with st.spinner("Mapping..."):
-                    result = run_strategy(strategy, query, llm_ok, method)
+                    result = run_strategy(strategy, query, llm_ok)
                 mapped = result.get("final_query", query)
                 if strategy == "NLP-based":
                     st.markdown("**Term mappings** *(embedding-gated; RRF with original)*")
@@ -171,25 +167,44 @@ with tab_demo:
                         st.caption(
                             "Appended: " + " | ".join(result["appended_terms"])
                         )
-                elif strategy == "LLM-based" and method == "multi_query":
-                    for i, v in enumerate(result.get("query_variants", []), 1):
-                        st.markdown(f"{i}. {v}")
-                if mapped.strip() != query.strip():
+                elif strategy == "LLM-based":
+                    st.markdown(
+                        "**Self-Query** *(hard product filter + intent-aware guide/spec rerank)*"
+                    )
+                    dbg = result.get("debug", {}) or {}
+                    if result.get("abstained"):
+                        st.caption(
+                            f"Abstained — {result.get('method_used', 'passthrough')}. "
+                            "No confident product filter (baseline retrieval)."
+                        )
+                    else:
+                        filters = result.get("filters") or {}
+                        parts = []
+                        if filters.get("product"):
+                            parts.append(f"product=`{filters['product']}`")
+                        if filters.get("doc_type"):
+                            parts.append(f"doc_type=`{filters['doc_type']}`")
+                        prefer = result.get("prefer_source")
+                        if prefer:
+                            parts.append(f"prefer=`{prefer}`")
+                        st.caption("Filters: " + ", ".join(parts))
+                    st.markdown(
+                        f"**Intent:** `{result.get('intent', 'other')}`  \n"
+                        f"**Semantic query:** {result.get('semantic_query', mapped)}"
+                    )
+                    if dbg.get("raw_llm"):
+                        with st.expander("LLM JSON (raw)"):
+                            st.json(dbg["raw_llm"])
+                if mapped.strip() != query.strip() and strategy != "LLM-based":
                     st.caption("Expanded query")
                     st.success(mapped[:500])
                 else:
-                    st.caption("Expanded query (unchanged)")
+                    st.caption("Expanded query (unchanged)" if strategy != "LLM-based" else "Semantic query (same as original)")
                     st.text(mapped[:500])
             with st.expander("Step 3 — Retrieved documents", expanded=True):
                 with st.spinner("Retrieving..."):
-                    if strategy == "LLM-based" and method == "multi_query":
-                        docs, seen = [], set()
-                        for v in result.get("query_variants", [query]):
-                            for d in retrieve_full(v, top_k=top_k):
-                                if d["chunk_id"] not in seen:
-                                    docs.append(d)
-                                    seen.add(d["chunk_id"])
-                        docs = docs[:top_k]
+                    if strategy == "LLM-based":
+                        docs = retrieve_full_self_query(result, top_k=top_k)
                     elif strategy in ("NLP-based", "Embedding-based"):
                         docs = retrieve_full_rrf(
                             result.get("retrieval_queries") or [query],
@@ -227,14 +242,26 @@ with tab_compare:
         for strat in ["Baseline", "NLP-based", "Embedding-based", "LLM-based"]:
             st.markdown(f"**{strat}**")
             res = run_strategy(strat, cmp_q, llm_ok)
-            if strat in ("NLP-based", "Embedding-based"):
+            if strat == "LLM-based":
+                docs = retrieve_full_self_query(res, top_k=3)
+            elif strat in ("NLP-based", "Embedding-based"):
                 docs = retrieve_full_rrf(
                     res.get("retrieval_queries") or [cmp_q],
                     top_k=3,
                 )
             else:
                 docs = retrieve_full(res.get("final_query", cmp_q), top_k=3)
-            st.text(res.get("final_query", cmp_q)[:200])
+            label = res.get("semantic_query", res.get("final_query", cmp_q)) if strat == "LLM-based" else res.get("final_query", cmp_q)
+            st.text(str(label)[:200])
+            filters = res.get("filters") or {}
+            if filters:
+                extra = ", ".join(f"{k}={v}" for k, v in filters.items())
+                prefer = res.get("prefer_source")
+                if prefer:
+                    extra += f", prefer={prefer}"
+                st.caption(
+                    f"Intent=`{res.get('intent', 'other')}` · Filters: {extra}"
+                )
             if any(d["chunk_id"] in gold for d in docs):
                 st.markdown("✓ GT found")
             else:

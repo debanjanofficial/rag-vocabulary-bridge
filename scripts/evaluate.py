@@ -7,7 +7,7 @@ import os
 import time
 
 from config import EVAL_DATASET, EVAL_RESULTS, GEN_MODEL
-from src.retriever import retrieve, retrieve_rrf
+from src.retriever import retrieve, retrieve_rrf, retrieve_self_query
 from src.strategies.nlp_strategy import nlp_map
 from src.strategies.embedding_strategy import embedding_map
 from src.strategies.llm_strategy import llm_map
@@ -47,23 +47,17 @@ def run_embedding(q, _llm, k):
     return retrieve_rrf(queries, top_k=k)
 
 
-def run_llm_fewshot(q, llm, k):
-    return retrieve(llm_map(q, llm_available=llm, method="few_shot")["final_query"], k)
-
-
-def run_llm_cot(q, llm, k):
-    return retrieve(llm_map(q, llm_available=llm, method="cot")["final_query"], k)
-
-
-def run_llm_multi(q, llm, k):
-    variants = llm_map(q, llm_available=llm, method="multi_query").get("query_variants", [q])
-    seen, ids = set(), []
-    for v in variants:
-        for rid in retrieve(v, k):
-            if rid not in seen:
-                ids.append(rid)
-                seen.add(rid)
-    return ids[:k]
+def run_llm_self_query(q, llm, k):
+    mapped = llm_map(q, llm_available=llm)
+    filters = mapped.get("filters") or {}
+    return retrieve_self_query(
+        mapped.get("original_query") or q,
+        mapped.get("semantic_query") or mapped.get("final_query") or q,
+        product=filters.get("product"),
+        doc_type=filters.get("doc_type"),
+        prefer_source=mapped.get("prefer_source"),
+        top_k=k,
+    )
 
 
 def evaluate(llm=True, top_k_vals=(1, 3, 5), limit=0, out_path=EVAL_RESULTS):
@@ -76,11 +70,7 @@ def evaluate(llm=True, top_k_vals=(1, 3, 5), limit=0, out_path=EVAL_RESULTS):
 
     strategies = {"Baseline": run_baseline, "NLP": run_nlp, "Embedding": run_embedding}
     if llm:
-        strategies.update({
-            "LLM Few-shot": run_llm_fewshot,
-            "LLM CoT": run_llm_cot,
-            "LLM Multi-query": run_llm_multi,
-        })
+        strategies["LLM Self-Query"] = run_llm_self_query
     else:
         print("LLM strategies skipped (--no-llm).\n")
 

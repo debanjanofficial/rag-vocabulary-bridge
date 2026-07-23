@@ -12,6 +12,13 @@ from src.embeddings import embed_queries
 _collection = None
 _RRF_K = 60
 
+_BOILERPLATE = (
+    "install in accordance to manufacturer's instructions",
+    "install in accordance with the manufacturer's instructions",
+    "install in accordance to manufacturer’s instructions",
+    "install in accordance with the manufacturer’s instructions",
+)
+
 
 def _col():
     global _collection
@@ -21,10 +28,116 @@ def _col():
     return _collection
 
 
-def retrieve(query: str, top_k: int = 5) -> list[str]:
+def _build_where(product: str | None = None, doc_type: str | None = None) -> dict | None:
+    clauses: list[dict] = []
+    if product:
+        clauses.append({"product": product})
+    if doc_type:
+        clauses.append({"doc_type": doc_type})
+    if not clauses:
+        return None
+    if len(clauses) == 1:
+        return clauses[0]
+    return {"$and": clauses}
+
+
+def _is_technical_guide(source_pdf: str) -> bool:
+    s = (source_pdf or "").lower().replace("\\", "/")
+    return (
+        "technical guide" in s
+        or "instruction manual" in s
+        or "/product information/" in s and "instruction" in s
+    )
+
+
+def _is_spec_sheet(source_pdf: str) -> bool:
+    s = (source_pdf or "").lower().replace(" ", "").replace("\\", "/")
+    return "specsheet" in s or "specsheets" in s
+
+
+def rerank_within_product(
+    docs: list[dict],
+    prefer_source: str | None = None,
+) -> list[dict]:
+    """Intent-aware boost: guide vs spec; demote empty install pointers."""
+    if not docs:
+        return []
+    scored: list[tuple[float, dict]] = []
+    for i, d in enumerate(docs):
+        score = 1.0 / (i + 1)  # preserve dense rank as base
+        # Blend in embedding similarity if present
+        if isinstance(d.get("score"), (int, float)):
+            score += 0.5 * float(d["score"])
+
+        src = d.get("source") or ""
+        text = (d.get("document") or "").lower()
+
+        if prefer_source == "guide":
+            if _is_technical_guide(src):
+                score += 2.0
+            if _is_spec_sheet(src):
+                score -= 1.5
+        elif prefer_source == "spec":
+            if _is_spec_sheet(src):
+                score += 2.0
+            if _is_technical_guide(src):
+                score -= 0.5
+
+        if any(b in text for b in _BOILERPLATE):
+            score -= 2.0
+
+        scored.append((score, d))
+
+    scored.sort(key=lambda x: x[0], reverse=True)
+    return [d for _, d in scored]
+
+
+def retrieve(
+    query: str,
+    top_k: int = 5,
+    product: str | None = None,
+    doc_type: str | None = None,
+) -> list[str]:
     emb = embed_queries([query]).tolist()
-    results = _col().query(query_embeddings=emb, n_results=top_k, include=[])
+    kwargs: dict = {
+        "query_embeddings": emb,
+        "n_results": top_k,
+        "include": [],
+    }
+    where = _build_where(product, doc_type)
+    if where:
+        kwargs["where"] = where
+    results = _col().query(**kwargs)
     return results["ids"][0]
+
+
+def retrieve_self_query(
+    original_query: str,
+    semantic_query: str | None,
+    product: str | None = None,
+    doc_type: str | None = None,
+    prefer_source: str | None = None,
+    top_k: int = 5,
+    depth: int | None = None,
+    rrf_k: int = _RRF_K,
+) -> list[str]:
+    """Hard product filter when set; intent-aware rerank. Else baseline."""
+    del rrf_k  # unused with hard filter; kept for API compat
+    depth = depth or max(top_k * 4, 20)
+    search_q = (semantic_query or original_query).strip() or original_query
+
+    if not product:
+        return retrieve(original_query, top_k=top_k)
+
+    docs = retrieve_full(
+        search_q, top_k=depth, product=product, doc_type=doc_type,
+    )
+    # If doc_type filter emptied the pool, retry product-only.
+    if not docs and doc_type:
+        docs = retrieve_full(search_q, top_k=depth, product=product)
+
+    docs = rerank_within_product(docs, prefer_source=prefer_source)
+    return [d["chunk_id"] for d in docs[:top_k]]
 
 
 def retrieve_rrf(
@@ -67,17 +180,28 @@ def retrieve_rrf(
     return [cid for cid, _ in sorted(scores.items(), key=lambda x: x[1], reverse=True)[:top_k]]
 
 
-def retrieve_full(query: str, top_k: int = 5) -> list[dict]:
+def retrieve_full(
+    query: str,
+    top_k: int = 5,
+    product: str | None = None,
+    doc_type: str | None = None,
+) -> list[dict]:
     emb = embed_queries([query]).tolist()
-    results = _col().query(
-        query_embeddings=emb, n_results=top_k,
-        include=["documents", "distances", "metadatas"],
-    )
+    kwargs: dict = {
+        "query_embeddings": emb,
+        "n_results": top_k,
+        "include": ["documents", "distances", "metadatas"],
+    }
+    where = _build_where(product, doc_type)
+    if where:
+        kwargs["where"] = where
+    results = _col().query(**kwargs)
     output = []
-    for cid, doc, dist, meta in zip(
-        results["ids"][0], results["documents"][0],
-        results["distances"][0], results["metadatas"][0],
-    ):
+    ids = results["ids"][0] if results["ids"] else []
+    documents = results["documents"][0] if results["documents"] else []
+    distances = results["distances"][0] if results["distances"] else []
+    metadatas = results["metadatas"][0] if results["metadatas"] else []
+    for cid, doc, dist, meta in zip(ids, documents, distances, metadatas):
         output.append({
             "chunk_id": cid,
             "document": doc,
@@ -119,3 +243,27 @@ def retrieve_full_rrf(
                 "source": "", "product": "", "doc_type": "",
             })
     return out
+
+
+def retrieve_full_self_query(
+    mapped: dict,
+    top_k: int = 5,
+    depth: int | None = None,
+) -> list[dict]:
+    """Full doc payloads for Self-Query LLM retrieval (hard filter + rerank)."""
+    original = mapped.get("original_query") or mapped.get("final_query") or ""
+    semantic = mapped.get("semantic_query") or mapped.get("final_query") or original
+    filters = mapped.get("filters") or {}
+    product = filters.get("product")
+    doc_type = filters.get("doc_type")
+    prefer = mapped.get("prefer_source")
+
+    depth = depth or max(top_k * 4, 20)
+
+    if not product:
+        return retrieve_full(original, top_k=top_k)
+
+    docs = retrieve_full(semantic, top_k=depth, product=product, doc_type=doc_type)
+    if not docs and doc_type:
+        docs = retrieve_full(semantic, top_k=depth, product=product)
+    return rerank_within_product(docs, prefer_source=prefer)[:top_k]
