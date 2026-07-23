@@ -23,12 +23,31 @@ COLLECTION_NAME  = "rehau_corpus"
 
 # ── Models ──────────────────────────────────────────────────────────────────────
 EMBED_MODEL = "Qwen/Qwen3-Embedding-0.6B"
-GEN_MODEL   = "qwen3:8b"
+GEN_MODEL = "qwen3:8b"          # Self-Query / mapping (needs stronger JSON)
+ANSWER_MODEL = "qwen3:0.6b"     # Fast plain-language answer generation
+RERANK_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+
+# Ollama GPU layers: unset = let Ollama use GPU; set OLLAMA_NUM_GPU=0 for CPU-only
+_OLLAMA_GPU_ENV = os.environ.get("OLLAMA_NUM_GPU")
+OLLAMA_NUM_GPU = int(_OLLAMA_GPU_ENV) if _OLLAMA_GPU_ENV is not None else None
 
 QUERY_INSTRUCTION = (
     "Given a user question in everyday language, retrieve REHAU product "
     "manual passages that answer it."
 )
+
+# Post-retrieval: wide pool → semantic rerank (display) → generate
+RETRIEVE_CANDIDATES = 30
+RERANK_TOP_N = 15          # shown in UI after cross-encoder
+
+# Answer length modes (both use ANSWER_MODEL = qwen3:0.6b)
+GENERATE_TOP_N = 8         # short mode: chunks into the answer LLM
+GENERATE_MAX_CHARS = 400
+GENERATE_NUM_PREDICT = 350
+
+GENERATE_TOP_N_DETAILED = 12
+GENERATE_MAX_CHARS_DETAILED = 600
+GENERATE_NUM_PREDICT_DETAILED = 900
 
 # ── Chunking (used by scripts/build_corpus.py) ──────────────────────────────────
 CHUNK_SIZE      = 320

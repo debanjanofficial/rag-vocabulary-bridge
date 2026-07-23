@@ -4,8 +4,12 @@ Query-mapping module that bridges vocabulary mismatch between casual user
 queries and formal REHAU RAUVISIO product documentation.
 
 ```
-User query → Mapping module → Optimized query → Retriever (Qwen3-Embedding)
+User query → Mapping module → Retriever → Semantic rerank (top 15) → Answer (Ollama)
 ```
+
+The LLM Self-Query heuristic guide/spec rerank is unchanged. A separate
+cross-encoder (`ms-marco-MiniLM-L-6-v2`) re-scores candidates for every
+strategy, then `qwen3:8b` writes a plain-language grounded answer.
 
 ## Project layout
 
@@ -25,6 +29,9 @@ rag-vocabulary-bridge-main/
 │   ├── embeddings.py
 │   ├── llm.py
 │   ├── retriever.py
+│   ├── reranker.py         # cross-encoder semantic rerank
+│   ├── generator.py        # grounded plain-language answer
+│   ├── answer_pipeline.py  # retrieve → rerank → generate
 │   ├── qrels.py
 │   ├── terminology.py
 │   └── strategies/
@@ -59,6 +66,13 @@ python scripts/evaluate.py --no-llm
 ## Stack
 
 - Embeddings: `Qwen/Qwen3-Embedding-0.6B`
-- LLM (local): `qwen3:8b` via Ollama
+- Reranker: `cross-encoder/ms-marco-MiniLM-L-6-v2`
+- Mapping LLM: `qwen3:8b` via Ollama (Self-Query)
+- Answer LLM: `qwen3:0.6b` via Ollama (fast grounded answers)
 - Vector store: ChromaDB
 - PDF corpus: external path in `config.py` → `CORPUS_DIR`
+- Answer path: retrieve 30 → rerank top 15 (UI) → generate from top 8 (short) or 12 (detailed)
+- Answer styles: Short / Detailed — both use `qwen3:0.6b`
+  (Detailed = more context + adaptive length; short for facts, longer for how-tos)
+- Speed: Ollama uses GPU by default; set `OLLAMA_NUM_GPU=0` for CPU-only.
+  Uncheck “Generate answer” in the UI to skip generation.

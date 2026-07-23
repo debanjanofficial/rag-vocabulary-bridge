@@ -13,9 +13,19 @@ import streamlit as st
 ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, ROOT)
 
-from config import EVAL_RESULTS, CHROMA_DIR, GEN_MODEL
+from config import (
+    ANSWER_MODEL,
+    EVAL_RESULTS,
+    CHROMA_DIR,
+    GEN_MODEL,
+    GENERATE_TOP_N,
+    GENERATE_TOP_N_DETAILED,
+    RERANK_TOP_N,
+    RETRIEVE_CANDIDATES,
+)
+from src.answer_pipeline import retrieve_candidates, run_answer_pipeline
 from src.qrels import load_qrels
-from src.retriever import retrieve_full, retrieve_full_rrf, retrieve_full_self_query
+from src.reranker import rerank_documents
 from src.strategies.nlp_strategy import nlp_map
 from src.strategies.embedding_strategy import embedding_map
 from src.strategies.llm_strategy import llm_map
@@ -23,14 +33,37 @@ from src.strategies.llm_strategy import llm_map
 st.set_page_config(page_title="REHAU Query Mapping", page_icon="🔍", layout="wide")
 
 
-@st.cache_resource(show_spinner="Checking Ollama...")
-def llm_available() -> bool:
+@st.cache_resource(show_spinner="Loading embedding model...")
+def warm_embed_model():
+    from src.embeddings import get_model
+    return get_model()
+
+
+@st.cache_resource(show_spinner="Loading cross-encoder reranker...")
+def warm_rerank_model():
+    from src.reranker import get_reranker
+    return get_reranker()
+
+
+@st.cache_resource(show_spinner="Checking Ollama models...")
+def ollama_status() -> dict:
+    """Which Ollama models are available (mapping 8b vs answer 0.6b)."""
     try:
         import ollama
-        ollama.show(GEN_MODEL)
-        return True
     except Exception:
-        return False
+        return {"mapping": False, "answer": False}
+    mapping = answer = False
+    try:
+        ollama.show(GEN_MODEL)
+        mapping = True
+    except Exception:
+        pass
+    try:
+        ollama.show(ANSWER_MODEL)
+        answer = True
+    except Exception:
+        pass
+    return {"mapping": mapping, "answer": answer}
 
 
 @st.cache_data
@@ -59,8 +92,6 @@ def run_strategy(name, query, llm_ok):
     return {"original_query": query, "final_query": query}
 
 
-# Curated demos that hit terminology (flat_map / product phrases) so NLP
-# expansions are visible — the first eval queries often abstain by design.
 DEMO_QUERIES = [
     "What's the fire rating for these metal look panels?",
     "How do I put these shiny acrylic panels up?",
@@ -76,14 +107,20 @@ DEMO_QUERIES = [
 st.title("RAG Query Mapping Module")
 st.caption("ABA SS2026 · Bridging vocabulary mismatch in REHAU RAUVISIO documentation retrieval")
 
-llm_ok = llm_available()
+# Warm heavy models once per session (cached).
+warm_embed_model()
+warm_rerank_model()
+ollama = ollama_status()
+llm_ok = ollama["mapping"]
+answer_ok = ollama["answer"]
 qrels = get_qrels()
 examples = DEMO_QUERIES
 
-c1, c2, c3 = st.columns(3)
+c1, c2, c3, c4 = st.columns(4)
 c1.metric("Ground-truth queries", len(qrels))
-c2.metric("LLM (Ollama)", f"Yes ({GEN_MODEL})" if llm_ok else "No")
-c3.metric("Vector index", "Ready" if os.path.exists(CHROMA_DIR) else "Not built")
+c2.metric("Mapping LLM", f"{GEN_MODEL}" if llm_ok else "No")
+c3.metric("Answer LLM", f"{ANSWER_MODEL}" if answer_ok else "No")
+c4.metric("Vector index", "Ready" if os.path.exists(CHROMA_DIR) else "Not built")
 
 if not os.path.exists(CHROMA_DIR):
     st.error("ChromaDB not found. Run `python scripts/index.py` first.")
@@ -106,10 +143,34 @@ with tab_demo:
             value="" if example == "(type your own)" else example,
             placeholder="Ask in casual everyday language...",
         )
-        strategy = st.radio("Strategy:",
-                            ["Baseline", "NLP-based", "Embedding-based", "LLM-based"],
-                            horizontal=True)
-        top_k = st.slider("Top-K documents:", 1, 20, 5)
+        strategy = st.radio(
+            "Strategy:",
+            ["Baseline", "NLP-based", "Embedding-based", "LLM-based"],
+            horizontal=True,
+        )
+        do_generate = st.checkbox(
+            f"Generate answer ({ANSWER_MODEL})",
+            value=True,
+            help="Off = map + retrieve + rerank only (faster). On uses the small answer model.",
+        )
+        answer_style = st.radio(
+            "Answer length:",
+            ["Short", "Detailed"],
+            horizontal=True,
+            disabled=not do_generate,
+            help=(
+                "Both use qwen3:0.6b. Detailed = more context and room for long "
+                "how-tos; simple facts stay short."
+            ),
+        )
+        detail = answer_style == "Detailed"
+        gen_n_hint = GENERATE_TOP_N_DETAILED if detail else GENERATE_TOP_N
+        st.caption(
+            f"Retrieve {RETRIEVE_CANDIDATES} → rerank top {RERANK_TOP_N} → "
+            f"answer from top {gen_n_hint} ({answer_style.lower()}, {ANSWER_MODEL}). "
+            "Self-Query heuristic rerank unchanged. "
+            "Set OLLAMA_NUM_GPU=0 to force CPU."
+        )
         go = st.button("Run", type="primary", use_container_width=True)
 
     with col_out:
@@ -199,35 +260,73 @@ with tab_demo:
                     st.caption("Expanded query")
                     st.success(mapped[:500])
                 else:
-                    st.caption("Expanded query (unchanged)" if strategy != "LLM-based" else "Semantic query (same as original)")
+                    st.caption(
+                        "Expanded query (unchanged)"
+                        if strategy != "LLM-based"
+                        else "Semantic query (same as original)"
+                    )
                     st.text(mapped[:500])
-            with st.expander("Step 3 — Retrieved documents", expanded=True):
-                with st.spinner("Retrieving..."):
-                    if strategy == "LLM-based":
-                        docs = retrieve_full_self_query(result, top_k=top_k)
-                    elif strategy in ("NLP-based", "Embedding-based"):
-                        docs = retrieve_full_rrf(
-                            result.get("retrieval_queries") or [query],
-                            top_k=top_k,
-                        )
-                    else:
-                        docs = retrieve_full(mapped, top_k=top_k)
+
+            with st.expander(
+                f"Step 3 — Retrieve + semantic rerank (top {RERANK_TOP_N})",
+                expanded=True,
+            ):
+                with st.spinner(
+                    f"Retrieving {RETRIEVE_CANDIDATES} candidates and reranking..."
+                ):
+                    pipeline = run_answer_pipeline(
+                        strategy,
+                        query,
+                        result,
+                        llm_available=answer_ok,
+                        generate=do_generate,
+                        detail=detail,
+                    )
+                docs = pipeline["reranked"]
+                n_cand = len(pipeline["candidates"])
+                st.caption(
+                    f"Candidates: {n_cand} → reranked: {len(docs)} "
+                    f"(answer uses top {pipeline.get('generate_top_n', GENERATE_TOP_N)})"
+                )
                 if gold:
                     if any(d["chunk_id"] in gold for d in docs):
-                        st.success("Gold chunk found ✓")
+                        st.success("Gold chunk found in reranked set ✓")
                     else:
-                        st.error("Gold chunk NOT found ✗")
+                        st.error("Gold chunk NOT found in reranked set ✗")
                 if not docs:
                     st.warning("No documents retrieved.")
                 for i, doc in enumerate(docs, 1):
                     mark = "✓ " if doc["chunk_id"] in gold else ""
+                    rr = doc.get("rerank_score")
+                    rr_s = f" · rerank {rr:.3f}" if isinstance(rr, (int, float)) else ""
                     with st.container(border=True):
                         st.markdown(
                             f"{mark}**{i}.** `{doc['chunk_id']}` — "
-                            f"score {doc['score']} · {doc.get('product', '')} · "
-                            f"{doc.get('source', '')}"
+                            f"emb {doc.get('score', '—')}{rr_s} · "
+                            f"{doc.get('product', '')} · {doc.get('source', '')}"
                         )
                         st.text(doc["document"][:800])
+
+            with st.expander("Step 4 — Generated answer", expanded=True):
+                gen = pipeline["generation"]
+                if gen.get("error") == "skipped":
+                    st.info("Generation skipped — enable the checkbox to run it.")
+                elif gen.get("error") == "llm_unavailable":
+                    st.warning(gen["answer"])
+                    st.caption(f"Pull with: `ollama pull {ANSWER_MODEL}`")
+                elif gen.get("abstained"):
+                    st.warning(gen["answer"])
+                else:
+                    st.success(gen["answer"])
+                if gen.get("model"):
+                    style = "detailed" if gen.get("detail") else "short"
+                    st.caption(f"Model: `{gen['model']}` · style: {style}")
+                if gen.get("used_chunk_ids"):
+                    st.caption(
+                        "Context chunks: "
+                        + ", ".join(f"`{c}`" for c in gen["used_chunk_ids"])
+                    )
+
             if query in qrels:
                 with st.expander("Reference answer"):
                     st.write(qrels[query]["formal_query"])
@@ -237,21 +336,31 @@ with tab_compare:
     ex = st.selectbox("Query:", examples or ["(none)"])
     custom = st.text_input("Or type your own:")
     cmp_q = custom.strip() or ex
+    gen_answers = st.checkbox(
+        f"Also generate answers ({ANSWER_MODEL})", value=False,
+    )
     if st.button("Compare all", type="primary"):
         gold = set(qrels[cmp_q]["gold_chunk_ids"]) if cmp_q in qrels else set()
         for strat in ["Baseline", "NLP-based", "Embedding-based", "LLM-based"]:
             st.markdown(f"**{strat}**")
             res = run_strategy(strat, cmp_q, llm_ok)
-            if strat == "LLM-based":
-                docs = retrieve_full_self_query(res, top_k=3)
-            elif strat in ("NLP-based", "Embedding-based"):
-                docs = retrieve_full_rrf(
-                    res.get("retrieval_queries") or [cmp_q],
-                    top_k=3,
-                )
-            else:
-                docs = retrieve_full(res.get("final_query", cmp_q), top_k=3)
-            label = res.get("semantic_query", res.get("final_query", cmp_q)) if strat == "LLM-based" else res.get("final_query", cmp_q)
+            with st.spinner(f"{strat}: retrieve + rerank..."):
+                if gen_answers:
+                    pipe = run_answer_pipeline(
+                        strat, cmp_q, res,
+                        llm_available=answer_ok,
+                        generate=True,
+                    )
+                    docs = pipe["reranked"]
+                else:
+                    cands = retrieve_candidates(strat, cmp_q, res)
+                    docs = rerank_documents(cmp_q, cands, top_n=RERANK_TOP_N)
+                    pipe = None
+            label = (
+                res.get("semantic_query", res.get("final_query", cmp_q))
+                if strat == "LLM-based"
+                else res.get("final_query", cmp_q)
+            )
             st.text(str(label)[:200])
             filters = res.get("filters") or {}
             if filters:
@@ -263,9 +372,11 @@ with tab_compare:
                     f"Intent=`{res.get('intent', 'other')}` · Filters: {extra}"
                 )
             if any(d["chunk_id"] in gold for d in docs):
-                st.markdown("✓ GT found")
+                st.markdown("✓ GT found in top reranked")
             else:
-                st.markdown("✗ GT missing")
+                st.markdown("✗ GT missing from top reranked")
+            if pipe is not None:
+                st.write(pipe["generation"].get("answer", "")[:500])
 
 with tab_results:
     eval_res = get_eval_results()

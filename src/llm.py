@@ -1,4 +1,4 @@
-"""Ollama helper — CPU-only, JSON output, thinking disabled."""
+"""Ollama helper — JSON / text chat; GPU by default (override via OLLAMA_NUM_GPU)."""
 
 from __future__ import annotations
 
@@ -7,10 +7,17 @@ import re
 
 import ollama
 
-from config import GEN_MODEL
+from config import GEN_MODEL, OLLAMA_NUM_GPU
 
 _THINK_RE = re.compile(r"<think>.*?</think>", re.DOTALL | re.IGNORECASE)
-_BASE_OPTS = {"num_gpu": 0}
+
+
+def _base_opts() -> dict:
+    """Ollama options. Omit num_gpu so Ollama can use the GPU; set env OLLAMA_NUM_GPU=0 for CPU."""
+    opts: dict = {}
+    if OLLAMA_NUM_GPU is not None:
+        opts["num_gpu"] = OLLAMA_NUM_GPU
+    return opts
 
 
 def _strip_think(text: str) -> str:
@@ -28,7 +35,7 @@ def chat_json(prompt: str, model: str | None = None,
                 model=model,
                 messages=[{"role": "user", "content": prompt}],
                 format="json", think=False,
-                options={**_BASE_OPTS, "temperature": temperature,
+                options={**_base_opts(), "temperature": temperature,
                            "num_predict": num_predict},
             )
             return json.loads(_strip_think(resp["message"]["content"]))
@@ -49,6 +56,6 @@ def chat_text(prompt: str, model: str | None = None,
         model=model,
         messages=[{"role": "user", "content": prompt}],
         think=False,
-        options={**_BASE_OPTS, "temperature": temperature, "num_predict": num_predict},
+        options={**_base_opts(), "temperature": temperature, "num_predict": num_predict},
     )
     return _strip_think(resp["message"]["content"])
