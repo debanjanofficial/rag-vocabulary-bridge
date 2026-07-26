@@ -18,10 +18,7 @@ from config import (
     EVAL_RESULTS,
     CHROMA_DIR,
     GEN_MODEL,
-    GENERATE_TOP_N,
-    GENERATE_TOP_N_DETAILED,
     RERANK_TOP_N,
-    RETRIEVE_CANDIDATES,
 )
 from src.answer_pipeline import retrieve_candidates, run_answer_pipeline
 from src.qrels import load_qrels
@@ -93,14 +90,19 @@ def run_strategy(name, query, llm_ok):
 
 
 DEMO_QUERIES = [
-    "What's the fire rating for these metal look panels?",
-    "How do I put these shiny acrylic panels up?",
-    "For my crystal glass product, how do I cut a beveled edge on this clear material without breaking it?",
-    "How do I safely take my shade matte boards out of the box without messing them up?",
-    "How much weight can these floating shelves hold?",
+    # From eval_dataset — have gold chunks + reference answers in the UI
+    "How does this metal-look material burn?",
     "What's the fire safety rating for this noir matte material?",
     "For my wood-grain product, how should I store these laminate sheets before putting them up?",
-    "What's the fire safety rating of this wood-grain material when attached to drywall?",
+    "How do I drill holes in my crystal glass panels without breaking them?",
+    "How do I make sure the edges look good when cutting my wood-grain panels?",
+    "For my floating shelf product, how far can the MDF strip stick out from the last stud if the shelf is between 22 and 45 inches long?",
+    "What's the allowed length variation for these shade matte parts?",
+    "What do I need to do to keep the metal-look product safe before and after taking it out of the box?",
+    "What's the best way to store my crystal glass boards so they don't warp?",
+    "How do you attach my noir matte panels together?",
+    # Extra mapping demo (also in eval set)
+    "How do I put these shiny acrylic panels up?",
 ]
 
 
@@ -135,7 +137,7 @@ with tab_demo:
     with col_in:
         st.subheader("Input")
         example = st.selectbox(
-            "Example (chosen to show NLP term expansion):",
+            "Example query:",
             ["(type your own)"] + examples,
         )
         query = st.text_area(
@@ -149,28 +151,18 @@ with tab_demo:
             horizontal=True,
         )
         do_generate = st.checkbox(
-            f"Generate answer ({ANSWER_MODEL})",
+            "Generate answer",
             value=True,
-            help="Off = map + retrieve + rerank only (faster). On uses the small answer model.",
+            help="Off = map + retrieve + rerank only (faster).",
         )
         answer_style = st.radio(
             "Answer length:",
             ["Short", "Detailed"],
             horizontal=True,
             disabled=not do_generate,
-            help=(
-                "Both use qwen3:0.6b. Detailed = more context and room for long "
-                "how-tos; simple facts stay short."
-            ),
+            help="Detailed uses more context; simple facts stay short.",
         )
         detail = answer_style == "Detailed"
-        gen_n_hint = GENERATE_TOP_N_DETAILED if detail else GENERATE_TOP_N
-        st.caption(
-            f"Retrieve {RETRIEVE_CANDIDATES} → rerank top {RERANK_TOP_N} → "
-            f"answer from top {gen_n_hint} ({answer_style.lower()}, {ANSWER_MODEL}). "
-            "Self-Query heuristic rerank unchanged. "
-            "Set OLLAMA_NUM_GPU=0 to force CPU."
-        )
         go = st.button("Run", type="primary", use_container_width=True)
 
     with col_out:
@@ -268,12 +260,10 @@ with tab_demo:
                     st.text(mapped[:500])
 
             with st.expander(
-                f"Step 3 — Retrieve + semantic rerank (top {RERANK_TOP_N})",
+                "Step 3 — Retrieve + semantic rerank",
                 expanded=True,
             ):
-                with st.spinner(
-                    f"Retrieving {RETRIEVE_CANDIDATES} candidates and reranking..."
-                ):
+                with st.spinner("Retrieving and reranking..."):
                     pipeline = run_answer_pipeline(
                         strategy,
                         query,
@@ -284,10 +274,7 @@ with tab_demo:
                     )
                 docs = pipeline["reranked"]
                 n_cand = len(pipeline["candidates"])
-                st.caption(
-                    f"Candidates: {n_cand} → reranked: {len(docs)} "
-                    f"(answer uses top {pipeline.get('generate_top_n', GENERATE_TOP_N)})"
-                )
+                st.caption(f"Candidates: {n_cand} → reranked: {len(docs)}")
                 if gold:
                     if any(d["chunk_id"] in gold for d in docs):
                         st.success("Gold chunk found in reranked set ✓")
@@ -313,19 +300,10 @@ with tab_demo:
                     st.info("Generation skipped — enable the checkbox to run it.")
                 elif gen.get("error") == "llm_unavailable":
                     st.warning(gen["answer"])
-                    st.caption(f"Pull with: `ollama pull {ANSWER_MODEL}`")
                 elif gen.get("abstained"):
                     st.warning(gen["answer"])
                 else:
                     st.success(gen["answer"])
-                if gen.get("model"):
-                    style = "detailed" if gen.get("detail") else "short"
-                    st.caption(f"Model: `{gen['model']}` · style: {style}")
-                if gen.get("used_chunk_ids"):
-                    st.caption(
-                        "Context chunks: "
-                        + ", ".join(f"`{c}`" for c in gen["used_chunk_ids"])
-                    )
 
             if query in qrels:
                 with st.expander("Reference answer"):
@@ -337,7 +315,7 @@ with tab_compare:
     custom = st.text_input("Or type your own:")
     cmp_q = custom.strip() or ex
     gen_answers = st.checkbox(
-        f"Also generate answers ({ANSWER_MODEL})", value=False,
+        "Also generate answers", value=False,
     )
     if st.button("Compare all", type="primary"):
         gold = set(qrels[cmp_q]["gold_chunk_ids"]) if cmp_q in qrels else set()

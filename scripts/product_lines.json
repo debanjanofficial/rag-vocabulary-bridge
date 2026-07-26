@@ -11,7 +11,11 @@
       "glossy doors",
       "shiny doors",
       "high-gloss cabinets",
-      "acrylic gloss panels"
+      "acrylic gloss panels",
+      "shiny acrylic",
+      "shiny acrylic panels",
+      "glossy acrylic panels",
+      "high-gloss acrylic panels"
     ]
   },
   "RAUVISIO crystal": {
@@ -26,7 +30,9 @@
       "shiny glass panels",
       "glass-like panels",
       "crystal panels",
-      "polymer glass panels"
+      "polymer glass panels",
+      "clear glass panels",
+      "glass look acrylic"
     ]
   },
   "RAUVISIO noir": {

@@ -235,8 +235,15 @@ def self_query(query: str) -> tuple[dict, dict]:
         '  "abstain_filter": boolean — true if not confident about product.\n\n'
         "Rules:\n"
         "- Map informal nicknames to ALLOWED PRODUCTS.\n"
-        '- "shiny acrylic" may be brilliant OR crystal; if ambiguous set '
-        "abstain_filter=true OR pick the better match carefully.\n"
+        "- Product disambiguation (important):\n"
+        '  * shiny/glossy/high-gloss acrylic (NO glass/crystal words) → '
+        '"RAUVISIO brilliant".\n'
+        '  * glass, crystal glass, fake glass, glass-like, clear glass → '
+        '"RAUVISIO crystal".\n'
+        '  * "shiny acrylic" / "shiny acrylic panels" → ALWAYS '
+        '"RAUVISIO brilliant" (not crystal).\n'
+        "- If acrylic vs glass is still unclear, set abstain_filter=true "
+        "(prefer no filter over a wrong product).\n"
         "- install/process/clean/fire/safety → doc_type=Technical Documentation.\n"
         "- specs (models/manufacturers) → doc_type=Technical Documentation.\n"
         "- Prefer abstain_filter=true over a wrong product.\n"
@@ -259,6 +266,22 @@ def self_query(query: str) -> tuple[dict, dict]:
 
     product = None if abstain else _normalize_product(raw.get("product"))
     doc_type = None if abstain else _normalize_doc_type(raw.get("doc_type"))
+
+    # Deterministic override: shiny/glossy acrylic without glass cues → brilliant
+    # (LLM often confuses this with crystal).
+    q_lower = query.lower()
+    has_acrylic_gloss = (
+        ("acrylic" in q_lower and any(w in q_lower for w in ("shiny", "glossy", "high-gloss", "high gloss")))
+        or "shiny acrylic" in q_lower
+        or "glossy acrylic" in q_lower
+    )
+    has_glass_cue = any(
+        w in q_lower
+        for w in ("glass", "crystal", "fake glass", "glass-like", "glass like")
+    )
+    if has_acrylic_gloss and not has_glass_cue:
+        product = "RAUVISIO brilliant"
+        abstain = False
 
     # Procedure questions default to technical docs when a product is set.
     if product and not doc_type and intent in _GUIDE_INTENTS | _SPEC_INTENTS:
