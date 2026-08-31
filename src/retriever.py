@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
+from typing import Any
 
 import chromadb
 
@@ -24,8 +25,11 @@ def _col():
     global _collection
     if _collection is None:
         client = chromadb.PersistentClient(path=CHROMA_DIR)
-        _collection = client.get_collection(COLLECTION_NAME)
+        _collection = client.get_or_create_collection(
+            COLLECTION_NAME, metadata={"hnsw:space": "cosine"}
+        )
     return _collection
+
 
 
 def _build_where(product: str | None = None, doc_type: str | None = None) -> dict | None:
@@ -267,3 +271,62 @@ def retrieve_full_self_query(
     if not docs and doc_type:
         docs = retrieve_full(semantic, top_k=depth, product=product)
     return rerank_within_product(docs, prefer_source=prefer)[:top_k]
+
+
+def retrieve_routed(
+    router_result: Any,
+    top_k: int = 5,
+) -> list[str]:
+    """Execute retrieval based on an Adaptive RouterResult object or dict."""
+    if hasattr(router_result, "to_dict"):
+        data = router_result.to_dict()
+    else:
+        data = router_result
+
+    filters = data.get("filters") or {}
+    product = filters.get("product")
+    doc_type = filters.get("doc_type")
+    prefer_source = data.get("prefer_source")
+    orig_q = data.get("original_query", "")
+    final_q = data.get("final_query", orig_q)
+    queries = data.get("retrieval_queries") or [final_q]
+
+    if product:
+        return retrieve_self_query(
+            original_query=orig_q,
+            semantic_query=final_q,
+            product=product,
+            doc_type=doc_type,
+            prefer_source=prefer_source,
+            top_k=top_k,
+        )
+
+    if len(queries) > 1:
+        return retrieve_rrf(queries, top_k=top_k)
+
+    return retrieve(final_q or orig_q, top_k=top_k)
+
+
+def retrieve_full_routed(
+    router_result: Any,
+    top_k: int = 5,
+) -> list[dict]:
+    """Execute full doc retrieval based on an Adaptive RouterResult."""
+    if hasattr(router_result, "to_dict"):
+        data = router_result.to_dict()
+    else:
+        data = router_result
+
+    filters = data.get("filters") or {}
+    product = filters.get("product")
+    queries = data.get("retrieval_queries") or [data.get("final_query", "")]
+
+    if product:
+        return retrieve_full_self_query(data, top_k=top_k)
+
+    if len(queries) > 1:
+        return retrieve_full_rrf(queries, top_k=top_k)
+
+    target_q = data.get("final_query") or data.get("original_query") or ""
+    return retrieve_full(target_q, top_k=top_k)
+
