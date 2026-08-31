@@ -90,16 +90,23 @@ class AdaptiveRouter:
             retrieval_queries = [q_clean]
 
         elif decision.action == RoutingAction.EXPAND_TERMINOLOGY:
-            # First attempt NLP phrase-grounded in-place injection
-            nlp_res = nlp_map(q_clean)
-            if nlp_res.get("retrieval_queries") and len(nlp_res["retrieval_queries"]) > 1:
-                retrieval_queries = nlp_res["retrieval_queries"]
+            # Multi-hop Terminology Knowledge Graph (TKG) subgraph expansion
+            try:
+                from src.tkg import SubgraphExtractor, get_tkg
+                extractor = SubgraphExtractor(get_tkg())
+                subgraph_res = extractor.extract_subgraph(q_clean)
+                if subgraph_res.expansion_query != q_clean:
+                    final_query = subgraph_res.expansion_query
+                    retrieval_queries = [final_query, q_clean]
+                else:
+                    nlp_res = nlp_map(q_clean)
+                    retrieval_queries = nlp_res.get("retrieval_queries", [q_clean])
+                    final_query = nlp_res.get("final_query", q_clean)
+            except Exception:
+                nlp_res = nlp_map(q_clean)
+                retrieval_queries = nlp_res.get("retrieval_queries", [q_clean])
                 final_query = nlp_res.get("final_query", q_clean)
-            else:
-                # Fallback to embedding-gated product expansion
-                emb_res = embedding_map(q_clean)
-                retrieval_queries = emb_res.get("retrieval_queries", [q_clean])
-                final_query = emb_res.get("final_query", q_clean)
+
 
         elif decision.action == RoutingAction.FILTER_METADATA:
             # Target product filtering with intent routing
