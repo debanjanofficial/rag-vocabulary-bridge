@@ -1,0 +1,723 @@
+{
+  "summary": {
+    "Baseline": {
+      "recall": {
+        "@1": 0.2,
+        "@3": 0.2,
+        "@5": 0.2
+      },
+      "mrr": 0.2,
+      "ndcg@5": 0.2,
+      "mean_latency_ms": 1599.1,
+      "total_time_s": 15.99
+    },
+    "NLP Mapping": {
+      "recall": {
+        "@1": 0.2,
+        "@3": 0.2,
+        "@5": 0.2
+      },
+      "mrr": 0.2,
+      "ndcg@5": 0.2,
+      "mean_latency_ms": 146.6,
+      "total_time_s": 1.47
+    },
+    "Embedding Mapping": {
+      "recall": {
+        "@1": 0.2,
+        "@3": 0.2,
+        "@5": 0.2
+      },
+      "mrr": 0.2,
+      "ndcg@5": 0.2,
+      "mean_latency_ms": 202.1,
+      "total_time_s": 2.02
+    },
+    "Adaptive Router (Proposed)": {
+      "recall": {
+        "@1": 0.2,
+        "@3": 0.2,
+        "@5": 0.2
+      },
+      "mrr": 0.2,
+      "ndcg@5": 0.2,
+      "mean_latency_ms": 635.7,
+      "total_time_s": 6.36,
+      "action_distribution_pct": {
+        "expand_terminology": 100.0
+      }
+    }
+  },
+  "traces": [
+    {
+      "id": "q0000",
+      "query": "How do I make sure the edges look good when cutting these panels?",
+      "gold_chunk_ids": [
+        "rauvisio_ingrain_tech_0040"
+      ],
+      "retrieved_ids": [
+        "rauvisio_crystal_mkt_0041",
+        "rauvisio_crystal_tech_0094",
+        "rauvisio_brilliant_mkt_0017",
+        "rauvisio_brilliant_tech_0052",
+        "general_root_0061"
+      ],
+      "action": "expand_terminology",
+      "features": {
+        "query": "How do I make sure the edges look good when cutting these panels?",
+        "s_term": 0.6589,
+        "c_prod": 0.2261,
+        "m_prod": 0.0702,
+        "top_product": "RAUVISIO ferro",
+        "j_agree": 0.0714,
+        "h_dense": 0.9905,
+        "r_drift": 0.1196,
+        "best_term_match": {
+          "phrase": "panel cutting",
+          "preferred_term": "Cutting Operation",
+          "match_type": "dense",
+          "sim": 0.6588622331619263
+        },
+        "bm25_top_ids": [
+          "rauvisio_terra_tech_0020",
+          "rauvisio_crystal_mkt_0031",
+          "rauvisio_crystal_tech_0084",
+          "rauvisio_noir_mkt_0022",
+          "rauvisio_brilliant_tech_0050",
+          "rauvisio_noir_tech_0055",
+          "general_root_0050",
+          "rauvisio_noir_tech_0056",
+          "rauvisio_noir_mkt_0021",
+          "rauvisio_crystal_mkt_0035",
+          "rauvisio_crystal_tech_0088",
+          "rauvisio_ingrain_mkt_0002",
+          "rauvisio_ingrain_mkt_0018",
+          "rauvisio_ingrain_tech_0041",
+          "rauvisio_brilliant_mkt_0015"
+        ],
+        "dense_top_ids": [
+          "rauvisio_crystal_mkt_0041",
+          "rauvisio_crystal_tech_0094",
+          "rauvisio_brilliant_mkt_0017",
+          "rauvisio_brilliant_tech_0052",
+          "general_root_0061",
+          "rauvisio_crystal_mkt_0035",
+          "general_root_0002",
+          "rauvisio_crystal_tech_0088",
+          "general_root_0022",
+          "general_root_0036",
+          "rauvisio_brilliant_mkt_0002",
+          "general_root_0063",
+          "rauvisio_brilliant_mkt_0018",
+          "rauvisio_crystal_tech_0093",
+          "rauvisio_brilliant_tech_0053"
+        ]
+      },
+      "recall@5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "q0001",
+      "query": "How do I stop the laminate from bending when I press it?",
+      "gold_chunk_ids": [
+        "rauvisio_terra_tech_0015"
+      ],
+      "retrieved_ids": [
+        "rauvisio_brilliant_tech_0046",
+        "rauvisio_brilliant_mkt_0011",
+        "rauvisio_brilliant_tech_0050",
+        "rauvisio_brilliant_mkt_0015",
+        "rauvisio_brilliant_mkt_0017"
+      ],
+      "action": "expand_terminology",
+      "features": {
+        "query": "How do I stop the laminate from bending when I press it?",
+        "s_term": 0.665,
+        "c_prod": 0.3611,
+        "m_prod": 0.2242,
+        "top_product": "RAUVISIO terra",
+        "j_agree": 0.0,
+        "h_dense": 0.9918,
+        "r_drift": 0.1209,
+        "best_term_match": {
+          "phrase": "shaping laminate",
+          "preferred_term": "Laminate Processing",
+          "match_type": "dense",
+          "sim": 0.6649529933929443
+        },
+        "bm25_top_ids": [
+          "rauvisio_brilliant_tech_0048",
+          "rauvisio_ingrain_mkt_0002",
+          "rauvisio_terra_tech_0017",
+          "rauvisio_brilliant_mkt_0013",
+          "rauvisio_noir_mkt_0018",
+          "rauvisio_brilliant_tech_0047",
+          "rauvisio_brilliant_mkt_0012",
+          "rauvisio_noir_tech_0053",
+          "rauvisio_ferro_tech_0036",
+          "rauvisio_ferro_mkt_0012",
+          "rauvisio_shade_tech_0036",
+          "rauvisio_ferro_tech_0038",
+          "rauvisio_brilliant_tech_0045",
+          "rauvisio_brilliant_mkt_0010",
+          "rauvisio_crystal_mkt_0035"
+        ],
+        "dense_top_ids": [
+          "rauvisio_brilliant_tech_0046",
+          "rauvisio_brilliant_mkt_0011",
+          "rauvisio_brilliant_tech_0050",
+          "rauvisio_brilliant_mkt_0015",
+          "rauvisio_brilliant_mkt_0017",
+          "rauvisio_brilliant_mkt_0016",
+          "rauvisio_brilliant_tech_0052",
+          "rauvisio_crystal_tech_0081",
+          "rauvisio_crystal_mkt_0031",
+          "rauvisio_brilliant_tech_0049",
+          "rauvisio_brilliant_tech_0051",
+          "rauvisio_crystal_tech_0084",
+          "rauvisio_crystal_mkt_0028",
+          "rauvisio_brilliant_mkt_0014",
+          "rauvisio_crystal_tech_0073"
+        ]
+      },
+      "recall@5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "q0002",
+      "query": "What's the best way to set up the RAUVISIO materials before using them?",
+      "gold_chunk_ids": [
+        "rauvisio_brilliant_tech_0049"
+      ],
+      "retrieved_ids": [
+        "general_root_0000",
+        "rauvisio_brilliant_tech_0058",
+        "general_root_0047",
+        "rauvisio_brilliant_mkt_0023",
+        "rauvisio_brilliant_mkt_0005"
+      ],
+      "action": "expand_terminology",
+      "features": {
+        "query": "What's the best way to set up the RAUVISIO materials before using them?",
+        "s_term": 1.0,
+        "c_prod": 0.2176,
+        "m_prod": 0.0191,
+        "top_product": "RAUVISIO ingrain",
+        "j_agree": 0.0,
+        "h_dense": 0.9963,
+        "r_drift": 0.0,
+        "best_term_match": {
+          "phrase": "rauvisio",
+          "preferred_term": "RAUVISIO Crystal Acrylic Surface Board",
+          "match_type": "exact",
+          "sim": 1.0
+        },
+        "bm25_top_ids": [
+          "rauvisio_shade_mkt_0025",
+          "rauvisio_brilliant_tech_0052",
+          "rauvisio_brilliant_mkt_0017",
+          "rauvisio_noir_tech_0048",
+          "rauvisio_terra_tech_0012",
+          "rauvisio_noir_tech_0052",
+          "rauvisio_noir_mkt_0017",
+          "rauvisio_noir_mkt_0013",
+          "rauvisio_terra_tech_0016",
+          "general_root_0037",
+          "rauvisio_ingrain_mkt_0003",
+          "rauvisio_ingrain_tech_0039",
+          "rauvisio_ingrain_mkt_0016",
+          "rauvisio_ingrain_mkt_0005",
+          "rauvisio_ferro_tech_0040"
+        ],
+        "dense_top_ids": [
+          "general_root_0000",
+          "rauvisio_brilliant_tech_0058",
+          "general_root_0047",
+          "rauvisio_brilliant_mkt_0023",
+          "rauvisio_brilliant_mkt_0005",
+          "rauvisio_crystal_tech_0111",
+          "rauvisio_crystal_mkt_0065",
+          "rauvisio_crystal_mkt_0030",
+          "rauvisio_crystal_mkt_0045",
+          "rauvisio_brilliant_mkt_0031",
+          "general_root_0042",
+          "rauvisio_crystal_tech_0083",
+          "rauvisio_crystal_tech_0107",
+          "general_root_0010",
+          "rauvisio_brilliant_tech_0061"
+        ]
+      },
+      "recall@5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "q0003",
+      "query": "What company produces the clear acrylic board and what are the different types and colors they offer?",
+      "gold_chunk_ids": [
+        "rauvisio_crystal_tech_0113"
+      ],
+      "retrieved_ids": [
+        "rauvisio_brilliant_mkt_0029",
+        "rauvisio_brilliant_tech_0061",
+        "rauvisio_crystal_mkt_0061",
+        "general_root_0049",
+        "rauvisio_crystal_mkt_0001"
+      ],
+      "action": "expand_terminology",
+      "features": {
+        "query": "What company produces the clear acrylic board and what are the different types and colors they offer?",
+        "s_term": 0.702,
+        "c_prod": 0.29,
+        "m_prod": 0.1358,
+        "top_product": "RAUVISIO brilliant",
+        "j_agree": 0.0714,
+        "h_dense": 0.9789,
+        "r_drift": 0.1055,
+        "best_term_match": {
+          "phrase": "crystal acrylic board",
+          "preferred_term": "RAUVISIO Crystal Acrylic Surface Board",
+          "match_type": "dense",
+          "sim": 0.7019827365875244
+        },
+        "bm25_top_ids": [
+          "general_root_0064",
+          "rauvisio_ingrain_mkt_0002",
+          "rauvisio_ingrain_mkt_0005",
+          "general_root_0062",
+          "rauvisio_noir_tech_0052",
+          "rauvisio_terra_tech_0016",
+          "rauvisio_noir_mkt_0017",
+          "general_root_0056",
+          "general_root_0048",
+          "rauvisio_shade_mkt_0025",
+          "rauvisio_noir_mkt_0001",
+          "general_root_0049",
+          "general_root_0054",
+          "general_root_0050",
+          "general_root_0063"
+        ],
+        "dense_top_ids": [
+          "rauvisio_brilliant_mkt_0029",
+          "rauvisio_brilliant_tech_0061",
+          "rauvisio_crystal_mkt_0061",
+          "general_root_0049",
+          "rauvisio_crystal_mkt_0001",
+          "rauvisio_brilliant_tech_0062",
+          "rauvisio_crystal_mkt_0064",
+          "rauvisio_brilliant_mkt_0028",
+          "rauvisio_brilliant_mkt_0038",
+          "general_root_0048",
+          "rauvisio_crystal_mkt_0060",
+          "rauvisio_brilliant_mkt_0002",
+          "rauvisio_brilliant_mkt_0001",
+          "rauvisio_brilliant_tech_0043",
+          "rauvisio_brilliant_mkt_0008"
+        ]
+      },
+      "recall@5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "q0004",
+      "query": "What makes these shelves look so shiny and smooth?",
+      "gold_chunk_ids": [
+        "general_root_0049"
+      ],
+      "retrieved_ids": [
+        "rauvisio_brilliant_mkt_0003",
+        "general_root_0010",
+        "rauvisio_brilliant_mkt_0038",
+        "general_root_0002",
+        "rauvisio_brilliant_mkt_0033"
+      ],
+      "action": "expand_terminology",
+      "features": {
+        "query": "What makes these shelves look so shiny and smooth?",
+        "s_term": 0.6594,
+        "c_prod": 0.1665,
+        "m_prod": 0.0157,
+        "top_product": "REHAU Floating Shelves",
+        "j_agree": 0.0345,
+        "h_dense": 0.996,
+        "r_drift": 0.1703,
+        "best_term_match": {
+          "phrase": "sleek shelves",
+          "preferred_term": "Floating Shelves",
+          "match_type": "dense",
+          "sim": 0.6593621969223022
+        },
+        "bm25_top_ids": [
+          "general_root_0064",
+          "rauvisio_terra_tech_0016",
+          "rauvisio_ingrain_mkt_0005",
+          "rauvisio_terra_mkt_0004",
+          "general_root_0050",
+          "rauvisio_ingrain_mkt_0002",
+          "general_root_0049",
+          "rauvisio_terra_mkt_0000",
+          "rauvisio_shade_mkt_0026",
+          "rauvisio_ingrain_mkt_0004",
+          "general_root_0063",
+          "rauvisio_terra_tech_0014",
+          "general_root_0057",
+          "general_root_0022",
+          "rauvisio_noir_tech_0052"
+        ],
+        "dense_top_ids": [
+          "rauvisio_brilliant_mkt_0003",
+          "general_root_0010",
+          "rauvisio_brilliant_mkt_0038",
+          "general_root_0002",
+          "rauvisio_brilliant_mkt_0033",
+          "general_root_0034",
+          "general_root_0035",
+          "rauvisio_crystal_mkt_0011",
+          "general_root_0048",
+          "rauvisio_brilliant_mkt_0002",
+          "general_root_0022",
+          "general_root_0007",
+          "general_root_0053",
+          "rauvisio_brilliant_tech_0066",
+          "rauvisio_brilliant_mkt_0029"
+        ]
+      },
+      "recall@5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "q0005",
+      "query": "How far can the MDF strip stick out from the last stud if the shelf is between 22 and 45 inches long?",
+      "gold_chunk_ids": [
+        "floating_shelves_prod_0003"
+      ],
+      "retrieved_ids": [
+        "floating_shelves_prod_0003",
+        "general_root_0034",
+        "floating_shelves_prod_0002",
+        "rauvisio_crystal_tech_0106",
+        "rauvisio_crystal_mkt_0053"
+      ],
+      "action": "expand_terminology",
+      "features": {
+        "query": "How far can the MDF strip stick out from the last stud if the shelf is between 22 and 45 inches long?",
+        "s_term": 1.0,
+        "c_prod": 0.2909,
+        "m_prod": 0.1454,
+        "top_product": "REHAU Floating Shelves",
+        "j_agree": 0.3043,
+        "h_dense": 0.7474,
+        "r_drift": 0.0,
+        "best_term_match": {
+          "phrase": "shelf",
+          "preferred_term": "Floating Shelf",
+          "match_type": "exact",
+          "sim": 1.0
+        },
+        "bm25_top_ids": [
+          "floating_shelves_prod_0003",
+          "floating_shelves_prod_0002",
+          "floating_shelves_prod_0001",
+          "floating_shelves_prod_0004",
+          "general_root_0034",
+          "general_root_0033",
+          "rauvisio_noir_mkt_0019",
+          "rauvisio_terra_tech_0018",
+          "rauvisio_noir_tech_0054",
+          "rauvisio_noir_tech_0062",
+          "floating_shelves_prod_0005",
+          "rauvisio_noir_mkt_0014",
+          "floating_shelves_prod_0000",
+          "rauvisio_terra_tech_0013",
+          "rauvisio_ingrain_mkt_0002"
+        ],
+        "dense_top_ids": [
+          "floating_shelves_prod_0003",
+          "general_root_0034",
+          "floating_shelves_prod_0002",
+          "rauvisio_crystal_tech_0106",
+          "rauvisio_crystal_mkt_0053",
+          "floating_shelves_prod_0001",
+          "general_root_0035",
+          "floating_shelves_prod_0004",
+          "rauvisio_brilliant_tech_0048",
+          "general_root_0033",
+          "rauvisio_brilliant_mkt_0013",
+          "floating_shelves_prod_0000",
+          "rauvisio_brilliant_mkt_0012",
+          "general_root_0062",
+          "rauvisio_crystal_mkt_0003"
+        ]
+      },
+      "recall@5": 1.0,
+      "mrr": 1.0
+    },
+    {
+      "id": "q0006",
+      "query": "What's the fire safety rating for this material?",
+      "gold_chunk_ids": [
+        "rauvisio_noir_tech_0043"
+      ],
+      "retrieved_ids": [
+        "general_root_0024",
+        "general_root_0046",
+        "rauvisio_brilliant_tech_0042",
+        "rauvisio_crystal_mkt_0018",
+        "rauvisio_brilliant_mkt_0007"
+      ],
+      "action": "expand_terminology",
+      "features": {
+        "query": "What's the fire safety rating for this material?",
+        "s_term": 1.0,
+        "c_prod": 0.2085,
+        "m_prod": 0.0712,
+        "top_product": "RAUVISIO ingrain",
+        "j_agree": 0.0345,
+        "h_dense": 0.9683,
+        "r_drift": 0.0,
+        "best_term_match": {
+          "phrase": "fire safety rating",
+          "preferred_term": "Fire Rating",
+          "match_type": "exact",
+          "sim": 1.0
+        },
+        "bm25_top_ids": [
+          "rauvisio_ingrain_tech_0044",
+          "rauvisio_ingrain_mkt_0021",
+          "general_root_0062",
+          "rauvisio_ferro_mkt_0021",
+          "rauvisio_terra_tech_0023",
+          "rauvisio_noir_tech_0042",
+          "rauvisio_noir_tech_0043",
+          "rauvisio_terra_tech_0006",
+          "rauvisio_ingrain_tech_0043",
+          "floating_shelves_prod_0000",
+          "rauvisio_terra_tech_0007",
+          "rauvisio_crystal_mkt_0017",
+          "rauvisio_ferro_tech_0029",
+          "rauvisio_ferro_mkt_0008",
+          "rauvisio_noir_tech_0060"
+        ],
+        "dense_top_ids": [
+          "general_root_0024",
+          "general_root_0046",
+          "rauvisio_brilliant_tech_0042",
+          "rauvisio_crystal_mkt_0018",
+          "rauvisio_brilliant_mkt_0007",
+          "general_root_0009",
+          "rauvisio_crystal_tech_0071",
+          "general_root_0004",
+          "rauvisio_crystal_mkt_0012",
+          "general_root_0028",
+          "general_root_0018",
+          "rauvisio_brilliant_mkt_0003",
+          "general_root_0031",
+          "rauvisio_brilliant_mkt_0020",
+          "rauvisio_crystal_mkt_0017"
+        ]
+      },
+      "recall@5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "q0007",
+      "query": "What's the allowed length variation for these parts?",
+      "gold_chunk_ids": [
+        "rauvisio_shade_tech_0041"
+      ],
+      "retrieved_ids": [
+        "general_root_0043",
+        "general_root_0039",
+        "general_root_0040",
+        "rauvisio_crystal_mkt_0052",
+        "rauvisio_crystal_tech_0105"
+      ],
+      "action": "expand_terminology",
+      "features": {
+        "query": "What's the allowed length variation for these parts?",
+        "s_term": 0.6114,
+        "c_prod": 0.1384,
+        "m_prod": 0.0002,
+        "top_product": "REHAU Integrated Handles",
+        "j_agree": 0.0,
+        "h_dense": 0.9879,
+        "r_drift": 0.1593,
+        "best_term_match": {
+          "phrase": "allowed size variation",
+          "preferred_term": "Dimensional Tolerance",
+          "match_type": "dense",
+          "sim": 0.6114481091499329
+        },
+        "bm25_top_ids": [
+          "floating_shelves_prod_0000",
+          "rauvisio_ingrain_mkt_0002",
+          "rauvisio_brilliant_tech_0045",
+          "rauvisio_brilliant_mkt_0010",
+          "rauvisio_ingrain_mkt_0004",
+          "floating_shelves_prod_0005",
+          "rauvisio_ingrain_mkt_0003",
+          "rauvisio_noir_tech_0064",
+          "rauvisio_noir_tech_0052",
+          "rauvisio_terra_tech_0016",
+          "rauvisio_noir_mkt_0017",
+          "rauvisio_shade_mkt_0025",
+          "rauvisio_crystal_mkt_0016",
+          "floating_shelves_prod_0001",
+          "rauvisio_ingrain_mkt_0000"
+        ],
+        "dense_top_ids": [
+          "general_root_0043",
+          "general_root_0039",
+          "general_root_0040",
+          "rauvisio_crystal_mkt_0052",
+          "rauvisio_crystal_tech_0105",
+          "rauvisio_crystal_mkt_0050",
+          "general_root_0035",
+          "general_root_0006",
+          "rauvisio_crystal_mkt_0003",
+          "rauvisio_crystal_tech_0103",
+          "rauvisio_crystal_tech_0104",
+          "rauvisio_brilliant_mkt_0019",
+          "general_root_0032",
+          "rauvisio_crystal_mkt_0051",
+          "rauvisio_brilliant_tech_0054"
+        ]
+      },
+      "recall@5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "q0008",
+      "query": "How does this material burn?",
+      "gold_chunk_ids": [
+        "rauvisio_ferro_tech_0033"
+      ],
+      "retrieved_ids": [
+        "rauvisio_brilliant_tech_0042",
+        "rauvisio_brilliant_mkt_0007",
+        "general_root_0024",
+        "rauvisio_crystal_mkt_0018",
+        "rauvisio_crystal_tech_0071"
+      ],
+      "action": "expand_terminology",
+      "features": {
+        "query": "How does this material burn?",
+        "s_term": 0.6692,
+        "c_prod": 0.1708,
+        "m_prod": 0.0119,
+        "top_product": "RAUVISIO ingrain",
+        "j_agree": 0.0,
+        "h_dense": 0.9729,
+        "r_drift": 0.1626,
+        "best_term_match": {
+          "phrase": "fire resistance properties",
+          "preferred_term": "Fire Behavior",
+          "match_type": "dense",
+          "sim": 0.6691906452178955
+        },
+        "bm25_top_ids": [
+          "rauvisio_ingrain_mkt_0002",
+          "rauvisio_terra_tech_0007",
+          "rauvisio_crystal_mkt_0016",
+          "rauvisio_brilliant_mkt_0005",
+          "rauvisio_brilliant_tech_0040",
+          "rauvisio_crystal_tech_0069",
+          "rauvisio_terra_tech_0009",
+          "rauvisio_noir_tech_0045",
+          "rauvisio_terra_tech_0006",
+          "rauvisio_shade_tech_0031",
+          "rauvisio_ferro_tech_0031",
+          "rauvisio_ingrain_mkt_0014",
+          "rauvisio_ingrain_tech_0037",
+          "rauvisio_ferro_mkt_0007",
+          "rauvisio_noir_tech_0051"
+        ],
+        "dense_top_ids": [
+          "rauvisio_brilliant_tech_0042",
+          "rauvisio_brilliant_mkt_0007",
+          "general_root_0024",
+          "rauvisio_crystal_mkt_0018",
+          "rauvisio_crystal_tech_0071",
+          "general_root_0009",
+          "general_root_0004",
+          "general_root_0046",
+          "rauvisio_crystal_tech_0098",
+          "rauvisio_crystal_mkt_0017",
+          "rauvisio_brilliant_mkt_0020",
+          "general_root_0028",
+          "rauvisio_brilliant_tech_0041",
+          "rauvisio_crystal_mkt_0045",
+          "rauvisio_brilliant_mkt_0006"
+        ]
+      },
+      "recall@5": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "id": "q0009",
+      "query": "What colors can these handles come in?",
+      "gold_chunk_ids": [
+        "integrated_handles_gen_0000"
+      ],
+      "retrieved_ids": [
+        "integrated_handles_gen_0000",
+        "general_root_0033",
+        "general_root_0063",
+        "general_root_0029",
+        "general_root_0032"
+      ],
+      "action": "expand_terminology",
+      "features": {
+        "query": "What colors can these handles come in?",
+        "s_term": 0.5823,
+        "c_prod": 0.6181,
+        "m_prod": 0.5497,
+        "top_product": "REHAU Integrated Handles",
+        "j_agree": 0.1111,
+        "h_dense": 0.8827,
+        "r_drift": 0.1512,
+        "best_term_match": {
+          "phrase": "integrated handles",
+          "preferred_term": "REHAU Integrated Handles",
+          "match_type": "dense",
+          "sim": 0.5822701454162598
+        },
+        "bm25_top_ids": [
+          "general_root_0062",
+          "rauvisio_ingrain_mkt_0002",
+          "general_root_0064",
+          "general_root_0061",
+          "general_root_0048",
+          "general_root_0033",
+          "rauvisio_ingrain_mkt_0005",
+          "integrated_handles_gen_0000",
+          "rauvisio_terra_mkt_0004",
+          "rauvisio_ingrain_mkt_0000",
+          "general_root_0063",
+          "rauvisio_terra_tech_0016",
+          "rauvisio_noir_mkt_0017",
+          "rauvisio_noir_tech_0052",
+          "rauvisio_crystal_mkt_0047"
+        ],
+        "dense_top_ids": [
+          "integrated_handles_gen_0000",
+          "general_root_0033",
+          "general_root_0063",
+          "general_root_0029",
+          "general_root_0032",
+          "general_root_0001",
+          "rauvisio_crystal_mkt_0064",
+          "rauvisio_brilliant_mkt_0035",
+          "rauvisio_brilliant_mkt_0033",
+          "rauvisio_crystal_mkt_0066",
+          "general_root_0047",
+          "rauvisio_brilliant_tech_0064",
+          "rauvisio_brilliant_mkt_0031",
+          "general_root_0037",
+          "rauvisio_brilliant_mkt_0029"
+        ]
+      },
+      "recall@5": 1.0,
+      "mrr": 1.0
+    }
+  ]
+}

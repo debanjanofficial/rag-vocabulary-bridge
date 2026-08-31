@@ -23,9 +23,11 @@ from config import (
 from src.answer_pipeline import retrieve_candidates, run_answer_pipeline
 from src.qrels import load_qrels
 from src.reranker import rerank_documents
+from src.router.router import route_query
 from src.strategies.nlp_strategy import nlp_map
 from src.strategies.embedding_strategy import embedding_map
 from src.strategies.llm_strategy import llm_map
+
 
 st.set_page_config(page_title="REHAU Query Mapping", page_icon="🔍", layout="wide")
 
@@ -78,6 +80,8 @@ def get_eval_results():
 
 
 def run_strategy(name, query, llm_ok):
+    if name in ("Adaptive (Auto-Route)", "Adaptive"):
+        return route_query(query, llm_available=llm_ok).to_dict()
     if name == "Baseline":
         return {"original_query": query, "final_query": query, "strategy": "Baseline"}
     if name == "NLP-based":
@@ -147,7 +151,7 @@ with tab_demo:
         )
         strategy = st.radio(
             "Strategy:",
-            ["Baseline", "NLP-based", "Embedding-based", "LLM-based"],
+            ["Adaptive (Auto-Route)", "Baseline", "NLP-based", "Embedding-based", "LLM-based"],
             horizontal=True,
         )
         do_generate = st.checkbox(
@@ -162,6 +166,7 @@ with tab_demo:
             disabled=not do_generate,
             help="Detailed uses more context; simple facts stay short.",
         )
+
         detail = answer_style == "Detailed"
         go = st.button("Run", type="primary", use_container_width=True)
 
@@ -175,7 +180,36 @@ with tab_demo:
                 with st.spinner("Mapping..."):
                     result = run_strategy(strategy, query, llm_ok)
                 mapped = result.get("final_query", query)
-                if strategy == "NLP-based":
+                if strategy in ("Adaptive (Auto-Route)", "Adaptive"):
+                    dec = result.get("decision", {})
+                    act = result.get("action", "passthrough")
+                    fv = result.get("features", {})
+                    action_badges = {
+                        "passthrough": "🔵 **Action: PASSTHROUGH** (Exact Technical Keywords Detected)",
+                        "expand_terminology": "🟢 **Action: EXPAND_TERMINOLOGY** (In-Place Knowledge Graph Injection)",
+                        "filter_metadata": "🟣 **Action: FILTER_METADATA** (Product Constraint + Intent Reranking)",
+                        "expand_semantic": "🟠 **Action: EXPAND_SEMANTIC** (Intent Query Reformulation)",
+                        "clarify": "🔴 **Action: CLARIFY** (Ambiguity Detected / Abstain & Clarify)",
+                    }
+                    st.markdown(action_badges.get(act, f"**Action:** `{act}`"))
+                    st.caption(
+                        f"**Confidence:** {dec.get('confidence', 1.0):.2f} · **Rationale:** {dec.get('reason', '')}"
+                    )
+                    st.markdown("**Routing Feature Signatures:**")
+                    f_col1, f_col2, f_col3, f_col4, f_col5 = st.columns(5)
+                    f_col1.metric("S_term (Gap)", f"{fv.get('s_term', 0.0):.2f}")
+                    f_col2.metric("C_prod (Conf)", f"{fv.get('c_prod', 0.0):.2f}")
+                    f_col3.metric("J_agree (Overlap)", f"{fv.get('j_agree', 0.0):.2f}")
+                    f_col4.metric("H_dense (Entropy)", f"{fv.get('h_dense', 0.0):.2f}")
+                    f_col5.metric("R_drift (Risk)", f"{fv.get('r_drift', 0.0):.2f}")
+
+                    if result.get("clarification_prompt"):
+                        st.warning(
+                            f"⚠️ **Targeted Clarification Question:**\n\n{result['clarification_prompt']}"
+                        )
+                    if result.get("filters"):
+                        st.caption(f"Applied Filters: `{result['filters']}`")
+                elif strategy == "NLP-based":
                     st.markdown("**Term mappings** *(embedding-gated; RRF with original)*")
                     if result.get("abstained"):
                         st.caption("Abstained — retrieving original query only.")
@@ -248,16 +282,17 @@ with tab_demo:
                     if dbg.get("raw_llm"):
                         with st.expander("LLM JSON (raw)"):
                             st.json(dbg["raw_llm"])
-                if mapped.strip() != query.strip() and strategy != "LLM-based":
+                if mapped.strip() != query.strip() and strategy not in ("LLM-based", "Adaptive (Auto-Route)", "Adaptive"):
                     st.caption("Expanded query")
                     st.success(mapped[:500])
                 else:
                     st.caption(
                         "Expanded query (unchanged)"
-                        if strategy != "LLM-based"
-                        else "Semantic query (same as original)"
+                        if strategy not in ("LLM-based", "Adaptive (Auto-Route)", "Adaptive")
+                        else "Routed query payload"
                     )
                     st.text(mapped[:500])
+
 
             with st.expander(
                 "Step 3 — Retrieve + semantic rerank",
@@ -319,7 +354,10 @@ with tab_compare:
     )
     if st.button("Compare all", type="primary"):
         gold = set(qrels[cmp_q]["gold_chunk_ids"]) if cmp_q in qrels else set()
-        for strat in ["Baseline", "NLP-based", "Embedding-based", "LLM-based"]:
+        for strat in [
+            "Adaptive (Auto-Route)", "Baseline", "NLP-based",
+            "Embedding-based", "LLM-based"
+        ]:
             st.markdown(f"**{strat}**")
             res = run_strategy(strat, cmp_q, llm_ok)
             with st.spinner(f"{strat}: retrieve + rerank..."):
@@ -340,6 +378,11 @@ with tab_compare:
                 else res.get("final_query", cmp_q)
             )
             st.text(str(label)[:200])
+            if strat == "Adaptive (Auto-Route)":
+                dec = res.get("decision", {})
+                st.caption(
+                    f"Action: `{res.get('action')}` · Reason: {dec.get('reason', '')}"
+                )
             filters = res.get("filters") or {}
             if filters:
                 extra = ", ".join(f"{k}={v}" for k, v in filters.items())
@@ -357,12 +400,45 @@ with tab_compare:
                 st.write(pipe["generation"].get("answer", "")[:500])
 
 with tab_results:
-    eval_res = get_eval_results()
-    if eval_res:
-        rows = [{"Strategy": s, **{f"R@{k}": m["recall"].get(f"@{k}", "-")
-                                     for k in (1, 3, 5)},
-                 "MRR": m["mrr"], "nDCG@5": m["ndcg@5"]}
-                for s, m in eval_res.items()]
+    router_results_path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        "results",
+        "evaluation_results_router.json",
+    )
+    loaded_data = None
+    if os.path.exists(router_results_path):
+        with open(router_results_path, encoding="utf-8") as f:
+            raw = json.load(f)
+            loaded_data = raw.get("summary", raw)
+    elif os.path.exists(EVAL_RESULTS):
+        with open(EVAL_RESULTS, encoding="utf-8") as f:
+            loaded_data = json.load(f)
+
+    if loaded_data:
+        rows = []
+        for s, m in loaded_data.items():
+            recall_data = m.get("recall", {})
+            rows.append({
+                "Strategy": s,
+                "R@1": recall_data.get("@1", "-"),
+                "R@3": recall_data.get("@3", "-"),
+                "R@5": recall_data.get("@5", "-"),
+                "MRR": m.get("mrr", "-"),
+                "nDCG@5": m.get("ndcg@5", "-"),
+                "Latency (ms)": m.get("mean_latency_ms", "-"),
+            })
+        st.subheader("Benchmark Comparison on Eval Dataset")
         st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+
+        if "Adaptive Router (Proposed)" in loaded_data:
+            dist = loaded_data["Adaptive Router (Proposed)"].get(
+                "action_distribution_pct", {}
+            )
+            if dist:
+                st.subheader("Adaptive Router Action Breakdown")
+                d_cols = st.columns(len(dist))
+                for col, (act, pct) in zip(d_cols, dist.items()):
+                    col.metric(act, f"{pct}%")
     else:
-        st.info("No results yet. Run `python scripts/evaluate.py --no-llm`.")
+        st.info("No results yet. Run `python scripts/evaluate_router.py --no-llm`.")
+

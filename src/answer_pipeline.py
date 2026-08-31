@@ -27,6 +27,9 @@ def retrieve_candidates(
     k = candidate_k or RETRIEVE_CANDIDATES
     k = max(k, RERANK_TOP_N)
 
+    if strategy in ("Adaptive (Auto-Route)", "Adaptive"):
+        from src.retriever import retrieve_full_routed
+        return retrieve_full_routed(mapped, top_k=k)
     if strategy == "LLM-based":
         # Internal heuristic guide/spec rerank stays inside this call.
         return retrieve_full_self_query(mapped, top_k=k)
