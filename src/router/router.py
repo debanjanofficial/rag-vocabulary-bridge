@@ -28,6 +28,8 @@ class RouterResult:
     prefer_source: str | None = None
     clarification_prompt: str | None = None
     strategy_used: str = "Adaptive"
+    lexical_query: str | None = None
+    is_hybrid: bool = False
 
     def to_dict(self) -> dict[str, Any]:
         """Convert result to a JSON-serializable dictionary."""
@@ -42,7 +44,10 @@ class RouterResult:
             "prefer_source": self.prefer_source,
             "clarification_prompt": self.clarification_prompt,
             "strategy_used": self.strategy_used,
+            "lexical_query": self.lexical_query,
+            "is_hybrid": self.is_hybrid,
         }
+
 
 
 class AdaptiveRouter:
@@ -84,20 +89,24 @@ class AdaptiveRouter:
         filters: dict[str, Any] | None = None
         prefer_source: str | None = None
         clarification_prompt: str | None = None
+        lexical_query: str | None = None
+        is_hybrid: bool = False
 
         if decision.action == RoutingAction.PASSTHROUGH:
             final_query = q_clean
             retrieval_queries = [q_clean]
 
         elif decision.action == RoutingAction.EXPAND_TERMINOLOGY:
-            # Multi-hop Terminology Knowledge Graph (TKG) subgraph expansion
+            # Decoupled Lexical-Dense Hybrid Retrieval with TKG
             try:
                 from src.tkg import SubgraphExtractor, get_tkg
                 extractor = SubgraphExtractor(get_tkg())
                 subgraph_res = extractor.extract_subgraph(q_clean)
                 if subgraph_res.expansion_query != q_clean:
-                    final_query = subgraph_res.expansion_query
-                    retrieval_queries = [final_query, q_clean]
+                    final_query = q_clean
+                    lexical_query = subgraph_res.expansion_query
+                    is_hybrid = True
+                    retrieval_queries = [final_query, lexical_query]
                 else:
                     nlp_res = nlp_map(q_clean)
                     retrieval_queries = nlp_res.get("retrieval_queries", [q_clean])
@@ -106,7 +115,6 @@ class AdaptiveRouter:
                 nlp_res = nlp_map(q_clean)
                 retrieval_queries = nlp_res.get("retrieval_queries", [q_clean])
                 final_query = nlp_res.get("final_query", q_clean)
-
 
         elif decision.action == RoutingAction.FILTER_METADATA:
             # Target product filtering with intent routing
@@ -151,7 +159,10 @@ class AdaptiveRouter:
             filters=filters,
             prefer_source=prefer_source,
             clarification_prompt=clarification_prompt,
+            lexical_query=lexical_query,
+            is_hybrid=is_hybrid,
         )
+
 
 
 _default_router: AdaptiveRouter | None = None

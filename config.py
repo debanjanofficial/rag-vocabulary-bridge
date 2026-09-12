@@ -27,6 +27,12 @@ GEN_MODEL = "qwen3:8b"          # Self-Query / mapping (needs stronger JSON)
 ANSWER_MODEL = "qwen3:0.6b"     # Fast plain-language answer generation
 RERANK_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
+# ── Grounding & NLI (Pillar 5) ───────────────────────────────────────────────
+NLI_MODEL = "cross-encoder/nli-deberta-v3-xsmall"
+NLI_ENTAILMENT_THRESHOLD = 0.50
+NLI_CONTRADICTION_THRESHOLD = 0.50
+MAX_CANDIDATE_PASSAGES_FOR_NLI = 5
+
 # Ollama GPU layers: unset = let Ollama use GPU; set OLLAMA_NUM_GPU=0 for CPU-only
 _OLLAMA_GPU_ENV = os.environ.get("OLLAMA_NUM_GPU")
 OLLAMA_NUM_GPU = int(_OLLAMA_GPU_ENV) if _OLLAMA_GPU_ENV is not None else None

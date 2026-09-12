@@ -4,6 +4,7 @@ Streamlit UI — RAG Query Mapping Module (REHAU RAUVISIO)
 Run: streamlit run app.py
 """
 
+import json
 import os
 import sys
 
@@ -79,9 +80,17 @@ def get_eval_results():
     return None
 
 
-def run_strategy(name, query, llm_ok):
+def run_strategy(name, query, llm_ok, alpha=0.5):
     if name in ("Adaptive (Auto-Route)", "Adaptive"):
         return route_query(query, llm_available=llm_ok).to_dict()
+    if name in ("Hybrid (BM25 + Dense RRF)", "Hybrid"):
+        return {
+            "original_query": query,
+            "final_query": query,
+            "strategy": "Hybrid",
+            "is_hybrid": True,
+            "alpha": alpha,
+        }
     if name == "Baseline":
         return {"original_query": query, "final_query": query, "strategy": "Baseline"}
     if name == "NLP-based":
@@ -91,6 +100,7 @@ def run_strategy(name, query, llm_ok):
     if name == "LLM-based":
         return llm_map(query, llm_available=llm_ok)
     return {"original_query": query, "final_query": query}
+
 
 
 DEMO_QUERIES = [
@@ -151,13 +161,31 @@ with tab_demo:
         )
         strategy = st.radio(
             "Strategy:",
-            ["Adaptive (Auto-Route)", "Baseline", "NLP-based", "Embedding-based", "LLM-based"],
+            ["Adaptive (Auto-Route)", "Hybrid (BM25 + Dense RRF)", "Baseline", "NLP-based", "Embedding-based", "LLM-based"],
             horizontal=True,
         )
+        if strategy.startswith("Hybrid"):
+            hybrid_alpha = st.slider(
+                "Dense vs BM25 Weight (α):",
+                min_value=0.0,
+                max_value=1.0,
+                value=0.5,
+                step=0.05,
+                help="1.0 = Pure Dense vector search; 0.0 = Pure BM25 lexical; 0.5 = Balanced RRF.",
+            )
+        else:
+            hybrid_alpha = 0.5
+
         do_generate = st.checkbox(
             "Generate answer",
             value=True,
             help="Off = map + retrieve + rerank only (faster).",
+        )
+        verify_grounding = st.checkbox(
+            "NLI Grounding Verification",
+            value=True,
+            disabled=not do_generate,
+            help="Evaluate sentence-level entailment and hallucination detection via DeBERTa cross-encoder.",
         )
         answer_style = st.radio(
             "Answer length:",
@@ -178,7 +206,8 @@ with tab_demo:
                 st.info(f'"{query}"')
             with st.expander("Step 2 — Mapping module", expanded=True):
                 with st.spinner("Mapping..."):
-                    result = run_strategy(strategy, query, llm_ok)
+                    result = run_strategy(strategy, query, llm_ok, alpha=hybrid_alpha)
+
                 mapped = result.get("final_query", query)
                 if strategy in ("Adaptive (Auto-Route)", "Adaptive"):
                     dec = result.get("decision", {})
@@ -306,6 +335,7 @@ with tab_demo:
                         llm_available=answer_ok,
                         generate=do_generate,
                         detail=detail,
+                        verify_grounding=verify_grounding,
                     )
                 docs = pipeline["reranked"]
                 n_cand = len(pipeline["candidates"])
@@ -321,15 +351,26 @@ with tab_demo:
                     mark = "✓ " if doc["chunk_id"] in gold else ""
                     rr = doc.get("rerank_score")
                     rr_s = f" · rerank {rr:.3f}" if isinstance(rr, (int, float)) else ""
+                    origin = doc.get("channel_origin")
+                    badge = ""
+                    if origin == "both":
+                        badge = " :green[**[Dense + BM25]**]"
+                    elif origin == "dense_only":
+                        badge = " :blue[**[Dense Only]**]"
+                    elif origin == "bm25_only":
+                        badge = " :orange[**[BM25 Only]**]"
+                    rrf_s = f" · rrf {doc['rrf_score']:.4f}" if "rrf_score" in doc else ""
+
                     with st.container(border=True):
                         st.markdown(
-                            f"{mark}**{i}.** `{doc['chunk_id']}` — "
-                            f"emb {doc.get('score', '—')}{rr_s} · "
+                            f"{mark}**{i}.** `{doc['chunk_id']}`{badge} — "
+                            f"emb {doc.get('score', '—')}{rrf_s}{rr_s} · "
                             f"{doc.get('product', '')} · {doc.get('source', '')}"
                         )
                         st.text(doc["document"][:800])
 
-            with st.expander("Step 4 — Generated answer", expanded=True):
+
+            with st.expander("Step 4 — Generated answer & NLI Grounding", expanded=True):
                 gen = pipeline["generation"]
                 if gen.get("error") == "skipped":
                     st.info("Generation skipped — enable the checkbox to run it.")
@@ -338,7 +379,133 @@ with tab_demo:
                 elif gen.get("abstained"):
                     st.warning(gen["answer"])
                 else:
-                    st.success(gen["answer"])
+                    if gen.get("is_fallback"):
+                        st.info(
+                            "ℹ️ **Local Ollama LLM is not installed.** "
+                            "Demonstrating live **Pillar 5 Sentence-Level NLI Verification & Attribution** "
+                            "on the extracted passage answer:"
+                        )
+                    st.markdown("**Plain-Language Answer:**")
+                    st.write(gen["answer"])
+
+                    gr = gen.get("grounding")
+                    if gr and not gr.get("error"):
+                        st.divider()
+                        st.markdown("##### 🔬 Sentence-Level NLI Attribution (Pillar 5)")
+                        g_col1, g_col2, g_col3, g_col4 = st.columns(4)
+                        faith_pct = int(round(gr.get("faithfulness_ratio", 1.0) * 100))
+                        contra_pct = int(round(gr.get("hallucination_ratio", 0.0) * 100))
+                        g_col1.metric("Faithfulness", f"{faith_pct}%")
+                        g_col2.metric("Hallucination Risk", f"{contra_pct}%")
+                        g_col3.metric("Entailed Claims", f"{gr.get('num_entailed', 0)} / {gr.get('num_claims', 0)}")
+                        g_col4.metric("TKG Provenance", f"{int(round(gr.get('tkg_provenance_ratio', 0.0) * 100))}%")
+
+                        st.markdown("**Annotated Response with Verified Citations:**")
+                        st.markdown(gr.get("annotated_markdown", ""))
+
+                        with st.expander("Claim-by-Claim Verification Breakdown", expanded=False):
+                            for claim in gr.get("claims", []):
+                                verdict = claim.get("verdict")
+                                if verdict == "entailment":
+                                    badge = "🟢 **Entailed**"
+                                elif verdict == "contradiction":
+                                    badge = "🔴 **Contradicted (Hallucination)**"
+                                else:
+                                    badge = "🟡 **Ungrounded (Neutral)**"
+
+                                st.markdown(f"{badge} · **Claim {claim.get('claim_id')}:** {claim.get('text')}")
+                                st.caption(
+                                    f"Confidence: {claim.get('confidence', 0.0):.2f} · "
+                                    f"Entailment: {claim.get('entailment_prob', 0.0):.2f} · "
+                                    f"Contradiction: {claim.get('contradiction_prob', 0.0):.2f} · "
+                                    f"Supporting Chunk: `{claim.get('supporting_chunk_id') or 'None'}`"
+                                )
+                                if claim.get("supporting_excerpt"):
+                                    st.text(f"Supporting Evidence: \"{claim.get('supporting_excerpt')}\"")
+                                st.markdown("---")
+
+                        # Human-in-the-Loop Active Learning / Correction form
+                        with st.expander("🛡️ Correct & Learn: Save Permanent Factory Rule", expanded=False):
+                            st.caption(
+                                "Correct an erroneous or red-flagged claim. Once saved, this creates a "
+                                "permanent negative constraint in the Terminology Knowledge Graph and rule store, "
+                                "guaranteeing the error is never repeated."
+                            )
+                            claim_options = ["(Select a claim to correct)"] + [
+                                f"Claim {c['claim_id']}: {c['text'][:80]}..."
+                                for c in gr.get("claims", [])
+                            ]
+                            selected_claim_str = st.selectbox(
+                                "Select claim to correct:",
+                                claim_options,
+                                key="claim_sel",
+                            )
+
+                            rule_text = st.text_area(
+                                "Approved Factory Rule / Procedure:",
+                                placeholder="e.g. Do not use window cleaner on RAUVISIO shade; clean only with mild soap and damp microfiber.",
+                                key="rule_text_input",
+                            )
+                            fb_col1, fb_col2 = st.columns(2)
+                            with fb_col1:
+                                author_name = st.text_input(
+                                    "Verified by (Role/Name):",
+                                    value="Quality Engineer",
+                                    key="author_input",
+                                )
+                            with fb_col2:
+                                prod_name = st.text_input(
+                                    "Applies to Product Family:",
+                                    value=(
+                                        docs[0].get("product", "RAUVISIO shade")
+                                        if docs
+                                        else "RAUVISIO shade"
+                                    ),
+                                    key="prod_family_input",
+                                )
+
+                            if st.button(
+                                "Save Permanent Factory Rule & Update Graph",
+                                type="primary",
+                                key="save_feedback_btn",
+                            ):
+                                if rule_text.strip():
+                                    from src.tkg.feedback import FeedbackManager
+
+                                    fm = FeedbackManager()
+                                    rec = fm.submit_correction(
+                                        query=query,
+                                        product=prod_name,
+                                        contradicted_claim=selected_claim_str,
+                                        approved_rule=rule_text.strip(),
+                                        author=author_name.strip(),
+                                    )
+                                    st.success(
+                                        f"✓ Successfully saved Rule `{rec['id']}`! "
+                                        "Terminology Knowledge Graph and rule store updated."
+                                    )
+                                    st.info(
+                                        "The system has permanently learned this constraint and will "
+                                        "enforce it for all future users across the company."
+                                    )
+                                else:
+                                    st.warning(
+                                        "Please provide the approved rule text before saving."
+                                    )
+
+                        try:
+                            from src.tkg.feedback import FeedbackManager
+
+                            p_cand = docs[0].get("product") if docs else None
+                            active_rules = FeedbackManager().find_matching_rules(
+                                query, p_cand
+                            )
+                            if active_rules:
+                                st.info(
+                                    f"🛡️ **Active Factory Rule Enforced:** {active_rules[0]['approved_rule']}"
+                                )
+                        except Exception:
+                            pass
 
             if query in qrels:
                 with st.expander("Reference answer"):

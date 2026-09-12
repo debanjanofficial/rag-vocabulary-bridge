@@ -30,6 +30,14 @@ def retrieve_candidates(
     if strategy in ("Adaptive (Auto-Route)", "Adaptive"):
         from src.retriever import retrieve_full_routed
         return retrieve_full_routed(mapped, top_k=k)
+    if strategy in ("Hybrid (BM25 + Dense RRF)", "Hybrid"):
+        from src.retriever import retrieve_full_hybrid
+        return retrieve_full_hybrid(
+            query=mapped.get("final_query") or query,
+            lexical_query=mapped.get("lexical_query"),
+            alpha=float(mapped.get("alpha", 0.5)),
+            top_k=k,
+        )
     if strategy == "LLM-based":
         # Internal heuristic guide/spec rerank stays inside this call.
         return retrieve_full_self_query(mapped, top_k=k)
@@ -42,6 +50,7 @@ def retrieve_candidates(
     return retrieve_full(q, top_k=k)
 
 
+
 def run_answer_pipeline(
     strategy: str,
     query: str,
@@ -52,11 +61,13 @@ def run_answer_pipeline(
     generate: bool = True,
     generate_top_n: int | None = None,
     detail: bool = False,
+    verify_grounding: bool = True,
 ) -> dict:
     """Post-mapping path for one user-selected strategy.
 
     When ``generate`` is False, skips Ollama answer generation (faster demos).
     ``detail=True`` uses more passage context; answer length still matches the question.
+    ``verify_grounding=True`` executes sentence-level NLI entailment checking.
     """
     top_n = rerank_top_n or RERANK_TOP_N
     if generate_top_n is not None:
@@ -74,6 +85,7 @@ def run_answer_pipeline(
             llm_available=llm_available,
             top_n=gen_n,
             detail=detail,
+            verify_grounding=verify_grounding,
         )
     else:
         generation = {

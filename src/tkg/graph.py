@@ -61,6 +61,50 @@ class TerminologyKG:
             properties=edge.properties,
         )
 
+    def add_constraint_rule(
+        self,
+        product_label: str,
+        constraint_label: str,
+        rule_text: str,
+        relation: RelationType = RelationType.FORBIDS_AGENT,
+        provenance: str = "Human Expert Feedback",
+    ) -> tuple[KGNode, KGEdge]:
+        """Add a negative constraint node and link it to a product."""
+        import re
+
+        prod_node = self.find_node(product_label)
+        if not prod_node:
+            p_id = "prod_" + re.sub(r"[^a-z0-9]+", "_", product_label.lower()).strip("_")
+            prod_node = KGNode(
+                id=p_id,
+                label=product_label,
+                entity_type=EntityType.PRODUCT_FAMILY,
+                definition=f"Product family: {product_label}",
+            )
+            self.add_node(prod_node)
+
+        c_id = "const_" + re.sub(r"[^a-z0-9]+", "_", constraint_label.lower()).strip("_")
+        const_node = self.get_node(c_id)
+        if not const_node:
+            const_node = KGNode(
+                id=c_id,
+                label=constraint_label,
+                entity_type=EntityType.CONSTRAINT,
+                definition=rule_text,
+                properties={"rule_text": rule_text, "source": provenance},
+            )
+            self.add_node(const_node)
+
+        edge = KGEdge(
+            source_id=prod_node.id,
+            target_id=const_node.id,
+            relation=relation,
+            provenance=provenance,
+            properties={"rule_text": rule_text},
+        )
+        self.add_edge(edge)
+        return const_node, edge
+
     def get_node(self, node_id: str) -> KGNode | None:
         """Retrieve node by unique ID."""
         return self._nodes.get(node_id)

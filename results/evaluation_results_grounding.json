@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-09-08 16:33:19",
+  "elapsed_seconds": 31.04,
+  "summary": {
+    "Baseline": {
+      "mean_faithfulness_pct": 30.0,
+      "mean_hallucination_pct": 30.0,
+      "mean_citation_precision_pct": 60.0,
+      "mean_tkg_provenance_pct": 0.0,
+      "total_claims_evaluated": 10,
+      "evaluated_queries": 5
+    },
+    "Adaptive (Auto-Route)": {
+      "mean_faithfulness_pct": 30.0,
+      "mean_hallucination_pct": 30.0,
+      "mean_citation_precision_pct": 60.0,
+      "mean_tkg_provenance_pct": 0.0,
+      "total_claims_evaluated": 10,
+      "evaluated_queries": 5
+    }
+  }
+}
