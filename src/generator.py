@@ -56,6 +56,21 @@ def _prompt_for_mode(query: str, context: str, detail: bool) -> str:
     )
 
 
+def _clean_repetitive_text(text: str) -> str:
+    """Detect and truncate degenerative LLM repetition loops."""
+    lines = text.split("\n")
+    seen_counts: dict[str, int] = {}
+    cleaned_lines: list[str] = []
+    for line in lines:
+        stripped = line.strip()
+        if stripped:
+            seen_counts[stripped] = seen_counts.get(stripped, 0) + 1
+            if seen_counts[stripped] > 2:
+                break
+        cleaned_lines.append(line)
+    return "\n".join(cleaned_lines).strip()
+
+
 def generate_answer(
     query: str,
     docs: list[dict],
@@ -204,12 +219,13 @@ def generate_answer(
     prompt = _prompt_for_mode(query, context, detail)
 
     try:
-        answer = chat_text(
+        raw_answer = chat_text(
             prompt,
             model=answer_model,
             temperature=0.2,
             num_predict=num_predict,
         ).strip()
+        answer = _clean_repetitive_text(raw_answer)
     except Exception as e:
         return {
             "answer": f"Generation failed: {e}",

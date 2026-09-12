@@ -186,6 +186,16 @@ class NLIVerifier:
         best_contra_excerpt = ""
         best_contra_scores = {"contradiction": 0.0, "entailment": 0.0, "neutral": 1.0}
 
+        # Extract content words from claim to check topical relevance
+        import re
+        claim_content_words = {
+            w.lower()
+            for w in re.findall(r"\w+", claim.text)
+            if len(w) > 3
+            and w.lower()
+            not in {"this", "that", "with", "from", "your", "they", "will", "have"}
+        }
+
         for (p_idx, window_text), scores in zip(pair_metadata, evaluations):
             e_prob = scores["entailment"]
             c_prob = scores["contradiction"]
@@ -194,7 +204,15 @@ class NLIVerifier:
                 best_entail_doc_idx = p_idx
                 best_entail_excerpt = window_text
                 best_entail_scores = scores
-            if c_prob > max_contra_prob:
+
+            window_content_words = {
+                w.lower()
+                for w in re.findall(r"\w+", window_text)
+                if len(w) > 3
+            }
+            # Only consider contradiction if the window is top-ranked or topical
+            is_topical = (p_idx == 0) or bool(claim_content_words & window_content_words)
+            if is_topical and c_prob > max_contra_prob:
                 max_contra_prob = c_prob
                 best_contra_doc_idx = p_idx
                 best_contra_excerpt = window_text
@@ -210,6 +228,7 @@ class NLIVerifier:
         elif (
             max_contra_prob >= self.contradiction_threshold
             and max_contra_prob > max_entail_prob
+            and max_contra_prob > best_contra_scores.get("neutral", 0.0)
         ):
             verdict = "contradiction"
             confidence = max_contra_prob
@@ -219,7 +238,7 @@ class NLIVerifier:
         else:
             verdict = "neutral"
             ref_idx = best_entail_doc_idx if best_entail_doc_idx >= 0 else 0
-            scores = best_entail_scores
+            scores = best_entail_scores if best_entail_doc_idx >= 0 else best_contra_scores
             confidence = scores["neutral"]
             excerpt = best_entail_excerpt[:240] if best_entail_excerpt else ""
 
@@ -298,11 +317,11 @@ class NLIVerifier:
         if len(clean_doc) <= 600:
             return [clean_doc]
 
-        # Split into sentence or paragraph segments
+        # Split into sentence, bullet point, or paragraph segments
         raw_segments = [
             s.strip()
-            for s in re.split(r"(?<=[.!?\n])\s+", clean_doc)
-            if len(s.strip()) > 25
+            for s in re.split(r"(?<=[.!?\n▪•])\s+|(?=[▪•])", clean_doc)
+            if len(s.strip()) > 15
         ]
 
         if not raw_segments:
@@ -317,9 +336,9 @@ class NLIVerifier:
             scored.append((overlap, s))
 
         scored.sort(key=lambda x: x[0], reverse=True)
-        # Select top 2 most overlapping segments + beginning of document
+        # Select top 3 most overlapping segments + beginning of document
         windows: list[str] = []
-        for _, s in scored[:2]:
+        for _, s in scored[:3]:
             if s not in windows:
                 windows.append(s)
 

@@ -24,12 +24,12 @@ COLLECTION_NAME  = "rehau_corpus"
 # ── Models ──────────────────────────────────────────────────────────────────────
 EMBED_MODEL = "Qwen/Qwen3-Embedding-0.6B"
 GEN_MODEL = "qwen3:8b"          # Self-Query / mapping (needs stronger JSON)
-ANSWER_MODEL = "qwen3:0.6b"     # Fast plain-language answer generation
+ANSWER_MODEL = "llama3.2:3b"     # Robust plain-language answer generation
 RERANK_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
 # ── Grounding & NLI (Pillar 5) ───────────────────────────────────────────────
 NLI_MODEL = "cross-encoder/nli-deberta-v3-xsmall"
-NLI_ENTAILMENT_THRESHOLD = 0.50
+NLI_ENTAILMENT_THRESHOLD = 0.35
 NLI_CONTRADICTION_THRESHOLD = 0.50
 MAX_CANDIDATE_PASSAGES_FOR_NLI = 5
 
