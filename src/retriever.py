@@ -2,15 +2,19 @@
 
 from __future__ import annotations
 
+import json
 from collections import defaultdict
+from functools import lru_cache
 from typing import Any
 
 import chromadb
 
-from config import CHROMA_DIR, COLLECTION_NAME
+from config import CHROMA_DIR, COLLECTION_NAME, CORPUS_CHUNKS
 from src.embeddings import embed_queries
 
+
 _collection = None
+
 _RRF_K = 60
 
 _BOILERPLATE = (
@@ -273,6 +277,147 @@ def retrieve_full_self_query(
     return rerank_within_product(docs, prefer_source=prefer)[:top_k]
 
 
+@lru_cache(maxsize=1)
+def _get_corpus_chunk_map() -> dict[str, dict]:
+    """Load corpus chunks into an in-memory dictionary keyed by chunk_id."""
+    mapping = {}
+    with open(CORPUS_CHUNKS, encoding="utf-8") as f:
+        for line in f:
+            line_str = line.strip()
+            if line_str:
+                c = json.loads(line_str)
+                mapping[c["chunk_id"]] = {
+                    "chunk_id": c["chunk_id"],
+                    "document": c.get("text", ""),
+                    "source": c.get("source_pdf", ""),
+                    "product": c.get("product", ""),
+                    "doc_type": c.get("doc_type", ""),
+                    "page_start": c.get("page_start", 0),
+                    "page_end": c.get("page_end", 0),
+                }
+    return mapping
+
+
+def retrieve_hybrid(
+    query: str,
+    top_k: int = 5,
+    alpha: float = 0.5,
+    product: str | None = None,
+    doc_type: str | None = None,
+    lexical_query: str | None = None,
+    depth: int = 30,
+    rrf_k: int = _RRF_K,
+) -> list[str]:
+    """Fuse dense cosine and BM25 lexical rankings via Reciprocal Rank Fusion."""
+    docs = retrieve_full_hybrid(
+        query=query,
+        top_k=top_k,
+        alpha=alpha,
+        product=product,
+        doc_type=doc_type,
+        lexical_query=lexical_query,
+        depth=depth,
+        rrf_k=rrf_k,
+    )
+    return [d["chunk_id"] for d in docs]
+
+
+def retrieve_full_hybrid(
+    query: str,
+    top_k: int = 5,
+    alpha: float = 0.5,
+    product: str | None = None,
+    doc_type: str | None = None,
+    lexical_query: str | None = None,
+    depth: int = 30,
+    rrf_k: int = _RRF_K,
+) -> list[dict]:
+    """Full doc payloads from fused Dense + BM25 retrieval with channel badges."""
+    chunk_map = _get_corpus_chunk_map()
+
+    # 1. Dense retrieval
+    dense_docs = retrieve_full(
+        query, top_k=depth, product=product, doc_type=doc_type
+    )
+    dense_rank_map = {d["chunk_id"]: idx + 1 for idx, d in enumerate(dense_docs)}
+
+    # 2. BM25 retrieval
+    from src.router.bm25_index import get_bm25_index
+
+    bm25_q = (lexical_query or query).strip()
+    bm25_index = get_bm25_index()
+    raw_bm25 = bm25_index.search(bm25_q, top_k=depth * 2)
+
+
+    # Filter BM25 by metadata if specified
+    bm25_ids = []
+    for cid, _ in raw_bm25:
+        if cid not in chunk_map:
+            continue
+        meta = chunk_map[cid]
+        if product and meta.get("product") != product:
+            continue
+        if doc_type and meta.get("doc_type") != doc_type:
+            continue
+        bm25_ids.append(cid)
+        if len(bm25_ids) >= depth:
+            break
+
+    bm25_rank_map = {cid: idx + 1 for idx, cid in enumerate(bm25_ids)}
+
+    # 3. Reciprocal Rank Fusion
+    all_candidate_ids = set(dense_rank_map.keys()) | set(bm25_rank_map.keys())
+    scored_candidates: list[tuple[float, str]] = []
+
+    for cid in all_candidate_ids:
+        d_rank = dense_rank_map.get(cid)
+        b_rank = bm25_rank_map.get(cid)
+
+        rrf_score = 0.0
+        if d_rank is not None:
+            rrf_score += alpha / (rrf_k + d_rank)
+        if b_rank is not None:
+            rrf_score += (1.0 - alpha) / (rrf_k + b_rank)
+
+        scored_candidates.append((rrf_score, cid))
+
+    scored_candidates.sort(key=lambda x: x[0], reverse=True)
+
+    # 4. Construct enriched output
+    dense_doc_map = {d["chunk_id"]: d for d in dense_docs}
+    results: list[dict] = []
+
+    for rrf_score, cid in scored_candidates[:top_k]:
+        d_rank = dense_rank_map.get(cid)
+        b_rank = bm25_rank_map.get(cid)
+
+        if d_rank is not None and b_rank is not None:
+            channel_origin = "both"
+        elif d_rank is not None:
+            channel_origin = "dense_only"
+        else:
+            channel_origin = "bm25_only"
+
+        if cid in dense_doc_map:
+            item = dict(dense_doc_map[cid])
+        elif cid in chunk_map:
+            item = dict(chunk_map[cid])
+            item["score"] = 0.0
+        else:
+            item = {
+                "chunk_id": cid, "document": "", "score": 0.0,
+                "source": "", "product": "", "doc_type": "",
+            }
+
+        item["rrf_score"] = round(rrf_score, 6)
+        item["dense_rank"] = d_rank
+        item["bm25_rank"] = b_rank
+        item["channel_origin"] = channel_origin
+        results.append(item)
+
+    return results
+
+
 def retrieve_routed(
     router_result: Any,
     top_k: int = 5,
@@ -290,6 +435,15 @@ def retrieve_routed(
     orig_q = data.get("original_query", "")
     final_q = data.get("final_query", orig_q)
     queries = data.get("retrieval_queries") or [final_q]
+
+    if data.get("is_hybrid") or data.get("lexical_query"):
+        return retrieve_hybrid(
+            query=final_q,
+            lexical_query=data.get("lexical_query"),
+            product=product,
+            doc_type=doc_type,
+            top_k=top_k,
+        )
 
     if product:
         return retrieve_self_query(
@@ -319,7 +473,18 @@ def retrieve_full_routed(
 
     filters = data.get("filters") or {}
     product = filters.get("product")
-    queries = data.get("retrieval_queries") or [data.get("final_query", "")]
+    doc_type = filters.get("doc_type")
+    final_q = data.get("final_query") or data.get("original_query") or ""
+    queries = data.get("retrieval_queries") or [final_q]
+
+    if data.get("is_hybrid") or data.get("lexical_query"):
+        return retrieve_full_hybrid(
+            query=final_q,
+            lexical_query=data.get("lexical_query"),
+            product=product,
+            doc_type=doc_type,
+            top_k=top_k,
+        )
 
     if product:
         return retrieve_full_self_query(data, top_k=top_k)
@@ -327,6 +492,6 @@ def retrieve_full_routed(
     if len(queries) > 1:
         return retrieve_full_rrf(queries, top_k=top_k)
 
-    target_q = data.get("final_query") or data.get("original_query") or ""
-    return retrieve_full(target_q, top_k=top_k)
+    return retrieve_full(final_q, top_k=top_k)
+
 

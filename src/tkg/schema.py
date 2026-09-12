@@ -21,6 +21,7 @@ class EntityType(str, Enum):
     STANDARD = "standard"
     ATTRIBUTE = "attribute"
     PASSAGE = "passage"
+    CONSTRAINT = "constraint"
 
 
 class RelationType(str, Enum):
@@ -34,6 +35,8 @@ class RelationType(str, Enum):
     GROUNDED_IN = "GROUNDED_IN"
     REQUIRES_TOOL = "REQUIRES_TOOL"
     REQUIRES_MATERIAL = "REQUIRES_MATERIAL"
+    FORBIDS_PROCEDURE = "FORBIDS_PROCEDURE"
+    FORBIDS_AGENT = "FORBIDS_AGENT"
 
 
 @dataclass
