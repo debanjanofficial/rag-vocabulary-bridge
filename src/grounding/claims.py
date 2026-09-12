@@ -53,6 +53,12 @@ _SCAFFOLDING_PATTERNS = (
     r"^to\s+answer\s+your\s+question\s*,?:?$",
     r"^please\s+note\s+that\s*:?$",
     r"^note\s*:?$",
+    r"^to\s+.*,\s*(follow\s+these\s+steps|please\s+follow|use\s+the\s+following).*$",
+    r"^to\s+.*follow\s+these\s+steps:?.*$",
+    r"^to\s+[^.!?]+:\s*$",
+    r"^follow\s+these\s+steps:?.*$",
+    r"^here\s+are\s+(the|some)\s+steps:?.*$",
+    r"^note\s+(that\s+)?.*$",
 )
 
 

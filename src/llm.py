@@ -14,7 +14,7 @@ _THINK_RE = re.compile(r"<think>.*?</think>", re.DOTALL | re.IGNORECASE)
 
 def _base_opts() -> dict:
     """Ollama options. Omit num_gpu so Ollama can use the GPU; set env OLLAMA_NUM_GPU=0 for CPU."""
-    opts: dict = {}
+    opts: dict = {"repeat_penalty": 1.15}
     if OLLAMA_NUM_GPU is not None:
         opts["num_gpu"] = OLLAMA_NUM_GPU
     return opts
