@@ -1,0 +1,96 @@
+{
+  "dataset_size": 188,
+  "summary": {
+    "Config A: Dense Only (Cosine)": {
+      "recall@1": 0.20212765957446807,
+      "recall@3": 0.42021276595744683,
+      "recall@5": 0.5212765957446809,
+      "mrr": 0.31835106382978723,
+      "ndcg@5": 0.3688491964299318,
+      "latency_ms": 59.76
+    },
+    "Config B: BM25 Only (Okapi)": {
+      "recall@1": 0.02127659574468085,
+      "recall@3": 0.12234042553191489,
+      "recall@5": 0.18085106382978725,
+      "mrr": 0.07739361702127658,
+      "ndcg@5": 0.10303959931471539,
+      "latency_ms": 0.85
+    },
+    "Config C: Naive Hybrid RRF": {
+      "recall@1": 0.1276595744680851,
+      "recall@3": 0.2925531914893617,
+      "recall@5": 0.39361702127659576,
+      "mrr": 0.22340425531914893,
+      "ndcg@5": 0.26569894237796754,
+      "latency_ms": 60.03
+    },
+    "Config D: Router + TKG (w/o Reranker)": {
+      "recall@1": 0.1595744680851064,
+      "recall@3": 0.3404255319148936,
+      "recall@5": 0.4308510638297872,
+      "mrr": 0.25656028368794326,
+      "ndcg@5": 0.2998482489130955,
+      "latency_ms": 305.88
+    },
+    "Config E: Full Proposed (Router + TKG + Reranker)": {
+      "recall@1": 0.18085106382978725,
+      "recall@3": 0.3351063829787234,
+      "recall@5": 0.39893617021276595,
+      "mrr": 0.25957446808510637,
+      "ndcg@5": 0.29428638427407294,
+      "latency_ms": 536.97
+    }
+  },
+  "statistical_tests": {
+    "Config A: Dense Only (Cosine)": {
+      "mrr_delta": -0.05877659574468086,
+      "mrr_ttest_t": -2.240187362442222,
+      "mrr_ttest_p": 0.02625589953886663,
+      "mrr_wilcoxon_stat": 1513.0,
+      "mrr_wilcoxon_p": 0.9844819632235243,
+      "mrr_cohens_d": -0.16338245528816278,
+      "r5_delta": -0.12234042553191493,
+      "r5_ttest_t": -3.4508535920876615,
+      "r5_ttest_p": 0.0006907702562559142,
+      "r5_cohens_d": -0.2516793649351728
+    },
+    "Config B: BM25 Only (Okapi)": {
+      "mrr_delta": 0.1821808510638298,
+      "mrr_ttest_t": 7.22749165915856,
+      "mrr_ttest_p": 1.2156089623672241e-11,
+      "mrr_wilcoxon_stat": 2702.0,
+      "mrr_wilcoxon_p": 5.959006520816002e-11,
+      "mrr_cohens_d": 0.5271190047071336,
+      "r5_delta": 0.2180851063829787,
+      "r5_ttest_t": 6.025190604076534,
+      "r5_ttest_p": 8.79730445797118e-09,
+      "r5_cohens_d": 0.43943218811840884
+    },
+    "Config C: Naive Hybrid RRF": {
+      "mrr_delta": 0.036170212765957444,
+      "mrr_ttest_t": 1.5330624200491563,
+      "mrr_ttest_p": 0.12695053414295127,
+      "mrr_wilcoxon_stat": 1591.0,
+      "mrr_wilcoxon_p": 0.05933934919752004,
+      "mrr_cohens_d": 0.11181006843310591,
+      "r5_delta": 0.005319148936170193,
+      "r5_ttest_t": 0.1736280599676363,
+      "r5_ttest_p": 0.8623455856614768,
+      "r5_cohens_d": 0.012663127745487597
+    },
+    "Config D: Router + TKG (w/o Reranker)": {
+      "mrr_delta": 0.003014184397163111,
+      "mrr_ttest_t": 0.11766751888199645,
+      "mrr_ttest_p": 0.9064573930457452,
+      "mrr_wilcoxon_stat": 1525.0,
+      "mrr_wilcoxon_p": 0.5308350259941563,
+      "mrr_cohens_d": 0.008581785820650379,
+      "r5_delta": -0.03191489361702127,
+      "r5_ttest_t": -0.9254666658601597,
+      "r5_ttest_p": 0.35591598708645344,
+      "r5_cohens_d": -0.06749659367363851
+    }
+  },
+  "latex_table": "\\begin{table*}[t]\n\\centering\n\\caption{Ablation Study across 188 Industrial Benchmark Queries. Significance markers indicate superiority of Full Proposed framework ($^{***}p < 0.001$, $^{**}p < 0.01$, $^{*}p < 0.05$).}\n\\label{tab:ablation_results}\n\\begin{tabular}{lcccccc}\n\\toprule\n\\textbf{System Configuration} & \\textbf{Recall@1} & \\textbf{Recall@3} & \\textbf{Recall@5} & \\textbf{MRR} & \\textbf{nDCG@5} & \\textbf{Latency (ms)} \\\\\n\\midrule\nConfig A: Dense Only & 0.202 & 0.420 & 0.521 & 0.318 & 0.369 & 59.8 \\\\\nConfig B: BM25 Only & 0.021 & 0.122 & 0.181 & 0.077 & 0.103 & 0.8 \\\\\nConfig C: Naive Hybrid RRF & 0.128 & 0.293 & 0.394 & 0.223 & 0.266 & 60.0 \\\\\nConfig D: Router + TKG & 0.160 & 0.340 & 0.431 & 0.257 & 0.300 & 305.9 \\\\\n\\textbf{Config E: Full Proposed} & \\textbf{0.181} & \\textbf{0.335} & \\textbf{0.399} & \\textbf{0.260} & \\textbf{0.294} & 537.0 \\\\\n\\bottomrule\n\\end{tabular}\n\\end{table*}"
+}

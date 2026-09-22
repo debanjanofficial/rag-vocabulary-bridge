@@ -1,22 +1,22 @@
 {
-  "timestamp": "2026-09-08 16:33:19",
-  "elapsed_seconds": 31.04,
+  "timestamp": "2026-09-21 03:00:25",
+  "elapsed_seconds": 95.4,
   "summary": {
     "Baseline": {
-      "mean_faithfulness_pct": 30.0,
+      "mean_faithfulness_pct": 50.0,
       "mean_hallucination_pct": 30.0,
-      "mean_citation_precision_pct": 60.0,
+      "mean_citation_precision_pct": 64.0,
       "mean_tkg_provenance_pct": 0.0,
-      "total_claims_evaluated": 10,
-      "evaluated_queries": 5
+      "total_claims_evaluated": 41,
+      "evaluated_queries": 25
     },
     "Adaptive (Auto-Route)": {
-      "mean_faithfulness_pct": 30.0,
-      "mean_hallucination_pct": 30.0,
+      "mean_faithfulness_pct": 48.0,
+      "mean_hallucination_pct": 26.0,
       "mean_citation_precision_pct": 60.0,
       "mean_tkg_provenance_pct": 0.0,
-      "total_claims_evaluated": 10,
-      "evaluated_queries": 5
+      "total_claims_evaluated": 41,
+      "evaluated_queries": 25
     }
   }
 }

@@ -124,9 +124,14 @@ def compute_terminology_gap(
     query_lower = query.lower()
 
     # Exact dictionary substring match check (score = 1.0)
+    # Exclude broad catalog brand names and generic container nouns
+    excluded_terms = {"rauvisio", "product", "material", "board"}
     for phrase, preferred in flat_map.items():
-        p_low = phrase.lower()
-        if len(p_low) >= 4 and p_low in query_lower:
+        p_low = phrase.lower().strip()
+        if p_low in excluded_terms:
+            continue
+        pattern = r"\b" + re.escape(p_low) + r"\b"
+        if len(p_low) >= 4 and re.search(pattern, query_lower):
             return 1.0, {
                 "phrase": phrase,
                 "preferred_term": preferred,
