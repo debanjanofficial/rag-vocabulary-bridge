@@ -220,3 +220,10 @@ __marimo__/
 # Project artifacts
 chroma_db/
 scripts/_term_raw.jsonl
+scratch/
+
+# Sensitive & Proprietary Data Folders
+data/
+mike's-data/
+*.DS_Store
+.DS_Store
