@@ -224,6 +224,5 @@ scratch/
 
 # Sensitive & Proprietary Data Folders
 data/
-mike's-data/
 *.DS_Store
 .DS_Store
