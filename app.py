@@ -117,11 +117,17 @@ DEMO_QUERIES = [
     "How do you attach my noir matte panels together?",
     # Extra mapping demo (also in eval set)
     "How do I put these shiny acrylic panels up?",
+    # Safety and constraint verification queries (Pillar 6)
+    "Can I clean shade panels with window cleaner?",
+    "Can I clean RAUVISIO noir with acetone or window cleaner?",
 ]
 
 
-st.title("RAG Query Mapping Module")
-st.caption("ABA SS2026 · Bridging vocabulary mismatch in REHAU RAUVISIO documentation retrieval")
+st.title("6-Pillar Industrial RAG & Vocabulary Bridge")
+st.caption(
+    "Multi-Relational Knowledge Routing, Path-Aware Neural Reranking, "
+    "and Deterministic Safety Guardrails"
+)
 
 # Warm heavy models once per session (cached).
 warm_embed_model()
@@ -359,21 +365,44 @@ with tab_demo:
                         badge = " :blue[**[Dense Only]**]"
                     elif origin == "bm25_only":
                         badge = " :orange[**[BM25 Only]**]"
-                    rrf_s = f" · rrf {doc['rrf_score']:.4f}" if "rrf_score" in doc else ""
+                    rrf_s = (
+                        f" · rrf {doc['rrf_score']:.4f}"
+                        if "rrf_score" in doc
+                        else ""
+                    )
+
+                    prov = doc.get("graph_provenance")
+                    prov_badge = (
+                        " :violet[**[TKG Provenance]**]" if prov else ""
+                    )
 
                     with st.container(border=True):
-                        st.markdown(
-                            f"{mark}**{i}.** `{doc['chunk_id']}`{badge} — "
-                            f"emb {doc.get('score', '—')}{rrf_s}{rr_s} · "
-                            f"{doc.get('product', '')} · {doc.get('source', '')}"
+                        doc_meta = (
+                            f"{doc.get('product', '')} · "
+                            f"{doc.get('source', '')}"
                         )
+                        st.markdown(
+                            f"{mark}**{i}.** `{doc['chunk_id']}`"
+                            f"{badge}{prov_badge} — "
+                            f"emb {doc.get('score', '—')}{rrf_s}{rr_s} · "
+                            f"{doc_meta}"
+                        )
+                        if prov:
+                            st.caption(
+                                f"🔗 **Multi-Hop Provenance Path:** `{prov}`"
+                            )
                         st.text(doc["document"][:800])
 
 
-            with st.expander("Step 4 — Generated answer & NLI Grounding", expanded=True):
+            with st.expander(
+                "Step 4 — Answer Synthesis, Safety & NLI Grounding",
+                expanded=True,
+            ):
                 gen = pipeline["generation"]
                 if gen.get("error") == "skipped":
-                    st.info("Generation skipped — enable the checkbox to run it.")
+                    st.info(
+                        "Generation skipped — enable the checkbox to run it."
+                    )
                 elif gen.get("error") == "llm_unavailable":
                     st.warning(gen["answer"])
                 elif gen.get("abstained"):
@@ -382,9 +411,40 @@ with tab_demo:
                     if gen.get("is_fallback"):
                         st.info(
                             "ℹ️ **Local Ollama LLM is not installed.** "
-                            "Demonstrating live **Pillar 5 Sentence-Level NLI Verification & Attribution** "
-                            "on the extracted passage answer:"
+                            "Demonstrating live **Pillar 5 Sentence-Level "
+                            "NLI Verification & Attribution** on the "
+                            "extracted passage answer:"
                         )
+
+                    # Pillar 6: Deterministic Safety Guardrail Reporting
+                    safety = gen.get("safety")
+                    if safety:
+                        if safety.get("intercepted"):
+                            st.error(
+                                "🚨 **MANDATORY FACTORY SAFETY OVERRIDE "
+                                "ENFORCED (Pillar 6)**\n\n"
+                                "The technical answer contained a "
+                                "non-compliant assertion forbidden by factory "
+                                "engineering policies. The Safety Guardrail "
+                                "intercepted and sanitized the response with "
+                                "the verified factory directive."
+                            )
+                            for v in safety.get("violations", []):
+                                st.markdown(
+                                    f"- ⚠️ **Hazard Detected:** Prohibited "
+                                    f"term **`{v.get('prohibited_term')}`** "
+                                    f"in *\"{v.get('violating_sentence')}\"*\n"
+                                    f"  - **Policy Rule:** "
+                                    f"*{v.get('approved_rule')}*"
+                                )
+                        else:
+                            st.success(
+                                "🛡️ **Pillar 6 Safety Guardrail Verified:** "
+                                "100% Factory Safety Policy Conformity "
+                                "(Zero hazardous chemicals or forbidden "
+                                "procedures)."
+                            )
+
                     st.markdown("**Plain-Language Answer:**")
                     st.write(gen["answer"])
 
@@ -494,16 +554,29 @@ with tab_demo:
                                     )
 
                         try:
-                            from src.tkg.feedback import FeedbackManager
+                            from src.tkg.guardrails import (
+                                get_safety_guardrail,
+                            )
 
+                            sg = get_safety_guardrail()
                             p_cand = docs[0].get("product") if docs else None
-                            active_rules = FeedbackManager().find_matching_rules(
+                            active_rules = sg.fm.find_matching_rules(
                                 query, p_cand
                             )
                             if active_rules:
-                                st.info(
-                                    f"🛡️ **Active Factory Rule Enforced:** {active_rules[0]['approved_rule']}"
-                                )
+                                for ar in active_rules:
+                                    proh = sg.extract_prohibited_terms(ar)
+                                    p_txt = (
+                                        f" *(Prohibited: "
+                                        f"`{', '.join(proh)}`)*"
+                                        if proh
+                                        else ""
+                                    )
+                                    st.info(
+                                        f"🛡️ **Active Factory Safety Rule "
+                                        f"({ar.get('product', 'General')}):** "
+                                        f"{ar.get('approved_rule', '')}{p_txt}"
+                                    )
                         except Exception:
                             pass
 

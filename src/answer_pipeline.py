@@ -13,6 +13,7 @@ from config import (
     RERANK_TOP_N,
 )
 from src.generator import generate_answer
+from src.reranker import rerank_documents
 from src.retriever import (
     retrieve_full,
     retrieve_full_rrf,
