@@ -20,6 +20,13 @@ from src.tkg.schema import (
     RelationType,
     SubgraphResult,
 )
+from src.tkg.feedback import FeedbackManager
+from src.tkg.guardrails import (
+    SafetyGuardrail,
+    SafetyReport,
+    SafetyViolation,
+    get_safety_guardrail,
+)
 from src.tkg.traversal import SubgraphExtractor
 
 TKG_JSON_PATH = os.path.join(DATA_DIR, "terminology_graph.json")
@@ -41,13 +48,18 @@ def get_tkg(graph_path: str = TKG_JSON_PATH) -> TerminologyKG:
 
 __all__ = [
     "EntityType",
+    "FeedbackManager",
     "KGEdge",
     "KGNode",
     "ProvenanceTracker",
     "RelationType",
+    "SafetyGuardrail",
+    "SafetyReport",
+    "SafetyViolation",
     "SubgraphExtractor",
     "SubgraphResult",
     "TerminologyKG",
     "build_terminology_kg",
+    "get_safety_guardrail",
     "get_tkg",
 ]

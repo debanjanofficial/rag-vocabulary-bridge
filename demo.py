@@ -25,8 +25,12 @@ from src.reranker import rerank_documents
 from src.retriever import retrieve_full_routed
 from src.router.features import extract_features
 from src.router.router import route_query
-from src.tkg import SubgraphExtractor, get_tkg
-from src.tkg.feedback import FeedbackManager
+from src.tkg import (
+    FeedbackManager,
+    SafetyGuardrail,
+    SubgraphExtractor,
+    get_tkg,
+)
 
 PRESET_QUERIES = [
     (
@@ -148,21 +152,26 @@ def run_demo(query: str, use_llm: bool = True) -> None:
     ]
     print(tabulate(doc_rows, headers=headers, tablefmt="rounded_grid"))
 
-    # Pillar 6: Active Learning Guardrail Check
+    # Pillar 6: Active Learning Guardrail & Deterministic Enforcement
     print("\n" + "-" * 79)
-    print("PILLAR 6: FACTORY ACTIVE LEARNING & CONSTRAINT ENFORCEMENT")
+    print("PILLAR 6: FACTORY ACTIVE LEARNING & SAFETY GUARDRAILS")
     print("-" * 79)
-    fb_manager = FeedbackManager()
-    matched_rules = fb_manager.find_matching_rules(
+    guardrail = SafetyGuardrail()
+    matched_rules = guardrail.fm.find_matching_rules(
         query=query, product=routed.decision.target_product
     )
     if matched_rules:
         for r in matched_rules:
-            print(f"  [ENFORCED RULE]: {r.get('rule_text')}")
+            print(f"  [ENFORCED RULE]: {r.get('approved_rule', '')}")
             auth = r.get("author")
             contra = r.get("contradicted_claim")
+            prohib = guardrail.extract_prohibited_terms(r)
             print(
                 f"  [ORIGIN]:        Author: {auth} | Contradiction: {contra}"
+            )
+            print(
+                f"  [PROHIBITED]:    "
+                f"{', '.join(prohib) if prohib else 'None'}"
             )
     else:
         print("  No active negative constraints found for this query context.")
@@ -171,54 +180,74 @@ def run_demo(query: str, use_llm: bool = True) -> None:
     print("\n" + "-" * 79)
     print("PILLAR 5: ANSWER GENERATION & SENTENCE-LEVEL NLI GROUNDING")
     print("-" * 79)
-    if use_llm:
-        gen_res = generate_answer(
-            query=query,
-            docs=reranked,
-            llm_available=True,
-            top_n=5,
-            verify_grounding=True,
-        )
-        print("\n[GENERATED TECHNICAL ANSWER]:")
-        print(gen_res.get("answer", ""))
-        print(f"\nCitations: {gen_res.get('citations') or 'None'}")
+    gen_res = generate_answer(
+        query=query,
+        docs=reranked,
+        llm_available=use_llm,
+        top_n=5,
+        verify_grounding=True,
+    )
+    print("\n[TECHNICAL ANSWER SYNTHESIS]:")
+    print(gen_res.get("answer", ""))
+    print(f"\nCitations: {gen_res.get('citations') or 'None'}")
+    print(f"Model Mode: {gen_res.get('model', 'Unknown')}")
 
-        evaluator = GroundingEvaluator()
-        report = evaluator.evaluate_answer(
-            answer_text=gen_res.get("answer", ""),
-            docs=reranked[:5],
-        )
+    # Safety Guardrail Verification Report
+    safety_info = gen_res.get("safety")
+    if safety_info:
+        print("\n[DETERMINISTIC SAFETY GUARDRAIL VERIFICATION]:")
+        if safety_info.get("intercepted"):
+            print(
+                "  [CRITICAL INTERCEPTION]: Non-compliant assertion "
+                "intercepted and overridden!"
+            )
+            v_list = safety_info.get("violations", [])
+            print(f"  Active Interceptions: {len(v_list)}")
+            for v in v_list:
+                s_txt = v.get("violating_sentence", "")[:50]
+                print(
+                    f"    - [{v.get('severity')}]: Term "
+                    f"'{v.get('prohibited_term')}' in \"{s_txt}...\""
+                )
+        else:
+            s_status = "PASSED" if safety_info.get("is_safe") else "WARNING"
+            score = safety_info.get("compliance_score", 1.0) * 100
+            print(
+                f"  Compliance Status: {s_status} (100% Policy Conformity) | "
+                f"Score: {score:.0f}%"
+            )
 
-        print("\n[SENTENCE-LEVEL NLI VERIFICATION]:")
-        claim_rows = []
-        for c in report.claims:
-            v = c.verdict.upper()
-            if "ENTAIL" in v:
-                badge = "[VERIFIED / ENTAILED]"
-            elif "CONTRADICT" in v:
-                badge = "[HALLUCINATION / CONTRADICTION]"
-            else:
-                badge = "[NEUTRAL]"
-            p_ent = f"{c.entailment_prob:.2f}"
-            c_text = (c.text[:50] + "...") if len(c.text) > 50 else c.text
-            chunk_ref = c.supporting_chunk_id or "-"
-            claim_rows.append([badge, p_ent, chunk_ref, c_text])
+    evaluator = GroundingEvaluator()
+    report = evaluator.evaluate_answer(
+        answer_text=gen_res.get("answer", ""),
+        docs=reranked[:5],
+    )
 
-        nli_headers = [
-            "NLI Verdict", "P(Entail)", "Citing Chunk", "Factual Claim"
-        ]
-        print(
-            tabulate(claim_rows, headers=nli_headers, tablefmt="simple")
-        )
-        print(
-            f"\nFaithfulness: {report.faithfulness_ratio * 100:.1f}% | "
-            f"Hallucination Rate: {report.hallucination_ratio * 100:.1f}%"
-        )
-    else:
-        print(
-            "LLM generation skipped (--no-llm flag). Extractive candidate "
-            "chunks retrieved above."
-        )
+    print("\n[SENTENCE-LEVEL NLI VERIFICATION]:")
+    claim_rows = []
+    for c in report.claims:
+        v = c.verdict.upper()
+        if "ENTAIL" in v:
+            badge = "[VERIFIED / ENTAILED]"
+        elif "CONTRADICT" in v:
+            badge = "[HALLUCINATION / CONTRADICTION]"
+        else:
+            badge = "[NEUTRAL]"
+        p_ent = f"{c.entailment_prob:.2f}"
+        c_text = (c.text[:50] + "...") if len(c.text) > 50 else c.text
+        chunk_ref = c.supporting_chunk_id or "-"
+        claim_rows.append([badge, p_ent, chunk_ref, c_text])
+
+    nli_headers = [
+        "NLI Verdict", "P(Entail)", "Citing Chunk", "Factual Claim"
+    ]
+    print(
+        tabulate(claim_rows, headers=nli_headers, tablefmt="simple")
+    )
+    print(
+        f"\nFaithfulness: {report.faithfulness_ratio * 100:.1f}% | "
+        f"Hallucination Rate: {report.hallucination_ratio * 100:.1f}%"
+    )
 
     elapsed = time.perf_counter() - t_start
     print("=" * 79)

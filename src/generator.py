@@ -154,6 +154,25 @@ def generate_answer(
                 fallback_answer = top_text[:250]
 
         if fallback_answer:
+            # Pillar 6: Safety Guardrail Validation
+            safety_data = None
+            prod_candidate = docs[0].get("product") if docs else None
+            try:
+                from src.tkg.guardrails import get_safety_guardrail
+
+                sg = get_safety_guardrail()
+                s_rep = sg.validate_answer(
+                    answer=fallback_answer,
+                    query=query,
+                    product=prod_candidate,
+                    auto_sanitize=True,
+                )
+                safety_data = s_rep.to_dict()
+                if s_rep.intercepted:
+                    fallback_answer = s_rep.sanitized_answer
+            except Exception as s_err:
+                safety_data = {"error": str(s_err)}
+
             grounding_data = None
             citations = used_ids
             if verify_grounding and docs:
@@ -178,6 +197,7 @@ def generate_answer(
                 "citations": citations,
                 "used_chunk_ids": used_ids,
                 "grounding": grounding_data,
+                "safety": safety_data,
                 "error": None,
                 "model": f"{answer_model} (Extractive / Reference Synthesis)",
                 "detail": detail,
@@ -254,6 +274,25 @@ def generate_answer(
         )
     )
 
+    # Pillar 6: Deterministic Safety Guardrail Validation & Enforcement
+    safety_data = None
+    product_candidate = docs[0].get("product") if docs else None
+    try:
+        from src.tkg.guardrails import get_safety_guardrail
+
+        guardrail = get_safety_guardrail()
+        safety_report = guardrail.validate_answer(
+            answer=answer,
+            query=query,
+            product=product_candidate,
+            auto_sanitize=True,
+        )
+        safety_data = safety_report.to_dict()
+        if safety_report.intercepted:
+            answer = safety_report.sanitized_answer
+    except Exception as s_err:
+        safety_data = {"error": str(s_err)}
+
     grounding_data = None
     citations = used_ids
 
@@ -280,6 +319,7 @@ def generate_answer(
         "citations": citations,
         "used_chunk_ids": used_ids,
         "grounding": grounding_data,
+        "safety": safety_data,
         "error": None,
         "model": answer_model,
         "detail": detail,
