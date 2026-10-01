@@ -222,26 +222,12 @@ chroma_db/
 scripts/_term_raw.jsonl
 scratch/
 
-# Sensitive & Proprietary Data Folders & Backups
+# Sensitive & Proprietary Data Folders
 data/
-mike's-data/
-scratch/
-*.bak
-*.backup
-
-# Academic Papers, TeX & Editorial Packages
-submission/
-latex/
-*.pdf
-[Qq]1_[Jj]ournal_[Pp]aper*
-Q1_JOURNAL_PAPER*
-Foundations_of_RAG*
-*DRAFT*.md
-*PAPER*.md
-
-# OS & IDE Artifacts
-**/.DS_Store
 *.DS_Store
 .DS_Store
-Thumbs.db
-
+Foundations_of_RAG_and_Vector_Search.pdf
+Q1_JOURNAL_PAPER_DRAFT.md
+Q1_Journal_paper.pdf
+submission/
+latex/
