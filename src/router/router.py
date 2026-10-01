@@ -8,7 +8,12 @@ from dataclasses import asdict, dataclass
 from typing import Any
 
 from src.router.features import FeatureVector, extract_features
-from src.router.policy import CalibratedPolicy, PolicyDecision, RoutingAction
+from src.router.policy import (
+    CalibratedPolicy,
+    LearnedGatingPolicy,
+    PolicyDecision,
+    RoutingAction,
+)
 from src.strategies.embedding_strategy import embedding_map
 from src.strategies.llm_strategy import llm_map
 from src.strategies.nlp_strategy import nlp_map
@@ -53,9 +58,12 @@ class RouterResult:
 class AdaptiveRouter:
     """Adaptive vocabulary-bridging router."""
 
-    def __init__(self, policy: CalibratedPolicy | None = None) -> None:
-        """Initialize router with a calibrated decision policy."""
-        self.policy = policy or CalibratedPolicy()
+    def __init__(
+        self,
+        policy: CalibratedPolicy | LearnedGatingPolicy | None = None,
+    ) -> None:
+        """Initialize router with a learned probabilistic decision policy."""
+        self.policy = policy or LearnedGatingPolicy()
 
     def route(
         self,
@@ -109,11 +117,15 @@ class AdaptiveRouter:
                     retrieval_queries = [final_query, lexical_query]
                 else:
                     nlp_res = nlp_map(q_clean)
-                    retrieval_queries = nlp_res.get("retrieval_queries", [q_clean])
+                    retrieval_queries = nlp_res.get(
+                        "retrieval_queries", [q_clean]
+                    )
                     final_query = nlp_res.get("final_query", q_clean)
             except Exception:
                 nlp_res = nlp_map(q_clean)
-                retrieval_queries = nlp_res.get("retrieval_queries", [q_clean])
+                retrieval_queries = nlp_res.get(
+                    "retrieval_queries", [q_clean]
+                )
                 final_query = nlp_res.get("final_query", q_clean)
 
         elif decision.action == RoutingAction.FILTER_METADATA:

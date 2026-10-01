@@ -1,12 +1,12 @@
 """Feature extraction pipeline for the Adaptive Vocabulary Router.
 
 Extracts a 6-dimensional representation for each query:
-  1) s_term: Terminology Gap Score (proximity to lay synonyms / preferred terms)
+  1) s_term: Terminology Gap Score (proximity to lay synonyms / preferred)
   2) c_prod: Product Confidence (posterior probability of top product)
   3) m_prod: Product Margin (difference between top-1 and top-2 product prob)
-  4) j_agree: Lexical-Dense Agreement (Jaccard overlap between BM25 and Dense)
-  5) h_dense: Retrieval Score Entropy (normalized Shannon entropy of dense top-k)
-  6) r_drift: Expansion Drift Risk (penalty for expanding rare specific tokens)
+  4) j_agree: Lexical-Dense Agreement (Jaccard overlap BM25 and Dense)
+  5) h_dense: Retrieval Score Entropy (normalized Shannon entropy of top-k)
+  6) r_drift: Expansion Drift Risk (penalty for rare specific tokens)
 """
 
 from __future__ import annotations
@@ -43,6 +43,17 @@ class FeatureVector:
     best_term_match: dict[str, Any] | None = None
     bm25_top_ids: list[str] | None = None
     dense_top_ids: list[str] | None = None
+
+    def to_array(self) -> np.ndarray:
+        """Return quantitative features as 6D NumPy vector."""
+        return np.array([
+            self.s_term,
+            self.c_prod,
+            self.m_prod,
+            self.j_agree,
+            self.h_dense,
+            self.r_drift,
+        ], dtype=float)
 
     def to_dict(self) -> dict[str, Any]:
         """Convert feature vector to a JSON-serializable dictionary."""

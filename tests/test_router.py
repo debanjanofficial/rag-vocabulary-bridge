@@ -14,6 +14,7 @@ from src.router.features import (
 )
 from src.router.policy import (
     CalibratedPolicy,
+    LearnedGatingPolicy,
     PolicyDecision,
     RoutingAction,
 )
@@ -64,16 +65,24 @@ class TestFeatureExtraction(unittest.TestCase):
             {"score": 0.50, "chunk_id": "c2"},
             {"score": 0.50, "chunk_id": "c3"},
         ]
-        h_sharp = compute_retrieval_entropy(sharp_hits, top_k=3, temperature=0.1)
-        h_flat = compute_retrieval_entropy(flat_hits, top_k=3, temperature=0.1)
+        h_sharp = compute_retrieval_entropy(
+            sharp_hits, top_k=3, temperature=0.1
+        )
+        h_flat = compute_retrieval_entropy(
+            flat_hits, top_k=3, temperature=0.1
+        )
 
         self.assertLess(h_sharp, h_flat)
         self.assertGreaterEqual(h_sharp, 0.0)
         self.assertLessEqual(h_flat, 1.0)
 
     def test_drift_risk(self):
-        risk_high = compute_expansion_drift_risk("specialized tool", s_term=0.1)
-        risk_low = compute_expansion_drift_risk("specialized tool", s_term=0.9)
+        risk_high = compute_expansion_drift_risk(
+            "specialized tool", s_term=0.1
+        )
+        risk_low = compute_expansion_drift_risk(
+            "specialized tool", s_term=0.9
+        )
         self.assertGreater(risk_high, risk_low)
 
 
@@ -100,7 +109,10 @@ class TestPolicyDecisions(unittest.TestCase):
 
     def test_passthrough_trigger(self):
         fv = FeatureVector(
-            query="What is the reaction to fire classification of RAUVISIO noir?",
+            query=(
+                "What is the reaction to fire classification of "
+                "RAUVISIO noir?"
+            ),
             s_term=0.1,
             c_prod=0.3,
             m_prod=0.1,
@@ -143,6 +155,96 @@ class TestPolicyDecisions(unittest.TestCase):
         self.assertEqual(decision.target_product, "Integrated Handles")
 
 
+class TestLearnedGatingPolicy(unittest.TestCase):
+    """Tests for the probabilistic learned gating classifier policy."""
+
+    def setUp(self):
+        self.policy = LearnedGatingPolicy()
+
+    def test_weights_loaded(self):
+        self.assertEqual(len(self.policy.action_names), 5)
+        self.assertEqual(self.policy.weights.shape, (5, 6))
+        self.assertEqual(len(self.policy.intercept), 5)
+
+    def test_posterior_probabilities_sum_to_one(self):
+        fv = FeatureVector(
+            query="Test query",
+            s_term=0.5,
+            c_prod=0.3,
+            m_prod=0.1,
+            top_product="RAUVISIO crystal",
+            j_agree=0.2,
+            h_dense=0.5,
+            r_drift=0.1,
+        )
+        decision = self.policy.decide(fv)
+        self.assertIsNotNone(decision.action_probabilities)
+        prob_sum = sum(decision.action_probabilities.values())
+        self.assertAlmostEqual(prob_sum, 1.0, places=4)
+        self.assertGreaterEqual(decision.confidence, 0.0)
+        self.assertLessEqual(decision.confidence, 1.0)
+
+    def test_learned_passthrough_trigger(self):
+        fv = FeatureVector(
+            query="Technical spec DIN 4102-1",
+            s_term=0.05,
+            c_prod=0.2,
+            m_prod=0.1,
+            top_product=None,
+            j_agree=0.75,
+            h_dense=0.3,
+            r_drift=0.05,
+        )
+        dec = self.policy.decide(fv)
+        self.assertEqual(dec.action, RoutingAction.PASSTHROUGH)
+        self.assertGreater(dec.confidence, 0.5)
+
+    def test_learned_expand_terminology_trigger(self):
+        fv = FeatureVector(
+            query="How do I cut the shiny plastic?",
+            s_term=0.88,
+            c_prod=0.2,
+            m_prod=0.1,
+            top_product=None,
+            j_agree=0.05,
+            h_dense=0.4,
+            r_drift=0.10,
+        )
+        dec = self.policy.decide(fv)
+        self.assertEqual(dec.action, RoutingAction.EXPAND_TERMINOLOGY)
+        self.assertGreater(dec.confidence, 0.5)
+
+    def test_learned_filter_metadata_trigger(self):
+        fv = FeatureVector(
+            query="Handles specs",
+            s_term=0.10,
+            c_prod=0.95,
+            m_prod=0.75,
+            top_product="Integrated Handles",
+            j_agree=0.25,
+            h_dense=0.3,
+            r_drift=0.1,
+        )
+        dec = self.policy.decide(fv)
+        self.assertEqual(dec.action, RoutingAction.FILTER_METADATA)
+        self.assertEqual(dec.target_product, "Integrated Handles")
+
+    def test_learned_clarify_trigger(self):
+        fv = FeatureVector(
+            query="How to clean the surface?",
+            s_term=0.15,
+            c_prod=0.60,
+            m_prod=0.02,
+            top_product="RAUVISIO crystal",
+            j_agree=0.08,
+            h_dense=0.92,
+            r_drift=0.1,
+        )
+        dec = self.policy.decide(fv)
+        self.assertEqual(dec.action, RoutingAction.CLARIFY)
+        self.assertIsNotNone(dec.suggested_clarification)
+
+
 class TestAdaptiveRouterEndToEnd(unittest.TestCase):
     """End-to-end routing integration tests."""
 
@@ -152,7 +254,9 @@ class TestAdaptiveRouterEndToEnd(unittest.TestCase):
         self.assertEqual(res.final_query, "")
 
     def test_real_colloquial_query_routing(self):
-        query = "How do I make sure the edges look good when cutting these panels?"
+        query = (
+            "How do I make sure the edges look good when cutting these panels?"
+        )
         res = route_query(query, llm_available=False)
         self.assertIsInstance(res, RouterResult)
         self.assertIn(res.action, list(RoutingAction))
