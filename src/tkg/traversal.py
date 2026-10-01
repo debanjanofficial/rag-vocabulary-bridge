@@ -11,7 +11,13 @@ import re
 from typing import Sequence
 
 from src.tkg.graph import TerminologyKG
-from src.tkg.schema import EntityType, KGEdge, KGNode, RelationType, SubgraphResult
+from src.tkg.schema import (
+    EntityType,
+    KGEdge,
+    KGNode,
+    RelationType,
+    SubgraphResult,
+)
 
 
 class SubgraphExtractor:
@@ -33,17 +39,22 @@ class SubgraphExtractor:
             + self.kg.get_nodes_by_type(EntityType.PRODUCT_FAMILY)
         )
 
-        # Sort candidates by length descending to match longest specific phrases first
+        # Sort candidates descending to match longest specific phrases first
         sorted_candidates = sorted(
             candidates,
-            key=lambda n: max(len(n.label), max([len(a) for a in n.aliases] or [0])),
+            key=lambda n: max(
+                len(n.label),
+                max([len(a) for a in n.aliases] or [0]),
+            ),
             reverse=True,
         )
 
         for node in sorted_candidates:
             # Check normalized label
             lbl_norm = re.sub(r"[\s\-]+", " ", node.label.lower()).strip()
-            if len(lbl_norm) >= 3 and re.search(rf"(?<!\w){re.escape(lbl_norm)}(?!\w)", q_norm):
+            if len(lbl_norm) >= 3 and re.search(
+                rf"(?<!\w){re.escape(lbl_norm)}(?!\w)", q_norm
+            ):
                 if node.id not in seen_ids:
                     seen_ids.add(node.id)
                     matched.append(node)
@@ -53,8 +64,18 @@ class SubgraphExtractor:
             if len(lbl_norm) >= 6 and " " in lbl_norm:
                 tokens = lbl_norm.split()
                 # Check if all key tokens (non-stopwords) appear in query
-                key_tokens = [t for t in tokens if len(t) >= 3 and t not in ("for", "the", "and", "with")]
-                if len(key_tokens) >= 2 and all(re.search(rf"(?<!\w){re.escape(t.rstrip('s'))}(?:s)?(?!\w)", q_norm) for t in key_tokens):
+                key_tokens = [
+                    t for t in tokens
+                    if len(t) >= 3 and t not in ("for", "the", "and", "with")
+                ]
+                matches_all = len(key_tokens) >= 2 and all(
+                    re.search(
+                        rf"(?<!\w){re.escape(t.rstrip('s'))}(?:s)?(?!\w)",
+                        q_norm,
+                    )
+                    for t in key_tokens
+                )
+                if matches_all:
                     if node.id not in seen_ids:
                         seen_ids.add(node.id)
                         matched.append(node)
@@ -63,7 +84,9 @@ class SubgraphExtractor:
             # Check aliases
             for alias in node.aliases:
                 a_norm = re.sub(r"[\s\-]+", " ", alias.lower()).strip()
-                if len(a_norm) >= 3 and re.search(rf"(?<!\w){re.escape(a_norm)}(?!\w)", q_norm):
+                if len(a_norm) >= 3 and re.search(
+                    rf"(?<!\w){re.escape(a_norm)}(?!\w)", q_norm
+                ):
                     if node.id not in seen_ids:
                         seen_ids.add(node.id)
                         matched.append(node)
@@ -79,7 +102,10 @@ class SubgraphExtractor:
                         )
                     ]
                     if len(key_tokens) >= 2 and all(
-                        re.search(rf"(?<!\w){re.escape(t.rstrip('s'))}(?:s)?(?!\w)", q_norm)
+                        re.search(
+                            rf"(?<!\w){re.escape(t.rstrip('s'))}(?:s)?(?!\w)",
+                            q_norm,
+                        )
                         for t in key_tokens
                     ):
                         if node.id not in seen_ids:
@@ -121,16 +147,21 @@ class SubgraphExtractor:
 
         # Breadth-first traversal starting from entry nodes
         current_level_ids = [n.id for n in entry_nodes]
+        node_paths: dict[str, list[list[str]]] = {
+            n.id: [[n.label]] for n in entry_nodes
+        }
 
         for _ in range(max_hops):
             next_level_ids = []
             for nid in current_level_ids:
+                curr_paths = node_paths.get(nid, [])
                 # Get outgoing relational edges
                 for target_node, edge in self.kg.get_out_edges(nid):
                     collected_edges.append(edge)
-                    if target_node.id not in visited_nodes:
-                        visited_nodes[target_node.id] = target_node
-                        next_level_ids.append(target_node.id)
+                    target_id = target_node.id
+                    if target_id not in visited_nodes:
+                        visited_nodes[target_id] = target_node
+                        next_level_ids.append(target_id)
 
                     # Categorize target node
                     if target_node.entity_type == EntityType.TECHNICAL_TERM:
@@ -142,8 +173,22 @@ class SubgraphExtractor:
                     elif target_node.entity_type == EntityType.STANDARD:
                         standards.add(target_node.label)
                     elif target_node.entity_type == EntityType.PASSAGE:
-                        chunk_id = target_node.properties.get("chunk_id", target_node.label)
+                        chunk_id = target_node.properties.get(
+                            "chunk_id", target_node.label
+                        )
                         provenance_chunks.add(chunk_id)
+
+                    # Update paths leading to target concept node
+                    if target_node.entity_type != EntityType.PASSAGE:
+                        if target_id not in node_paths:
+                            node_paths[target_id] = []
+                        for p in curr_paths:
+                            if len(node_paths[target_id]) < 4:
+                                if target_node.label not in p:
+                                    node_paths[target_id].append(
+                                        p + [edge.relation.value,
+                                             target_node.label]
+                                    )
 
             current_level_ids = next_level_ids
             if not current_level_ids:
@@ -153,12 +198,52 @@ class SubgraphExtractor:
         for p_label in list(product_families):
             p_node = self.kg.find_node(p_label)
             if p_node:
+                p_paths = node_paths.get(p_node.id, [[p_node.label]])
                 for target_node, edge in self.kg.get_out_edges(
                     p_node.id, relation=RelationType.GOVERNED_BY_STANDARD
                 ):
                     collected_edges.append(edge)
                     visited_nodes[target_node.id] = target_node
                     standards.add(target_node.label)
+                    if target_node.id not in node_paths:
+                        node_paths[target_node.id] = []
+                    for p in p_paths:
+                        if len(node_paths[target_node.id]) < 4:
+                            if target_node.label not in p:
+                                node_paths[target_node.id].append(
+                                    p + [edge.relation.value,
+                                         target_node.label]
+                                )
+
+        # Extract and format multi-hop reasoning paths
+        all_raw_paths: list[list[str]] = []
+        linearized_paths: list[str] = []
+        seen_linear: set[str] = set()
+
+        for nid, plist in node_paths.items():
+            for raw_path in plist:
+                if len(raw_path) >= 3:  # At least 1 hop: [node, rel, node]
+                    nodes = [raw_path[i] for i in range(0, len(raw_path), 2)]
+                    # Attach detected query process if not already present
+                    if processes and not any(pr in nodes for pr in processes):
+                        for pr in sorted(processes):
+                            ext_nodes = nodes + [pr]
+                            lin = " -> ".join(ext_nodes)
+                            if lin not in seen_linear:
+                                seen_linear.add(lin)
+                                all_raw_paths.append(
+                                    raw_path + ["INVOLVES_PROCESS", pr]
+                                )
+                                linearized_paths.append(lin)
+                    lin = " -> ".join(nodes)
+                    if lin not in seen_linear:
+                        seen_linear.add(lin)
+                        all_raw_paths.append(raw_path)
+                        linearized_paths.append(lin)
+
+        linearized_paths.sort(
+            key=lambda x: len(x.split(" -> ")), reverse=True
+        )
 
         # Construct multi-hop expanded query
         expansion_terms = []
@@ -185,8 +270,12 @@ class SubgraphExtractor:
                 if "178" in s or "iso" in s.lower():
                     prioritized_standards.append(s)
 
-        remaining_standards = [s for s in standards if s not in prioritized_standards]
-        final_standards = (prioritized_standards + sorted(remaining_standards))[:2]
+        remaining_standards = [
+            s for s in standards if s not in prioritized_standards
+        ]
+        final_standards = (
+            prioritized_standards + sorted(remaining_standards)
+        )[:2]
 
         for std in final_standards:
             if std.lower() not in q_lower:
@@ -208,5 +297,7 @@ class SubgraphExtractor:
             standards=sorted(list(standards)),
             provenance_chunk_ids=sorted(list(provenance_chunks)),
             expansion_query=expanded_query,
+            paths=all_raw_paths,
+            linearized_paths=linearized_paths,
         )
 

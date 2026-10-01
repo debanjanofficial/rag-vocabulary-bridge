@@ -112,6 +112,27 @@ class SubgraphResult:
     standards: list[str]
     provenance_chunk_ids: list[str]
     expansion_query: str
+    paths: list[list[str]] = field(default_factory=list)
+    linearized_paths: list[str] = field(default_factory=list)
+
+    def get_path_summary(self, max_paths: int = 3) -> str:
+        """Return concise concatenated string of multi-hop paths."""
+        if not self.linearized_paths:
+            return ""
+        return " | ".join(self.linearized_paths[:max_paths])
+
+    def get_path_context(
+        self,
+        max_paths: int = 3,
+        max_length: int = 250,
+    ) -> str:
+        """Format path context for cross-encoder attention injection."""
+        summary = self.get_path_summary(max_paths=max_paths)
+        if not summary:
+            return ""
+        if len(summary) > max_length:
+            summary = summary[:max_length].rstrip() + "..."
+        return f"[Path: {summary}]"
 
     def to_dict(self) -> dict[str, Any]:
         """Convert subgraph result to JSON-serializable dictionary."""
@@ -125,4 +146,7 @@ class SubgraphResult:
             "standards": self.standards,
             "provenance_chunk_ids": self.provenance_chunk_ids,
             "expansion_query": self.expansion_query,
+            "paths": self.paths,
+            "linearized_paths": self.linearized_paths,
+            "path_context": self.get_path_context(),
         }

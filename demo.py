@@ -55,8 +55,8 @@ PRESET_QUERIES = [
 def print_banner() -> None:
     """Print executive terminal header."""
     print("=" * 79)
-    print("  INDUSTRIAL RAG VOCABULARY BRIDGE - END-TO-END SYSTEM DEMONSTRATION")
-    print("  6-Pillar Knowledge-Routed Retrieval & NLI Hallucination Verification")
+    print("  INDUSTRIAL RAG VOCABULARY BRIDGE - END-TO-END DEMO")
+    print("  6-Pillar Knowledge-Routed Retrieval & NLI Verification")
     print("=" * 79)
 
 
@@ -67,7 +67,7 @@ def run_demo(query: str, use_llm: bool = True) -> None:
 
     # Pillar 1 & 2: Feature Extraction & Routing
     print("-" * 79)
-    print("PILLAR 1 & 2: 6D QUERY FEATURE VECTOR & CALIBRATED ADAPTIVE ROUTING")
+    print("PILLAR 1 & 2: 6D FEATURE VECTOR & CALIBRATED ADAPTIVE ROUTING")
     print("-" * 79)
     fv = extract_features(query)
     routed = route_query(query, llm_available=use_llm)
@@ -80,7 +80,13 @@ def run_demo(query: str, use_llm: bool = True) -> None:
         ["Dense Score Entropy (h_dense)", f"{fv.h_dense:.3f}"],
         ["Expansion Drift Risk (r_drift)", f"{fv.r_drift:.3f}"],
     ]
-    print(tabulate(feat_table, headers=["6D Dimension", "Value"], tablefmt="simple"))
+    print(
+        tabulate(
+            feat_table,
+            headers=["6D Dimension", "Value"],
+            tablefmt="simple",
+        )
+    )
     print(f"\nDecision Action:  -->  [{routed.action.value.upper()}]")
     print(f"Policy Rationale: {routed.decision.reason}")
     if routed.filters:
@@ -95,21 +101,34 @@ def run_demo(query: str, use_llm: bool = True) -> None:
     subgraph_res = extractor.extract_subgraph(query)
 
     matched_labels = [n.label for n in subgraph_res.matched_nodes]
-    print(f"Matched Domain Entities: {matched_labels or 'None (Dense semantic mapping applied)'}")
+    matched_str = (
+        str(matched_labels) if matched_labels
+        else "None (Dense semantic mapping applied)"
+    )
+    print(f"Matched Domain Entities: {matched_str}")
     if subgraph_res.preferred_terms:
         print(f"TKG Preferred Terms:     {subgraph_res.preferred_terms}")
         print(f"Decoupled Lexical Query: \"{subgraph_res.expansion_query}\"")
         if subgraph_res.processes:
             print(f"Related Procedures:      {subgraph_res.processes}")
+        if subgraph_res.linearized_paths:
+            print(
+                f"Multi-Hop Path Context:  {subgraph_res.get_path_summary(2)}"
+            )
     else:
-        print("TKG Traversal:           Direct dense mapping (no lexical distortion).")
+        print("TKG Traversal:           Direct dense mapping.")
 
     # Pillar 4: Decoupled Hybrid Retrieval & Reranking
     print("\n" + "-" * 79)
-    print("PILLAR 4: DECOUPLED HYBRID RETRIEVAL (RRF k=60) & CROSS-ENCODER RERANK")
+    print("PILLAR 4: DECOUPLED HYBRID RETRIEVAL & PATH-AWARE RERANK")
     print("-" * 79)
     candidates = retrieve_full_routed(routed, top_k=20)
-    reranked = rerank_documents(query=query, docs=candidates, top_n=5)
+    reranked = rerank_documents(
+        query=query,
+        docs=candidates,
+        top_n=5,
+        path_context=subgraph_res,
+    )
 
     doc_rows = []
     for rank, doc in enumerate(reranked[:5], start=1):
@@ -117,14 +136,17 @@ def run_demo(query: str, use_llm: bool = True) -> None:
         src = doc.get("source", "").split("/")[-1] or doc.get("source", "")
         chan = doc.get("channel_origin", "dense_only")
         r_score = doc.get("rerank_score", doc.get("score", 0.0))
-        snippet = (doc.get("document", "")[:60] + "...").replace("\n", " ")
-        doc_rows.append([rank, cid, src[:24], chan, f"{r_score:.3f}", snippet])
+        prov = "Grounded" if doc.get("graph_provenance") else "-"
+        snippet = (doc.get("document", "")[:50] + "...").replace("\n", " ")
+        doc_rows.append(
+            [rank, cid, src[:20], chan, prov, f"{r_score:.3f}", snippet]
+        )
 
-    print(tabulate(
-        doc_rows,
-        headers=["Rank", "Chunk ID", "Source Document", "Channel", "Cross-Enc", "Passage Snippet"],
-        tablefmt="rounded_grid",
-    ))
+    headers = [
+        "Rank", "Chunk ID", "Source Doc", "Channel",
+        "TKG Prov", "Cross-Enc", "Passage Snippet",
+    ]
+    print(tabulate(doc_rows, headers=headers, tablefmt="rounded_grid"))
 
     # Pillar 6: Active Learning Guardrail Check
     print("\n" + "-" * 79)
@@ -137,7 +159,11 @@ def run_demo(query: str, use_llm: bool = True) -> None:
     if matched_rules:
         for r in matched_rules:
             print(f"  [ENFORCED RULE]: {r.get('rule_text')}")
-            print(f"  [ORIGIN]:        Author: {r.get('author')} | Contradiction: {r.get('contradicted_claim')}")
+            auth = r.get("author")
+            contra = r.get("contradicted_claim")
+            print(
+                f"  [ORIGIN]:        Author: {auth} | Contradiction: {contra}"
+            )
     else:
         print("  No active negative constraints found for this query context.")
 
@@ -175,16 +201,24 @@ def run_demo(query: str, use_llm: bool = True) -> None:
                 badge = "[NEUTRAL]"
             p_ent = f"{c.entailment_prob:.2f}"
             c_text = (c.text[:50] + "...") if len(c.text) > 50 else c.text
-            claim_rows.append([badge, p_ent, c.supporting_chunk_id or "-", c_text])
+            chunk_ref = c.supporting_chunk_id or "-"
+            claim_rows.append([badge, p_ent, chunk_ref, c_text])
 
-        print(tabulate(
-            claim_rows,
-            headers=["NLI Verdict", "P(Entail)", "Citing Chunk", "Factual Claim"],
-            tablefmt="simple",
-        ))
-        print(f"\nFaithfulness Ratio: {report.faithfulness_ratio * 100:.1f}% | Hallucination Rate: {report.hallucination_ratio * 100:.1f}%")
+        nli_headers = [
+            "NLI Verdict", "P(Entail)", "Citing Chunk", "Factual Claim"
+        ]
+        print(
+            tabulate(claim_rows, headers=nli_headers, tablefmt="simple")
+        )
+        print(
+            f"\nFaithfulness: {report.faithfulness_ratio * 100:.1f}% | "
+            f"Hallucination Rate: {report.hallucination_ratio * 100:.1f}%"
+        )
     else:
-        print("LLM generation skipped (--no-llm flag). Extractive candidate chunks retrieved above.")
+        print(
+            "LLM generation skipped (--no-llm flag). Extractive candidate "
+            "chunks retrieved above."
+        )
 
     elapsed = time.perf_counter() - t_start
     print("=" * 79)
@@ -195,16 +229,21 @@ def run_demo(query: str, use_llm: bool = True) -> None:
 def main() -> None:
     """CLI entry point."""
     parser = argparse.ArgumentParser(
-        description="Industrial RAG Vocabulary Bridge 6-Pillar Interactive Demo."
+        description="Industrial RAG Vocabulary Bridge 6-Pillar Demo."
     )
     parser.add_argument(
         "--query", "-q", type=str, default="", help="Input technical question"
     )
     parser.add_argument(
-        "--no-llm", action="store_true", help="Skip LLM synthesis (retrieval-only mode)"
+        "--no-llm",
+        action="store_true",
+        help="Skip LLM synthesis (retrieval-only mode)",
     )
     parser.add_argument(
-        "--list", "-l", action="store_true", help="List preset industrial benchmark queries"
+        "--list",
+        "-l",
+        action="store_true",
+        help="List preset industrial benchmark queries",
     )
     args = parser.parse_args()
 
@@ -225,7 +264,8 @@ def main() -> None:
             print(f"      {desc}")
         print("  [C] Custom query entry")
 
-        choice = input("\nEnter choice [1-5 or C] (default 1): ").strip().lower()
+        prompt_msg = "\nEnter choice [1-5 or C] (default 1): "
+        choice = input(prompt_msg).strip().lower()
         if choice in ("1", "2", "3", "4", "5"):
             q = PRESET_QUERIES[int(choice) - 1][0]
         elif choice == "c":

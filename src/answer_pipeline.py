@@ -13,8 +13,11 @@ from config import (
     RERANK_TOP_N,
 )
 from src.generator import generate_answer
-from src.reranker import rerank_documents
-from src.retriever import retrieve_full, retrieve_full_rrf, retrieve_full_self_query
+from src.retriever import (
+    retrieve_full,
+    retrieve_full_rrf,
+    retrieve_full_self_query,
+)
 
 
 def retrieve_candidates(
@@ -65,9 +68,9 @@ def run_answer_pipeline(
 ) -> dict:
     """Post-mapping path for one user-selected strategy.
 
-    When ``generate`` is False, skips Ollama answer generation (faster demos).
-    ``detail=True`` uses more passage context; answer length still matches the question.
-    ``verify_grounding=True`` executes sentence-level NLI entailment checking.
+    When ``generate`` is False, skips Ollama answer generation.
+    ``detail=True`` uses more context; answer length matches the question.
+    ``verify_grounding=True`` executes sentence-level NLI checking.
     """
     top_n = rerank_top_n or RERANK_TOP_N
     if generate_top_n is not None:
@@ -75,8 +78,18 @@ def run_answer_pipeline(
     else:
         gen_n = GENERATE_TOP_N_DETAILED if detail else GENERATE_TOP_N
 
-    candidates = retrieve_candidates(strategy, query, mapped, candidate_k=candidate_k)
-    reranked = rerank_documents(query, candidates, top_n=top_n)
+    candidates = retrieve_candidates(
+        strategy, query, mapped, candidate_k=candidate_k
+    )
+    path_ctx = (
+        mapped.get("path_context")
+        or mapped.get("subgraph_result")
+        if isinstance(mapped, dict)
+        else None
+    )
+    reranked = rerank_documents(
+        query, candidates, top_n=top_n, path_context=path_ctx
+    )
 
     if generate:
         generation = generate_answer(
@@ -88,11 +101,12 @@ def run_answer_pipeline(
             verify_grounding=verify_grounding,
         )
     else:
+        top_cids = [d.get("chunk_id", "") for d in reranked[:gen_n]]
         generation = {
             "answer": "Answer generation skipped (toggle off).",
             "abstained": True,
-            "citations": [d.get("chunk_id", "") for d in reranked[:gen_n]],
-            "used_chunk_ids": [d.get("chunk_id", "") for d in reranked[:gen_n]],
+            "citations": top_cids,
+            "used_chunk_ids": top_cids,
             "error": "skipped",
             "model": None,
             "detail": detail,

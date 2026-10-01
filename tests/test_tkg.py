@@ -1,4 +1,4 @@
-"""Unit and integration tests for the Terminology Knowledge Graph (TKG) module."""
+"""Unit and integration tests for the Terminology Knowledge Graph (TKG)."""
 
 import os
 import unittest
@@ -53,10 +53,20 @@ class TestTKGSchemaAndGraph(unittest.TestCase):
             id="chunk_crystal_001",
             label="rauvisio_crystal_tech_0097",
             entity_type=EntityType.PASSAGE,
-            properties={"chunk_id": "rauvisio_crystal_tech_0097", "source_pdf": "crystal_guide.pdf"},
+            properties={
+                "chunk_id": "rauvisio_crystal_tech_0097",
+                "source_pdf": "crystal_guide.pdf",
+            },
         )
 
-        for n in [self.node_prod, self.node_tech, self.node_proc, self.node_std, self.node_chunk]:
+        nodes = [
+            self.node_prod,
+            self.node_tech,
+            self.node_proc,
+            self.node_std,
+            self.node_chunk,
+        ]
+        for n in nodes:
             self.kg.add_node(n)
 
         # Add edges
@@ -82,8 +92,12 @@ class TestTKGSchemaAndGraph(unittest.TestCase):
         ))
 
     def test_find_node_by_label_and_alias(self):
-        self.assertEqual(self.kg.find_node("RAUVISIO crystal").id, "prod_crystal")
-        self.assertEqual(self.kg.find_node("crystal glass").id, "prod_crystal")
+        crystal_node = self.kg.find_node("RAUVISIO crystal")
+        self.assertIsNotNone(crystal_node)
+        self.assertEqual(crystal_node.id, "prod_crystal")
+        alias_node = self.kg.find_node("crystal glass")
+        self.assertIsNotNone(alias_node)
+        self.assertEqual(alias_node.id, "prod_crystal")
         self.assertIsNone(self.kg.find_node("unknown entity"))
 
     def test_out_edges_traversal(self):
@@ -101,7 +115,7 @@ class TestTKGSchemaAndGraph(unittest.TestCase):
 
 
 class TestTKGEndToEnd(unittest.TestCase):
-    """Integration tests for built TKG, SubgraphExtractor, and ProvenanceTracker."""
+    """Integration tests for built TKG and SubgraphExtractor."""
 
     @classmethod
     def setUpClass(cls):
@@ -125,10 +139,38 @@ class TestTKGEndToEnd(unittest.TestCase):
         self.assertIn("Fire Behavior & Safety", sub.processes)
         self.assertIn("DIN 4102", sub.expansion_query)
 
+    def test_path_extraction_and_linearization(self):
+        query = (
+            "How do I make sure the edges look good when cutting my "
+            "wood-grain panels?"
+        )
+        sub = self.extractor.extract_subgraph(query)
+        self.assertIsInstance(sub.paths, list)
+        self.assertIsInstance(sub.linearized_paths, list)
+        self.assertGreater(len(sub.linearized_paths), 0)
+
+        # Verify multi-hop sequence contains expected entities
+        has_ingrain_path = any(
+            "wood-look panels" in p and "RAUVISIO ingrain" in p
+            for p in sub.linearized_paths
+        )
+        self.assertTrue(has_ingrain_path)
+
+    def test_path_context_formatting(self):
+        query = "How does this metal-look material burn?"
+        sub = self.extractor.extract_subgraph(query)
+        path_ctx = sub.get_path_context(max_paths=2)
+        self.assertTrue(path_ctx.startswith("[Path: "))
+        self.assertTrue(path_ctx.endswith("]"))
+        self.assertIn("RAUVISIO ferro", path_ctx)
+
     def test_provenance_tracking(self):
         std_nodes = self.kg.get_nodes_by_type(EntityType.STANDARD)
         self.assertTrue(len(std_nodes) > 0)
-        std_with_prov = [s for s in std_nodes if len(self.provenance.get_provenance_for_node(s.id)) > 0]
+        std_with_prov = [
+            s for s in std_nodes
+            if len(self.provenance.get_provenance_for_node(s.id)) > 0
+        ]
         self.assertTrue(len(std_with_prov) > 0)
 
 

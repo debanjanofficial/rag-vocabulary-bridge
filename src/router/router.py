@@ -35,6 +35,8 @@ class RouterResult:
     strategy_used: str = "Adaptive"
     lexical_query: str | None = None
     is_hybrid: bool = False
+    subgraph_result: Any = None
+    path_context: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         """Convert result to a JSON-serializable dictionary."""
@@ -51,6 +53,12 @@ class RouterResult:
             "strategy_used": self.strategy_used,
             "lexical_query": self.lexical_query,
             "is_hybrid": self.is_hybrid,
+            "subgraph_result": (
+                self.subgraph_result.to_dict()
+                if hasattr(self.subgraph_result, "to_dict")
+                else None
+            ),
+            "path_context": self.path_context,
         }
 
 
@@ -99,6 +107,8 @@ class AdaptiveRouter:
         clarification_prompt: str | None = None
         lexical_query: str | None = None
         is_hybrid: bool = False
+        subgraph_result: Any = None
+        path_context: str | None = None
 
         if decision.action == RoutingAction.PASSTHROUGH:
             final_query = q_clean
@@ -110,6 +120,8 @@ class AdaptiveRouter:
                 from src.tkg import SubgraphExtractor, get_tkg
                 extractor = SubgraphExtractor(get_tkg())
                 subgraph_res = extractor.extract_subgraph(q_clean)
+                subgraph_result = subgraph_res
+                path_context = subgraph_res.get_path_context()
                 if subgraph_res.expansion_query != q_clean:
                     final_query = q_clean
                     lexical_query = subgraph_res.expansion_query
@@ -153,7 +165,9 @@ class AdaptiveRouter:
             else:
                 # Rule-based expansion via NLP mapping
                 nlp_res = nlp_map(q_clean)
-                retrieval_queries = nlp_res.get("retrieval_queries", [q_clean])
+                retrieval_queries = nlp_res.get(
+                    "retrieval_queries", [q_clean]
+                )
                 final_query = nlp_res.get("final_query", q_clean)
 
         elif decision.action == RoutingAction.CLARIFY:
@@ -173,6 +187,8 @@ class AdaptiveRouter:
             clarification_prompt=clarification_prompt,
             lexical_query=lexical_query,
             is_hybrid=is_hybrid,
+            subgraph_result=subgraph_result,
+            path_context=path_context,
         )
 
 
