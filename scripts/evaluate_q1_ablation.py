@@ -145,7 +145,10 @@ def run_ablation(
     def retrieve_full_proposed(q: str) -> list[str]:
         routed = route_query(q, llm_available=False)
         candidates = retrieve_full_routed(routed, top_k=25)
-        reranked = rerank_documents(query=q, docs=candidates, top_n=5)
+        path_ctx = getattr(routed, "subgraph_result", None)
+        reranked = rerank_documents(
+            query=q, docs=candidates, top_n=5, path_context=path_ctx
+        )
         return [d["chunk_id"] for d in reranked]
 
     configs: dict[str, Callable[[str], list[str]]] = {
