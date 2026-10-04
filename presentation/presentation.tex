@@ -106,7 +106,7 @@
     % Top branding bar
     \fill[FAUNavy] (current page.north west) rectangle ($(current page.north east)+(0,-0.75cm)$);
     \node[anchor=west,white,font=\bfseries\footnotesize] at ($(current page.north west)+(0.8cm,-0.38cm)$) {FAU Erlangen-N{\"u}rnberg $\vert$ MIS Chair $\vert$ REHAU};
-    \node[anchor=east,white,font=\footnotesize] at ($(current page.north east)+(-0.8cm,-0.38cm)$);
+    \node[anchor=east,white,font=\footnotesize] at ($(current page.north east)+(-0.8cm,-0.38cm)$) {};
     
     % Accent teal stripe
     \fill[MISTeal] ($(current page.north west)+(0,-0.75cm)$) rectangle ($(current page.north east)+(0,-0.82cm)$);
@@ -876,7 +876,7 @@
 \end{frame}
 
 % =============================================================================
-% Slide 20: Backup 3 - Deterministic Negation Algorithm & Windowing
+% Slide 20: Backup 3 - Deterministic Safety Contract Enforcement
 % =============================================================================
 \begin{frame}{Backup 3: Deterministic Safety Contract Enforcement}{Window-Based Prefix/Postfix Negation Analysis Algorithm}
   \begin{columns}[T]
@@ -889,11 +889,11 @@
           \text{Violating}(s_i, t) = \mathbb{I}(t \in s_i) \land \neg \text{Negated}(s_i, t)
         \end{equation*}
         Where $\text{Negated}(s_i, t)$ evaluates whether $t$ is governed by a valid grammatical negation pattern:
-        \begin{itemize}\setlength\itemsep{0.03ex}
+        \begin{itemize}\setlength\itemsep{0.2ex}
           \item \textbf{Prefix Regex Window} (45 chars prior to token $t$):\\
-            \texttt{(?:do\textbackslash{}s+not\textbar{}never\textbar{}strictly\textbackslash{}s+prohibited\textbar{}avoid)\textbackslash{}s+.*}
+            {\ttfamily\tiny (?:do\textbackslash{}s+not\textbar{}never\textbar{}strictly\textbackslash{}s+prohibited\textbar{}avoid)\textbackslash{}s+.*}
           \item \textbf{Postfix Regex Window} (45 chars after token $t$):\\
-            \texttt{.*\textbackslash{}s+(?:is\textbackslash{}s+not\textbackslash{}s+allowed\textbar{}is\textbackslash{}s+forbidden\textbar{}is\textbackslash{}s+prohibited)}
+            {\ttfamily\tiny .*\textbackslash{}s+(?:is\textbackslash{}s+not\textbackslash{}s+allowed\textbar{}is\textbackslash{}s+forbidden\textbar{}is\textbackslash{}s+prohibited)}
         \end{itemize}
       \end{block}
     \end{column}
@@ -925,53 +925,56 @@
 % =============================================================================
 \begin{frame}{Backup 4: Hardware Profiling \& Edge Deployment}{Sub-Second Latency Budget on Local Apple Silicon (Unified Memory)}
   \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
+    \begin{column}{0.49\textwidth}
       \begin{block}{Model Architecture \& Memory Footprint}
         \centering\scriptsize
-        \renewcommand{\arraystretch}{0.75}
-        \begin{tabular}{llcc}
+        \setlength{\tabcolsep}{2.5pt}
+        \renewcommand{\arraystretch}{0.78}
+        \begin{tabular}{@{}llcc@{}}
           \toprule
-          \textbf{Component} & \textbf{Model} & \textbf{Params} & \textbf{RAM} \\
+          \textbf{Component} & \textbf{Model / Policy} & \textbf{Params} & \textbf{RAM} \\
           \midrule
-          Feature Extractor & NumPy / RegEx & -- & $< 5$ MB \\
-          Intent Router & Softmax Policy & 28 weights & $< 1$ MB \\
-          Dense Retriever & Qwen3-Emb-0.6B & 600M & 1.2 GB \\
-          Sparse Index & BM25 Inverted & 532 chunks & 12 MB \\
-          Cross-Encoder & MiniLM-L-6-v2 & 22M & 90 MB \\
-          NLI Verifier & DeBERTa-v3-xs & 22M & 95 MB \\
-          LLM Generator & Llama-3.2-3B & 3.2B (4-bit) & 2.1 GB \\
+          Feature Profiler & NumPy / RegEx & -- & $< 5$\,MB \\
+          Intent Router & Softmax Policy & 28 w & $< 1$\,MB \\
+          Dense Retriever & Qwen3-Emb-0.6B & 600M & 1.2\,GB \\
+          BM25 Inverted & Okapi BM25 & 532 chk & 12\,MB \\
+          Cross-Encoder & MiniLM-L-6-v2 & 22M & 90\,MB \\
+          NLI Verifier & DeBERTa-v3-xs & 22M & 95\,MB \\
+          LLM Generator & Llama-3.2-3B & 3.2B (4b) & 2.1\,GB \\
           \midrule
-          \textbf{Total Footprint} & \multicolumn{2}{l}{\textbf{Local Air-Gapped}} & \textbf{3.5 GB} \\
+          \textbf{Total Footprint} & \multicolumn{2}{l}{\textbf{Fully Air-Gapped}} & \textbf{3.5\,GB} \\
           \bottomrule
         \end{tabular}
       \end{block}
     \end{column}
 
-    \begin{column}{0.48\textwidth}
+    \begin{column}{0.49\textwidth}
       \begin{exampleblock}{End-to-End Latency Breakdown (537 ms Total)}
         \centering\scriptsize
-        \renewcommand{\arraystretch}{0.75}
-        \begin{tabular}{lcc}
+        \setlength{\tabcolsep}{3.0pt}
+        \renewcommand{\arraystretch}{0.78}
+        \begin{tabular}{@{}lcc@{}}
           \toprule
           \textbf{Pipeline Stage} & \textbf{Latency} & \textbf{Share} \\
           \midrule
-          Pillar 1--2: Feature Profiling & 0.12 ms & 0.02\% \\
-          Pillar 3: TKG Subgraph Lookup & 2.40 ms & 0.45\% \\
-          Pillars 4: Dense + Sparse Retrieval & 60.80 ms & 11.32\% \\
-          Pillar 4: Path-Aware Reranking & 168.20 ms & 31.32\% \\
-          Pillar 5: LLM Generation (Local) & 275.00 ms & 51.21\% \\
-          Pillars 5--6: NLI \& Guardrails & 30.50 ms & 5.68\% \\
+          Pillars 1--2: Feature Profiling & 0.12\,ms & 0.02\% \\
+          Pillar 3: TKG Subgraph Lookup & 2.40\,ms & 0.45\% \\
+          Pillar 4: Dense + BM25 Search & 60.80\,ms & 11.32\% \\
+          Pillar 4: Path-Aware Rerank & 168.20\,ms & 31.32\% \\
+          Pillar 5: Local LLM Synthesis & 275.00\,ms & 51.21\% \\
+          Pillars 5--6: NLI Verification & 30.50\,ms & 5.68\% \\
           \midrule
-          \textbf{Total End-to-End Response} & \textbf{537.02 ms} & \textbf{100.0\%} \\
+          \textbf{Total End-to-End Response} & \textbf{537.02\,ms} & \textbf{100.0\%} \\
           \bottomrule
         \end{tabular}
       \end{exampleblock}
-      
-      \begin{center}
-        \scriptsize Operates smoothly on a standard 16GB Apple Silicon workstation or edge PC.
-      \end{center}
     \end{column}
   \end{columns}
+
+  \vspace{0.8ex}
+  \begin{beamercolorbox}[wd=\textwidth,rounded=true,sep=0.35ex,center]{block body}
+    \scriptsize\textbf{Deployment Envelope}: Completely self-contained and air-gapped on standard edge workstation (Apple Silicon M-series, 16\,GB unified RAM) with sub-second execution ($537$\,ms total budget).
+  \end{beamercolorbox}
   \note{If asked about deployment practicality: The total memory footprint is only 3.5 GB, easily fitting into any standard industrial PC or workstation. The end-to-end latency is 537 milliseconds, with the local LLM generation taking half of the budget and reranking taking 31 percent. The gating router and TKG lookup together take less than 3 milliseconds. This proves that high-performance, verifiable AI does not require multimillion-dollar cloud infrastructure--it can run locally and securely right on the factory floor.}
 \end{frame}
 
@@ -979,41 +982,83 @@
 % Slide 22: Backup 5 - TKG Ontological Schema & Node Taxonomy
 % =============================================================================
 \begin{frame}{Backup 5: Terminology Knowledge Graph Schema}{Multi-Relational Topology and Document Provenance Grounding}
-  \begin{center}
+  \vspace{-1.0ex}
+  {\centering
     \begin{tikzpicture}[
-      node distance=1.1cm and 1.6cm,
       every node/.style={font=\tiny, align=center},
-      entity/.style={rectangle, rounded corners=2pt, draw=FAUNavy, fill=FAUNavy!10, text=FAUNavy, font=\tiny\bfseries, minimum height=0.48cm, minimum width=1.6cm},
+      entity/.style={rectangle, rounded corners=2pt, draw=FAUNavy, fill=FAUNavy!10, text=FAUNavy, font=\tiny\bfseries, minimum height=0.42cm, minimum width=2.1cm},
       relation/.style={->, >=Stealth, thick, color=MISTeal, font=\tiny\bfseries},
       safety/.style={->, >=Stealth, thick, color=AlertRed, font=\tiny\bfseries},
       prov/.style={dashed, ->, >=Stealth, color=NeutralMuted, font=\tiny}
     ]
-      \node[entity] (prod) {PRODUCT\\(e.g., RAUVISIO shade)};
-      \node[entity, right=of prod] (mat) {MATERIAL\\(e.g., PMMA, Polymer)};
-      \node[entity, above=of prod] (syn) {COLLOQUIAL SYNONYM\\(e.g., "shade panels")};
-      \node[entity, below=of prod] (proc) {PROCEDURE\\(e.g., Cleaning, Cutting)};
-      \node[entity, right=of proc] (agent) {PROHIBITED AGENT\\(e.g., Alcohol, Solvent)};
-      \node[entity, below=of proc] (tool) {TOOL / PARAMETER\\(e.g., Triple-Chip Saw)};
-      \node[rectangle, draw=NeutralMuted, fill=NeutralLight, rounded corners=2pt, right=of agent] (chunk) {CORPUS CHUNK\\(Manual Section 4.2)};
+      % Row 1
+      \node[entity] (syn) at (0, 0) {COLLOQUIAL SYNONYM\\(e.g., "shade panels")};
+      \node[entity] (prod) at (4.4, 0) {PRODUCT ENTITY\\(e.g., RAUVISIO shade)};
+      \node[entity] (mat) at (8.8, 0) {MATERIAL SUBSTRATE\\(e.g., PMMA / Polymer)};
+      \node[rectangle, draw=NeutralMuted, fill=NeutralLight, rounded corners=2pt, font=\tiny, align=center] (chunk) at (12.8, -0.52) {CORPUS CHUNK\\(Manual Sec 4.2)};
 
-      \draw[relation] (syn) -- node[above, sloped] {\texttt{SYNONYM\_OF}} (prod);
+      % Row 2
+      \node[entity] (tool) at (0, -1.05) {TOOL / PARAMETER\\(e.g., Triple-Chip Saw)};
+      \node[entity] (proc) at (4.4, -1.05) {PROCEDURE GUIDE\\(e.g., Cleaning, Cutting)};
+      \node[entity] (agent) at (8.8, -1.05) {PROHIBITED AGENT\\(e.g., Alcohol, Solvent)};
+
+      % Connectors Row 1
+      \draw[relation] (syn) -- node[above] {\texttt{SYNONYM\_OF}} (prod);
       \draw[relation] (prod) -- node[above] {\texttt{HAS\_MATERIAL}} (mat);
-      \draw[relation] (prod) -- node[left] {\texttt{REQUIRES\_PROCEDURE}} (proc);
+
+      % Connectors Row 1 -> Row 2
+      \draw[relation] (prod) -- node[right] {\texttt{REQUIRES\_PROCEDURE}} (proc);
+
+      % Connectors Row 2
+      \draw[relation] (proc) -- node[above] {\texttt{REQUIRES\_TOOL}} (tool);
       \draw[safety] (proc) -- node[above] {\texttt{FORBIDS\_AGENT}} (agent);
-      \draw[relation] (proc) -- node[left] {\texttt{REQUIRES\_TOOL}} (tool);
-      \draw[prov] (prod) to[bend left=30] node[above, sloped] {Provenance $\mathcal{P}$} (chunk);
-      \draw[prov] (agent) -- node[above] {Provenance $\mathcal{P}$} (chunk);
-    \end{tikzpicture}
-  \end{center}
-  \vspace{-0.6ex}
+
+      % Provenance arrows
+      \draw[prov] (mat.east) to[bend left=15] node[above, sloped, font=\tiny] {Provenance $\mathcal{P}$} (chunk.north west);
+      \draw[prov] (agent.east) to[bend right=15] node[below, sloped, font=\tiny] {Provenance $\mathcal{P}$} (chunk.south west);
+    \end{tikzpicture}\par
+  }
+  \vspace{0.6ex}
+
   \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \scriptsize\textbf{Schema Entities} (1,354 Nodes):\\
-      $\mathcal{T} = \{\texttt{PRODUCT}, \texttt{MATERIAL}, \texttt{TOOL}, \texttt{DEFECT}, \texttt{PROCEDURE}, \texttt{STANDARD}, \texttt{CONSTRAINT}\}$.
+    \begin{column}{0.49\textwidth}
+      \begin{block}{Schema Entities (1,354 Nodes)}
+        \centering\scriptsize
+        \renewcommand{\arraystretch}{0.80}
+        \setlength{\tabcolsep}{2.5pt}
+        \begin{tabular}{@{}llp{4.2cm}@{}}
+          \toprule
+          \textbf{Entity Type} & \textbf{Count} & \textbf{Industrial REHAU Examples} \\
+          \midrule
+          \texttt{PRODUCT} & 428 & RAUVISIO shade, crystal, brilliant \\
+          \texttt{MATERIAL} & 214 & PMMA, acrylic, PUR adhesive \\
+          \texttt{PROCEDURE} & 312 & Surface cleaning, CNC sawing \\
+          \texttt{PROHIBITED} & 116 & Isopropanol, solvents, abrasives \\
+          \texttt{TOOL/PARAM} & 189 & Triple-chip blade, 15\,m/min feed \\
+          \texttt{DEFECT/STD} & 95 & Micro-cracks, DIN EN 438 \\
+          \bottomrule
+        \end{tabular}
+      \end{block}
     \end{column}
-    \begin{column}{0.48\textwidth}
-      \scriptsize\textbf{Relational Edges} (1,643 Edges):\\
-      $\mathcal{R} = \{\texttt{SYNONYM\_OF}, \texttt{REQUIRES\_TOOL}, \texttt{PREVENTS\_DEFECT}, \texttt{COMPLIES\_WITH}, \texttt{FORBIDS\_AGENT}, \texttt{FORBIDS\_PROCEDURE}\}$.
+
+    \begin{column}{0.49\textwidth}
+      \begin{exampleblock}{Relational Edges (1,643 Edges)}
+        \centering\scriptsize
+        \renewcommand{\arraystretch}{0.80}
+        \setlength{\tabcolsep}{2.5pt}
+        \begin{tabular}{@{}llp{4.2cm}@{}}
+          \toprule
+          \textbf{Relation Edge} & \textbf{Count} & \textbf{Pipeline Operational Role} \\
+          \midrule
+          \texttt{SYNONYM\_OF} & 582 & Maps shopfloor slang to product ID \\
+          \texttt{HAS\_MATERIAL} & 341 & Links product lines to substrate \\
+          \texttt{REQUIRES\_PROC} & 312 & Maps target part to authorized manual \\
+          \texttt{FORBIDS\_AGENT} & 174 & High-priority safety constraint \\
+          \texttt{REQUIRES\_TOOL} & 148 & Tooling specification constraint \\
+          \texttt{PROVENANCE\_OF} & 86 & Exact anchor $\mathcal{P} = (\text{Doc}, \text{Sec}, \text{Page})$ \\
+          \bottomrule
+        \end{tabular}
+      \end{exampleblock}
     \end{column}
   \end{columns}
   \note{This backup slide details the TKG schema. The ontology connects products to materials, colloquial synonyms, manufacturing procedures, and prohibited chemical agents. Most importantly, every entity and edge carries a provenance pointer directly into the corpus chunks, ensuring that knowledge graph traversal is not an abstract symbolic exercise, but directly grounds the dense cross-encoder and LLM generation in authoritative corporate documentation.}
